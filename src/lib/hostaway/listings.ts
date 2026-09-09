@@ -121,6 +121,23 @@ export async function getHomes(): Promise<Home[]> {
       searchParams: { limit: 500, includeResources: 1 },
     });
     const homes = listings.filter((listing) => listing?.id != null).map(toHome);
+
+    /*
+     * Log the count on success, not only on failure. An empty array and a
+     * failed call produce an identical empty page, so without this the two are
+     * indistinguishable from the outside - which is exactly the ambiguity that
+     * made connecting Hostaway take as long as it did.
+     */
+    const areas = homes.reduce<Record<string, number>>((acc, home) => {
+      const key = home.area ?? home.city ?? "(unmatched)";
+      acc[key] = (acc[key] ?? 0) + 1;
+      return acc;
+    }, {});
+    console.log(
+      `[hostaway] fetched ${listings.length} listing(s), mapped ${homes.length} home(s).`,
+      `areas=${JSON.stringify(areas)}`,
+    );
+
     return withUniqueSlugs(homes).sort((a, b) => a.name.localeCompare(b.name));
   } catch (error) {
     console.error("[hostaway] Could not load listings:", error);

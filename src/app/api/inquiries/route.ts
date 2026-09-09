@@ -1,7 +1,8 @@
 import { createHash } from "node:crypto";
-import { NextResponse, type NextRequest } from "next/server";
+import { after, NextResponse, type NextRequest } from "next/server";
 
 import { createLeadTask, isClickUpConfigured } from "@/lib/clickup";
+import { isEmailConfigured, sendInquiryNotification } from "@/lib/email";
 import { inquirySchema } from "@/lib/inquiries";
 import { rateLimit } from "@/lib/rate-limit";
 import { insertInquiry, isSupabaseConfigured } from "@/lib/supabase";
@@ -94,13 +95,36 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // The lead is safe in Supabase from here. ClickUp is best effort and must
-  // never turn a stored enquiry into a failed submission.
-  if (isClickUpConfigured()) {
-    void createLeadTask(inquiry).catch((error) => {
-      console.error("[inquiries] clickup hand-off failed:", error);
-    });
-  }
+  /*
+   * The lead is safe in Supabase from here. Everything below is best effort and
+   * must never turn a stored enquiry into a failed submission - a notification
+   * that did not arrive is a smaller problem than a customer who was told their
+   * message failed when it did not.
+   */
+  /*
+   * `after` rather than a floating promise. A serverless function can be frozen
+   * the moment its response is sent, so fire-and-forget work is not guaranteed
+   * to run - the notification would simply never arrive, silently. `after`
+   * keeps the invocation alive until this finishes, and still does not delay
+   * the response the visitor is waiting on.
+   */
+  after(async () => {
+    if (isEmailConfigured()) {
+      try {
+        await sendInquiryNotification(inquiry);
+      } catch (error) {
+        console.error("[inquiries] email notification failed:", error);
+      }
+    }
+
+    if (isClickUpConfigured()) {
+      try {
+        await createLeadTask(inquiry);
+      } catch (error) {
+        console.error("[inquiries] clickup hand-off failed:", error);
+      }
+    }
+  });
 
   return NextResponse.json({ ok: true }, { status: 201 });
 }

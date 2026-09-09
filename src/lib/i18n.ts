@@ -1,4 +1,4 @@
-import { SITE_URL } from "./site";
+import { SITE_URL } from "./site.ts";
 
 /**
  * i18n groundwork. English ships now; Spanish is phase 2.

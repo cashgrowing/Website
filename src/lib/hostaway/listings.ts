@@ -1,25 +1,9 @@
 import "server-only";
 
+import { fold, slugify } from "@/lib/slug";
 import { AREA_NAMES } from "@/lib/site";
 import { hostawayGet, isHostawayConfigured } from "./client";
 import type { Home, HomePhoto, HostawayListing } from "./types";
-
-const COMBINING_MARKS = /[\u0300-\u036f]/g;
-
-/** Lowercase, strip accents, collapse to a URL-safe slug. "Bahia" stays "bahia". */
-export function slugify(input: string): string {
-  return input
-    .normalize("NFD")
-    .replace(COMBINING_MARKS, "")
-    .toLowerCase()
-    .replace(/['’]/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
-
-function fold(input: string): string {
-  return input.normalize("NFD").replace(COMBINING_MARKS, "").toLowerCase();
-}
 
 /** Hostaway descriptions arrive as HTML. The site renders text, never raw HTML. */
 function toPlainText(html: string | null | undefined): string | null {

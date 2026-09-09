@@ -7,13 +7,14 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "eslint . && next build",
+    "build": "eslint . && node --test tests/ && next build",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "build:only": "next build",
     "sanity:export": "node scripts/export-sanity.ts",
-    "sanity:check": "node scripts/export-sanity.ts && node scripts/check-sanity-roundtrip.ts"
+    "sanity:check": "node scripts/export-sanity.ts && node scripts/check-sanity-roundtrip.ts",
+    "test": "node --test tests/"
   },
   "dependencies": {
     "next": "^16.3.4",

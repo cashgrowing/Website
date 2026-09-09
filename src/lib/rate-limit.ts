@@ -1,5 +1,3 @@
-import "server-only";
-
 /**
  * A small fixed-window rate limiter held in module memory.
  *
@@ -11,6 +9,9 @@ import "server-only";
  *
  * Turnstile is the primary defence; this is the backstop for anything that gets
  * past it, and for the window before a Turnstile token is checked.
+ *
+ * No `server-only` here, unlike the modules that hold keys: this is a pure
+ * algorithm touching no secrets, and it is worth being able to test directly.
  */
 type Window = { count: number; resetAt: number };
 

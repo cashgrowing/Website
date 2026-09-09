@@ -464,6 +464,283 @@ export const JOURNAL_POSTS: JournalPost[] = [
       { label: "How we charge", href: "/how-we-charge" },
     ],
   },
+  {
+    slug: "what-to-check-before-buying-on-this-coast",
+    title: "What to check before buying here",
+    description:
+      "The practical things that decide whether a vacation home on Costa Rica's South Pacific coast rents well: road, water, power, connection and orientation.",
+    publishedAt: "2026-09-09",
+    readingMinutes: 6,
+    excerpt:
+      "Two houses with the same view and the same bedroom count can perform completely differently. Usually it comes down to things you can check before you buy.",
+    body: [
+      {
+        kind: "p",
+        text: "Most people choose a house here on the view. That is a reasonable way to choose somewhere to live and an unreliable way to choose something that will be rented.",
+      },
+      {
+        kind: "p",
+        text: "Two houses on the same ridge, with the same bedrooms and the same ocean in front of them, can earn very different amounts. The difference is almost never the view. It is a handful of practical things, and all of them can be checked before you sign.",
+      },
+      { kind: "h2", text: "The road" },
+      {
+        kind: "p",
+        text: "This is the single biggest one, and the easiest to underestimate on a dry January afternoon in a borrowed 4x4.",
+      },
+      {
+        kind: "p",
+        text: "Ask what the last kilometre is like in October. Ask who maintains it, because on this coast the answer is often the neighbours rather than the municipality, and that is a real ongoing arrangement rather than a formality.",
+      },
+      {
+        kind: "p",
+        text: "A steep or rough access road does not make a house unrentable. It narrows the guest. Families in a small sedan will not book it, or worse, will book it and arrive unhappy. That has to be said plainly in the listing, which means fewer bookings at a higher standard rather than more bookings and bad reviews.",
+      },
+      { kind: "h2", text: "Water and power" },
+      {
+        kind: "p",
+        text: "Find out where the water actually comes from: a municipal supply, an ASADA, a well, or a spring shared with neighbours. Each has different reliability and different obligations, and guests notice within a day.",
+      },
+      {
+        kind: "p",
+        text: "Ask about pressure at the top of the house, not just at the tap by the door. Ask whether there is storage, and how long it lasts.",
+      },
+      {
+        kind: "p",
+        text: "For power, ask how often it goes and for how long. A house without a backup in an area that loses power regularly is a house that will occasionally have to cancel a booking, which costs more than the generator would have.",
+      },
+      { kind: "h2", text: "The connection" },
+      {
+        kind: "p",
+        text: "Fibre reaches a lot of this coast now and stops abruptly in places. Test it on the property rather than trusting a coverage map, and test it in the room someone would actually work in.",
+      },
+      {
+        kind: "p",
+        text: "This matters more every year. Longer stays are what fill the quiet weeks, and the people who take them are working. A house that cannot support that is competing only for short holiday bookings, which is the most crowded part of the market.",
+      },
+      { kind: "h2", text: "Which way it faces" },
+      {
+        kind: "p",
+        text: "Orientation decides how hot the house gets and how much the air conditioning runs. West-facing glass with no shade is spectacular at sunset and expensive at three in the afternoon.",
+      },
+      {
+        kind: "p",
+        text: "It also decides how much weather the building takes. The side facing the prevailing wind and rain ages faster, and that is where maintenance concentrates for as long as you own it.",
+      },
+      { kind: "h2", text: "What it would take to rent it" },
+      {
+        kind: "p",
+        text: "A house that someone has lived in is rarely guest ready. Beds, linens for turnover rather than for a household, a kitchen equipped for people who did not bring anything, lockable owner storage, and signage.",
+      },
+      {
+        kind: "p",
+        text: "None of it is expensive individually. Together it is a real number, and it is better known before you buy than discovered afterwards.",
+      },
+      {
+        kind: "p",
+        text: "If you are looking at something specific and want a straight answer about how it would actually perform, send it to us. Sometimes the answer is that it will do well, and sometimes it is that the road will cost you more bookings than the view will win.",
+      },
+      {
+        kind: "note",
+        text: "This is practical guidance, not legal or tax advice. Ownership structures, permits and the rules on short-term rental vary, so confirm your own situation with a Costa Rican attorney or contador.",
+      },
+    ],
+    faqs: [
+      {
+        question: "Does a rough access road make a house unrentable?",
+        answer:
+          "No, it narrows the guest. It has to be stated plainly in the listing so the wrong booking is filtered out before arrival rather than after it.",
+      },
+      {
+        question: "How important is internet speed for a vacation rental here?",
+        answer:
+          "More every year. Longer stays fill the quiet weeks and the people taking them are working, so a house that cannot support that competes only for short holiday bookings.",
+      },
+      {
+        question: "Can you look at a house before I buy it?",
+        answer:
+          "Yes. Send us what you are considering and we will give you a straight answer about how it would perform, including if the answer is that it would not do well.",
+      },
+    ],
+    related: [
+      { label: "Property management in Costa Rica", href: "/property-management-costa-rica" },
+      { label: "How we charge", href: "/how-we-charge" },
+      { label: "Vacation rental management in Uvita", href: "/vacation-rental-management-uvita" },
+    ],
+  },
+  {
+    slug: "setting-up-a-house-for-its-first-guests",
+    title: "Setting up a house for guests",
+    description:
+      "The one-time work that happens before a vacation home goes live, and why skipping it is what leaves a house underbooked a year later.",
+    publishedAt: "2026-09-09",
+    readingMinutes: 5,
+    excerpt:
+      "The setup is the part owners most want to skip and the part that most decides how the house performs. Here is what it actually involves.",
+    body: [
+      {
+        kind: "p",
+        text: "There is a moment, after the paperwork and before the first booking, when a house is technically ready and practically not.",
+      },
+      {
+        kind: "p",
+        text: "The work that closes that gap happens once. It is also the work owners most often want to compress, because it costs money before anything has earned any. Compressing it is the most reliable way to end up with a house that underperforms for years.",
+      },
+      { kind: "h2", text: "Photography, which is not optional" },
+      {
+        kind: "p",
+        text: "Most underperforming houses on this coast are not overpriced. They are badly photographed, so they are never compared against the houses they should be competing with.",
+      },
+      {
+        kind: "p",
+        text: "Good photography here means shooting at the right time of day for the orientation of the house, showing the spaces guests actually use rather than every room in order, and being honest. A photograph that oversells produces a booking and then a review that costs more than the booking was worth.",
+      },
+      { kind: "h2", text: "The listing itself" },
+      {
+        kind: "p",
+        text: "A title and description written for how people search, accurate amenities, house rules that are enforceable, and the awkward facts stated plainly: the road, the stairs, the noise from the road below, whatever it is.",
+      },
+      {
+        kind: "p",
+        text: "Saying the awkward thing costs a few bookings and prevents the reviews that cost far more.",
+      },
+      { kind: "h2", text: "Equipping it for turnover rather than for living" },
+      {
+        kind: "p",
+        text: "A house set up for a family is not set up for guests. Linens have to exist in multiples so a turnover does not wait on laundry. Kitchens need the things people did not bring. There has to be somewhere lockable for the owner's own belongings.",
+      },
+      {
+        kind: "p",
+        text: "Small hardware matters more than it sounds: a lockbox or a code entry that works when the power is out, exterior lighting that makes an arrival after dark feel safe, and signage so the house can be found at all.",
+      },
+      { kind: "h2", text: "The guest book" },
+      {
+        kind: "p",
+        text: "Directions someone can follow in the dark. How the water system works. Which road is passable in a sedan. The wifi, printed somewhere they will look. What to do if the power goes. The restaurants worth the drive.",
+      },
+      {
+        kind: "p",
+        text: "It reads like a small thing. It removes most of the messages a manager would otherwise field at nine at night, and it makes guests feel looked after by people who know the place.",
+      },
+      { kind: "h2", text: "Why it is a one-time fee" },
+      {
+        kind: "p",
+        text: "All of this happens once, before the house goes live, which is why it is charged as a one-time setup fee rather than folded into a percentage. A commission-only arrangement has to recover that cost somewhere, and it will.",
+      },
+      {
+        kind: "p",
+        text: "Roughly speaking, guest ready is a matter of weeks rather than months once the walk-through is done and everyone agrees what the house needs. The part that takes the time is this, not the paperwork.",
+      },
+    ],
+    faqs: [
+      {
+        question: "How long until my house is ready to rent?",
+        answer:
+          "Usually weeks rather than months once we have walked through it and agreed what it needs. The setup work is what takes the time, not the administration.",
+      },
+      {
+        question: "Why is setup charged separately instead of in the commission?",
+        answer:
+          "Because it happens once, before the house earns anything. An arrangement that hides it in a percentage still has to recover the cost, just less visibly.",
+      },
+      {
+        question: "Can I use my own photographer?",
+        answer:
+          "Yes, provided the result shows the house honestly and covers the spaces guests actually use. The listing lives or dies on it, so it is worth getting right rather than getting cheap.",
+      },
+    ],
+    related: [
+      { label: "How we charge", href: "/how-we-charge" },
+      { label: "Property management in Costa Rica", href: "/property-management-costa-rica" },
+      { label: "Airbnb management in Costa Rica", href: "/airbnb-management-costa-rica" },
+    ],
+  },
+  {
+    slug: "why-houses-here-get-bad-reviews",
+    title: "Why houses here get bad reviews",
+    description:
+      "Most bad reviews on this coast are not about the house. They are about expectations nobody set, and almost all of them are preventable.",
+    publishedAt: "2026-09-09",
+    readingMinutes: 4,
+    excerpt:
+      "Read enough reviews of homes on this coast and the same handful of complaints appear. Very few of them are about the house itself.",
+    body: [
+      {
+        kind: "p",
+        text: "Read enough reviews of vacation homes on the South Pacific coast and the same complaints repeat. Almost none of them are that the house was bad.",
+      },
+      {
+        kind: "p",
+        text: "They are that something was different from what the guest expected. That is a listing problem and a communication problem, and both are fixable before anyone arrives.",
+      },
+      { kind: "h2", text: "The drive" },
+      {
+        kind: "p",
+        text: "Someone books a hillside house, rents the cheapest car at the airport, and arrives in the dark on a road they were not warned about. Whatever the house is like, that review is already written.",
+      },
+      {
+        kind: "p",
+        text: "Say it in the listing. Say what vehicle is needed and in which months. Send directions before arrival that describe landmarks rather than trusting the map application, which is confidently wrong in places here.",
+      },
+      { kind: "h2", text: "Wildlife, which is the reason they came" },
+      {
+        kind: "p",
+        text: "Guests want toucans and monkeys. They are less prepared for the insects that come with a forest, or the gecko in the bathroom, or something on the roof at five in the morning.",
+      },
+      {
+        kind: "p",
+        text: "A house that is treated on a schedule and a guest book that explains what lives here turns most of that from a complaint into the story they tell at home.",
+      },
+      { kind: "h2", text: "Heat and rain" },
+      {
+        kind: "p",
+        text: "Somebody books in October imagining February. Rain in the green season is not a fault in the house, but it becomes one if the listing sold clear skies.",
+      },
+      {
+        kind: "p",
+        text: "Similarly, air conditioning in bedrooms only is fine, and it is fine because it was stated. Not stated, it reads as something broken.",
+      },
+      { kind: "h2", text: "The response time" },
+      {
+        kind: "p",
+        text: "Most problems during a stay are small. What turns a small problem into a bad review is nobody answering.",
+      },
+      {
+        kind: "p",
+        text: "A guest who reports a pool problem at eight in the evening and gets a reply in minutes, and someone at the house the next morning, usually mentions it as a positive. The same problem met with silence overnight becomes the whole review.",
+      },
+      { kind: "h2", text: "What this means for an owner" },
+      {
+        kind: "p",
+        text: "The instinct is to present the house as flawlessly as possible. It is the wrong instinct. Every awkward fact stated in the listing costs a few bookings from people who would have been unhappy, and protects the rating that determines whether anyone finds the house at all.",
+      },
+      {
+        kind: "p",
+        text: "A house with an honest listing and a number that answers will outperform a better house with neither.",
+      },
+    ],
+    faqs: [
+      {
+        question: "Should I mention the bad road in my listing?",
+        answer:
+          "Yes. It costs a few bookings from guests who would have arrived unhappy, and protects the rating that determines whether anyone finds the house at all.",
+      },
+      {
+        question: "How quickly are guests answered?",
+        answer:
+          "Around the clock, in English and Spanish, usually within minutes. Most problems during a stay are small; what turns one into a bad review is nobody answering.",
+      },
+      {
+        question: "What do guests complain about most here?",
+        answer:
+          "Access roads they were not warned about, wildlife they did not expect, and weather that did not match the listing. All three are set by expectations rather than by the house.",
+      },
+    ],
+    related: [
+      { label: "Airbnb management in Costa Rica", href: "/airbnb-management-costa-rica" },
+      { label: "Property management in Costa Rica", href: "/property-management-costa-rica" },
+      { label: "Vacation rentals in Bahía Ballena", href: "/vacation-rentals-bahia-ballena" },
+    ],
+  },
 ];
 
 export function getJournalPosts(): JournalPost[] {

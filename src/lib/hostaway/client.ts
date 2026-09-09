@@ -27,8 +27,13 @@ export function isHostawayConfigured(): boolean {
 }
 
 async function requestToken(): Promise<string> {
-  const accountId = process.env.HOSTAWAY_ACCOUNT_ID;
-  const apiKey = process.env.HOSTAWAY_API_KEY;
+  /*
+   * Trimmed deliberately. Pasting a key into a dashboard field very often
+   * carries a trailing newline or space, and a credential that is right except
+   * for one invisible character fails identically to one that is wrong.
+   */
+  const accountId = process.env.HOSTAWAY_ACCOUNT_ID?.trim();
+  const apiKey = process.env.HOSTAWAY_API_KEY?.trim();
   if (!accountId || !apiKey) throw new HostawayNotConfiguredError();
 
   const res = await fetch(`${API_BASE}/accessTokens`, {
@@ -48,7 +53,21 @@ async function requestToken(): Promise<string> {
   });
 
   if (!res.ok) {
-    throw new Error(`Hostaway auth failed: ${res.status} ${res.statusText}`);
+    /*
+     * Hostaway explains the refusal in the body; the status alone does not.
+     * Logged alongside the shape of the credentials - never their value - so a
+     * truncated paste or a stray character is visible without exposing the key.
+     */
+    const detail = await res.text().catch(() => "");
+    const raw = process.env.HOSTAWAY_API_KEY ?? "";
+    console.error(
+      "[hostaway] auth rejected.",
+      `accountId=${accountId}`,
+      `keyLength=${apiKey.length}`,
+      `keyHadSurroundingWhitespace=${raw !== raw.trim()}`,
+      `response=${detail.slice(0, 300)}`,
+    );
+    throw new Error(`Hostaway auth failed: ${res.status} ${res.statusText} ${detail.slice(0, 200)}`);
   }
 
   const json = (await res.json()) as { access_token?: string; expires_in?: number };

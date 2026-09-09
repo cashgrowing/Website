@@ -51,6 +51,30 @@ search Hostaway's help for "Google Vacation Rentals" rather than guessing.
 
 ---
 
+## Step 1b — Do not lose the booking subdomain
+
+`book.wildrootscr.com` is a CNAME to `proxy3.holidayfuture.com`, Hostaway's
+booking engine.
+
+At the time of writing, DNS for wildrootscr.com is managed by **Wix**
+(nameservers ns6/ns7.wixdns.net), so that record lives in Wix's DNS panel.
+
+**The trap:** Step 2 moves the nameservers to Cloudflare. Nameservers carry the
+entire zone, so every record that existed at Wix - including `book` - stops
+resolving the moment the change propagates, unless it has been recreated at
+Cloudflare first.
+
+So before switching nameservers, write down every record currently in the Wix
+DNS panel and recreate them in Cloudflare. At minimum `book`. Miss it and the
+booking engine goes dark at exactly the moment the new site goes live, which is
+the worst possible time to notice.
+
+Once Cloudflare is in front, set the `book` record to **DNS only** (grey cloud,
+not orange). Hostaway issues its own certificate for that hostname and
+Cloudflare's proxy prevents the validation from completing.
+
+---
+
 ## Step 2 — Point the domain at the new site
 
 In Vercel, open the project, then **Settings → Domains**, and add

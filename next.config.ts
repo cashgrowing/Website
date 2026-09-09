@@ -35,20 +35,24 @@ const nextConfig: NextConfig = {
 
   // Redirect map from section 7 of the build brief. Live from day one so the
   // rankings on the old Wix URLs survive the cutover.
+  //
+  // `statusCode: 301` rather than `permanent: true`: Next emits 308 for
+  // `permanent`, and while Google treats the two the same, the brief asks for
+  // 301 and older tooling is less consistent about 308.
   async redirects() {
     return [
       {
         source: "/post/what-a-property-manager-does-costa-rica",
         destination: "/journal/what-a-property-manager-does-costa-rica",
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: "/post/property-management-long-term-rental-solutions",
         destination: "/journal/what-a-property-manager-does-costa-rica",
-        permanent: true,
+        statusCode: 301,
       },
-      { source: "/blog", destination: "/journal", permanent: true },
-      { source: "/blog/:path*", destination: "/journal", permanent: true },
+      { source: "/blog", destination: "/journal", statusCode: 301 },
+      { source: "/blog/:path*", destination: "/journal", statusCode: 301 },
     ];
   },
 };

@@ -1,0 +1,51 @@
+# Weekly backup, required by section 4 of the build brief.
+#
+# Backs up the two things that cannot be rebuilt from this repository: the words
+# in Sanity and the enquiries in Supabase. Everything else is already in git.
+#
+# PRIVACY: the enquiries file contains names, email addresses and phone numbers
+# that people gave the business. It is uploaded as a workflow artifact, which is
+# private to this repository, and expires after 90 days. It is deliberately NOT
+# committed to git, where it would be permanent and visible to anyone who ever
+# gains read access. Keep the repository private and the collaborator list short.
+#
+# Needs these repository secrets. Missing ones are skipped, not failed:
+#   SANITY_PROJECT_ID, SANITY_DATASET, SANITY_API_READ_TOKEN (private datasets)
+#   SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
+name: Weekly backup
+
+on:
+  schedule:
+    # 09:00 UTC Monday, which is early Monday in Costa Rica.
+    - cron: "0 9 * * 1"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Export Sanity and Supabase
+        env:
+          SANITY_PROJECT_ID: ${{ secrets.SANITY_PROJECT_ID }}
+          SANITY_DATASET: ${{ secrets.SANITY_DATASET }}
+          SANITY_API_READ_TOKEN: ${{ secrets.SANITY_API_READ_TOKEN }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: node scripts/backup.ts ./backup
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: wildroots-backup-${{ github.run_id }}
+          path: backup/
+          retention-days: 90
+          if-no-files-found: warn

@@ -14,7 +14,8 @@
     "build:only": "next build",
     "sanity:export": "node scripts/export-sanity.ts",
     "sanity:check": "node scripts/export-sanity.ts && node scripts/check-sanity-roundtrip.ts",
-    "test": "node --test tests/"
+    "test": "node --test tests/",
+    "backup": "node scripts/backup.ts ./backup"
   },
   "dependencies": {
     "next": "^16.3.4",

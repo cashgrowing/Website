@@ -38,7 +38,27 @@ const contentSecurityPolicy = [
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https:",
   "font-src 'self' data:",
-  "connect-src 'self' https://challenges.cloudflare.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.facebook.com",
+  /*
+   * GA4 does not post to one host. It fans out to google-analytics.com,
+   * analytics.google.com, stats.g.doubleclick.net and www.google.com, and it
+   * needs all of them or the page_view is silently dropped.
+   *
+   * Note `analytics.google.com` is listed on its own: a `*.` wildcard matches
+   * subdomains but NOT the apex, so `*.analytics.google.com` did not cover it.
+   * That single omission blocked every hit while the tag itself loaded fine,
+   * which is exactly the kind of failure that looks like success.
+   */
+  [
+    "connect-src 'self'",
+    "https://challenges.cloudflare.com",
+    "https://www.google-analytics.com",
+    "https://*.google-analytics.com",
+    "https://analytics.google.com",
+    "https://*.analytics.google.com",
+    "https://stats.g.doubleclick.net",
+    "https://www.google.com",
+    "https://www.facebook.com",
+  ].join(" "),
   "form-action 'self'",
   "frame-src https://challenges.cloudflare.com",
   "frame-ancestors 'none'",

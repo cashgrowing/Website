@@ -1,0 +1,129 @@
+/* ==========================================================================
+   WildRoots design tokens — locked by section 6 of the build brief.
+   Do not add colours, do not add type sizes. Five sizes, five colours, gold
+   is the only accent, paper is the only reading background.
+   ========================================================================== */
+
+:root {
+  /* Palette */
+  --black: #141210;
+  --brown: #3a2e22;
+  --gold: #877750; /* Pantone 871 C — the only accent */
+  --gold-deep: #675239; /* gold, darkened for link text on paper (contrast) */
+  --tan: #b8a181; /* hover state, kickers on dark */
+  --tan-light: #d0bca9; /* hairlines on paper */
+  --paper: #fcfbf8; /* every reading section. never pure white */
+  --ink: #1b1a17;
+
+  /* Type — five sizes, fluid between mobile and desktop */
+  --size-display: clamp(2.375rem, 1.35rem + 4.55vw, 3.75rem); /* 38 -> 60 */
+  --size-heading: clamp(1.75rem, 1.36rem + 1.74vw, 2.25rem); /* 28 -> 36 */
+  --size-subhead: clamp(1.313rem, 1.16rem + 0.68vw, 1.625rem); /* 21 -> 26 */
+  --size-body: clamp(1rem, 0.97rem + 0.14vw, 1.063rem); /* 16 -> 17 */
+  --size-small: 0.875rem; /* 14 */
+
+  /* Rhythm */
+  --gutter: clamp(1.25rem, 0.55rem + 3.1vw, 3.5rem);
+  --band: clamp(3.5rem, 2.3rem + 5.3vw, 4.5rem);
+  --measure: 66ch; /* line length stays under 70 characters */
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-figtree), "Avenir Next", Avenir, system-ui, sans-serif;
+  font-weight: 300;
+  font-size: var(--size-body);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Headings: weight 300, left aligned, no serif, no all-caps. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 300;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  text-align: left;
+}
+
+h1 { font-size: var(--size-display); }
+h2 { font-size: var(--size-heading); }
+h3 { font-size: var(--size-subhead); }
+h4, h5, h6 { font-size: var(--size-body); font-weight: 500; letter-spacing: 0; }
+
+p { max-width: var(--measure); }
+
+a {
+  color: var(--gold-deep);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+a:hover { color: var(--gold); }
+
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+ul { list-style: none; }
+
+/* Square corners everywhere, no shadows, no gradients (except the hero scrim). */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  border-radius: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* One page-load reveal on the hero only — and only when motion is welcome. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.skipLink {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--black);
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  font-size: var(--size-small);
+}
+.skipLink:focus {
+  left: 0;
+  color: #fff;
+}

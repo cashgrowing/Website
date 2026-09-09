@@ -1,0 +1,26 @@
+.page {
+  padding: var(--band) var(--gutter) calc(var(--band) * 1.5);
+  max-width: 1360px;
+  margin-inline: auto;
+}
+.page h1 {
+  color: var(--black);
+  margin-bottom: 1rem;
+}
+.page p {
+  color: var(--brown);
+  margin-bottom: 1rem;
+}
+.rule {
+  height: 1px;
+  background: var(--gold);
+  width: 4rem;
+  margin: 2rem 0;
+  border: 0;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}

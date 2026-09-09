@@ -1,0 +1,48 @@
+/*
+ * A photo that has not been supplied yet. Deliberately flat and obviously empty:
+ * no stock image, no AI image, no gradient pretending to be a photograph.
+ */
+.slot {
+  position: relative;
+  overflow: hidden;
+  background: var(--brown);
+  display: flex;
+  align-items: flex-end;
+}
+
+.slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pending {
+  border: 1px solid var(--gold);
+  background: var(--black);
+}
+
+/*
+ * Declared after .slot on purpose: `.fill` and `.slot` have equal specificity,
+ * so source order is what makes the override deterministic. Positioning this
+ * from another stylesheet would be a coin flip.
+ */
+.fill {
+  position: absolute;
+  inset: 0;
+}
+
+.note {
+  padding: 1rem 1.25rem;
+  font-size: var(--size-small);
+  color: var(--tan);
+  max-width: 46ch;
+}
+.note b {
+  display: block;
+  font-weight: 500;
+  color: var(--tan);
+  margin-bottom: 0.25rem;
+}
+.note span {
+  color: #8b8378;
+}

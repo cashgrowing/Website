@@ -1,0 +1,251 @@
+/* ---------- 2. Hero ---------- */
+.hero {
+  position: relative;
+  min-height: clamp(30rem, 24rem + 26vw, 45rem);
+  background: var(--black);
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+/*
+ * Positioning comes from PhotoSlot's own `fill` variant, so it cannot lose a
+ * specificity tie across stylesheets. This class only adds the scrim.
+ * The one gradient the brief allows: it keeps the headline legible.
+ */
+.heroPhoto::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(20, 18, 16, 0.15) 0%,
+    rgba(20, 18, 16, 0.05) 40%,
+    rgba(20, 18, 16, 0.72) 100%
+  );
+}
+
+.heroMark {
+  position: absolute;
+  top: clamp(1.5rem, 0.6rem + 2.8vw, 2.75rem);
+  right: var(--gutter);
+  height: clamp(4rem, 2rem + 6vw, 6.875rem);
+  width: auto;
+  opacity: 0.9;
+}
+
+.heroCopy {
+  position: relative;
+  padding: var(--band) var(--gutter);
+  color: #fff;
+  max-width: 48rem;
+  animation: heroReveal 700ms ease-out both;
+}
+.heroCopy h1 {
+  color: #fff;
+  margin-bottom: 1rem;
+}
+.heroCopy p {
+  font-size: var(--size-body);
+  max-width: 50ch;
+  opacity: 0.92;
+  margin-bottom: 1.5rem;
+}
+
+/* The single page-load reveal. Disabled by the reduced-motion rule in globals. */
+@keyframes heroReveal {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* ---------- 3. Two doors ---------- */
+.doors {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--black);
+  color: #fff;
+}
+.door {
+  padding: var(--band) var(--gutter);
+}
+.door + .door {
+  border-left: 1px solid var(--gold); /* the seam */
+}
+.door p {
+  max-width: 44ch;
+  opacity: 0.88;
+  margin-bottom: 1.5rem;
+}
+.door h2 {
+  color: #fff;
+  margin-bottom: 0.75rem;
+}
+
+/* ---------- 4. Proof strip ---------- */
+.proof {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-bottom: 1px solid var(--tan-light);
+  background: var(--paper);
+}
+.proof > div {
+  padding: 2rem var(--gutter);
+  border-left: 1px solid var(--tan-light);
+}
+.proof > div:first-child {
+  border-left: 0;
+}
+.proof h2 {
+  font-size: var(--size-subhead);
+  color: var(--black);
+  margin-bottom: 0.25rem;
+}
+.proof p {
+  font-size: var(--size-small);
+  color: var(--brown);
+}
+
+/* ---------- 5. Homes ---------- */
+.homes {
+  padding: var(--band) var(--gutter);
+  max-width: 1360px;
+  margin-inline: auto;
+}
+.homesHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1.5rem;
+  margin-bottom: 1.75rem;
+}
+.homesHead h2 {
+  color: var(--black);
+}
+.more {
+  flex: none;
+  font-size: var(--size-small);
+  color: var(--gold-deep);
+  text-decoration: none;
+  border-bottom: 1px solid var(--gold);
+}
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+.empty {
+  border: 1px solid var(--tan-light);
+  padding: 2rem var(--gutter);
+}
+.empty p {
+  color: var(--brown);
+  font-size: var(--size-small);
+}
+
+/* ---------- 6. Care band ---------- */
+.care {
+  background: var(--brown);
+  color: #f3ede3;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+}
+.carePhoto {
+  min-height: 26rem;
+}
+.careText {
+  padding: var(--band) var(--gutter);
+  align-self: center;
+}
+.careText h2 {
+  color: #fff;
+  margin-bottom: 1rem;
+}
+.careText p {
+  max-width: 50ch;
+  opacity: 0.9;
+  margin-bottom: 0.625rem;
+}
+.careText a {
+  margin-top: 1rem;
+}
+
+/* ---------- 7. Owner quote ---------- */
+.quote {
+  padding: var(--band) var(--gutter);
+  max-width: 1360px;
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+.quote blockquote {
+  border-left: 1px solid var(--gold);
+  padding-left: 1.75rem;
+}
+.quote blockquote p {
+  font-size: var(--size-subhead);
+  line-height: 1.35;
+  color: var(--black);
+  max-width: 30ch;
+}
+.quoteNote {
+  display: block;
+  font-size: var(--size-small);
+  color: var(--brown);
+  margin-top: 1.25rem;
+}
+.quotePhoto {
+  min-height: 22rem;
+}
+
+@media (max-width: 900px) {
+  .doors,
+  .care,
+  .quote {
+    grid-template-columns: 1fr;
+  }
+  .door + .door {
+    border-left: 0;
+    border-top: 1px solid var(--gold);
+  }
+  .proof {
+    grid-template-columns: 1fr;
+  }
+  .proof > div {
+    border-left: 0;
+    border-top: 1px solid var(--tan-light);
+  }
+  .proof > div:first-child {
+    border-top: 0;
+  }
+  .cards {
+    grid-template-columns: 1fr 1fr;
+  }
+  .carePhoto,
+  .quotePhoto {
+    min-height: 18rem;
+  }
+  .heroMark {
+    display: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}

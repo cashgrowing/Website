@@ -1,0 +1,59 @@
+/* Square corners, no shadow, no gradient. Gold is the only accent. */
+.btn {
+  display: inline-block;
+  padding: 0.875rem 1.625rem;
+  font-size: var(--size-small);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+  cursor: pointer;
+}
+
+/* Gold fill, white text, hover tan. */
+.gold {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #fff;
+}
+.gold:hover {
+  background: var(--tan);
+  border-color: var(--tan);
+  color: #fff;
+}
+
+/* Secondary: 1px gold outline. */
+.outline {
+  background: transparent;
+  border-color: var(--gold);
+  color: var(--gold-deep);
+}
+.outline:hover {
+  border-color: var(--tan);
+  color: var(--tan);
+}
+
+/* On dark: outline in gold with tan text. */
+.onDark {
+  background: transparent;
+  border-color: var(--gold);
+  color: var(--tan);
+}
+.onDark:hover {
+  border-color: var(--tan);
+  color: #fff;
+}
+
+/* Header call to action. */
+.black {
+  background: var(--black);
+  border-color: var(--black);
+  color: #fff;
+}
+.black:hover {
+  background: var(--brown);
+  border-color: var(--brown);
+  color: #fff;
+}

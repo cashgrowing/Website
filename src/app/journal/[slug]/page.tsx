@@ -5,6 +5,8 @@ import { notFound } from "next/navigation";
 import styles from "../journal.module.css";
 import { Faqs } from "@/components/Faqs";
 import { getJournalPost, getJournalPosts } from "@/content/journal";
+import { alternatesFor } from "@/lib/i18n";
+import { ogImage } from "@/lib/og";
 import { JsonLd, articleSchema, breadcrumbSchema, faqPageSchema } from "@/lib/schema";
 
 type Params = { params: Promise<{ slug: string }> };
@@ -23,13 +25,14 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   return {
     title: post.title,
     description: post.description,
-    alternates: { canonical: `/journal/${post.slug}` },
+    alternates: alternatesFor(`/journal/${post.slug}`),
     openGraph: {
       type: "article",
       title: post.title,
       description: post.description,
       url: `/journal/${post.slug}`,
       publishedTime: post.publishedAt,
+      images: [ogImage(post.title, "WildRoots Journal")],
     },
   };
 }

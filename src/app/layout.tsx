@@ -4,6 +4,8 @@ import { Figtree } from "next/font/google";
 import "./globals.css";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { alternatesFor } from "@/lib/i18n";
+import { ogImage } from "@/lib/og";
 import { JsonLd, professionalServiceSchema } from "@/lib/schema";
 import { BRAND, SITE_URL } from "@/lib/site";
 
@@ -27,12 +29,13 @@ export const metadata: Metadata = {
   },
   description:
     "Vacation rental management and direct stays in Uvita, Dominical and Ojochal. Bilingual, on the ground, answering 24/7.",
-  alternates: { canonical: "/" },
+  alternates: alternatesFor("/"),
   openGraph: {
     type: "website",
     siteName: BRAND.legalName,
     locale: "en_US",
     url: "/",
+    images: [ogImage("Your home on this coast, looked after properly.")],
   },
   twitter: { card: "summary_large_image" },
   robots: { index: true, follow: true },

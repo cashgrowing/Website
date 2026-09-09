@@ -3,7 +3,9 @@ import Link from "next/link";
 
 import styles from "./homes.module.css";
 import { HomeCard } from "@/components/HomeCard";
+import { alternatesFor } from "@/lib/i18n";
 import { getHomes } from "@/lib/hostaway/listings";
+import { ogImage } from "@/lib/og";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { AREAS } from "@/lib/site";
 
@@ -11,7 +13,12 @@ export const metadata: Metadata = {
   title: "Vacation rentals in Uvita, Dominical, Ojochal",
   description:
     "Every home WildRoots looks after on Costa Rica's South Pacific coast. Book direct with the local team, no platform fee.",
-  alternates: { canonical: "/homes" },
+  alternates: alternatesFor("/homes"),
+  openGraph: {
+    title: "Homes on the Whale's Tail coast",
+    url: "/homes",
+    images: [ogImage("Homes on the Whale's Tail coast")],
+  },
 };
 
 export const revalidate = 900;

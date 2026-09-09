@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 
 import { MarketingPageView } from "@/components/MarketingPageView";
 import { getMarketingPage } from "@/content/pages";
+import { alternatesFor } from "@/lib/i18n";
+import { ogImage } from "@/lib/og";
 import { JsonLd, breadcrumbSchema, faqPageSchema } from "@/lib/schema";
 
 const PATH = "/how-we-charge";
@@ -13,8 +15,13 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: page.title,
     description: page.description,
-    alternates: { canonical: PATH },
-    openGraph: { title: page.title, description: page.description, url: PATH },
+    alternates: alternatesFor(PATH),
+    openGraph: {
+      title: page.title,
+      description: page.description,
+      url: PATH,
+      images: [ogImage(page.h1)],
+    },
   };
 }
 

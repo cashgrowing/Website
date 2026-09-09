@@ -3,13 +3,20 @@ import Link from "next/link";
 
 import styles from "./journal.module.css";
 import { getJournalPosts } from "@/content/journal";
+import { alternatesFor } from "@/lib/i18n";
+import { ogImage } from "@/lib/og";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Journal",
   description:
     "Notes on owning, renting and looking after a vacation home on Costa Rica's South Pacific coast, written from Uvita.",
-  alternates: { canonical: "/journal" },
+  alternates: alternatesFor("/journal"),
+  openGraph: {
+    title: "Journal",
+    url: "/journal",
+    images: [ogImage("Notes from this coast", "WildRoots Journal")],
+  },
 };
 
 /** Dates are rendered on the server so the markup is identical for every visitor. */

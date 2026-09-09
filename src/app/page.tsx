@@ -6,6 +6,7 @@ import styles from "./page.module.css";
 import { Button } from "@/components/Button";
 import { HomeCard } from "@/components/HomeCard";
 import { PhotoSlot } from "@/components/PhotoSlot";
+import { alternatesFor } from "@/lib/i18n";
 import { getHomes } from "@/lib/hostaway/listings";
 import { BOOKING_ENGINE_URL, CONTACT, LOGOS } from "@/lib/site";
 
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
   title: "WildRoots | Vacation rental management, Uvita Costa Rica",
   description:
     "Vacation rental management and direct stays in Uvita, Dominical and Ojochal. Bilingual, on the ground, answering 24/7.",
-  alternates: { canonical: "/" },
+  alternates: alternatesFor("/"),
 };
 
 /** Homes come from Hostaway; refresh the page every 15 minutes. */

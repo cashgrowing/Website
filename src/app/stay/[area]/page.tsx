@@ -4,7 +4,9 @@ import { notFound } from "next/navigation";
 
 import styles from "../../homes/homes.module.css";
 import { HomeCard } from "@/components/HomeCard";
+import { alternatesFor } from "@/lib/i18n";
 import { getHomesByArea } from "@/lib/hostaway/listings";
+import { ogImage } from "@/lib/og";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { AREAS } from "@/lib/site";
 
@@ -36,7 +38,12 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   return {
     title: `Vacation rentals in ${area.name}, Costa Rica`,
     description: `Homes to rent in ${area.name} on Costa Rica's South Pacific coast, looked after and booked direct with the local WildRoots team.`,
-    alternates: { canonical: `/stay/${area.slug}` },
+    alternates: alternatesFor(`/stay/${area.slug}`),
+    openGraph: {
+      title: `Stay in ${area.name}`,
+      url: `/stay/${area.slug}`,
+      images: [ogImage(`Stay in ${area.name}`)],
+    },
   };
 }
 

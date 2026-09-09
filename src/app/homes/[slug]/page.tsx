@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import styles from "./home.module.css";
 import { Button } from "@/components/Button";
 import { PhotoSlot } from "@/components/PhotoSlot";
+import { alternatesFor } from "@/lib/i18n";
 import { getHomeBySlug, getHomes } from "@/lib/hostaway/listings";
 import type { Home } from "@/lib/hostaway/types";
 import { BUSINESS_ID, JsonLd, breadcrumbSchema } from "@/lib/schema";
@@ -37,7 +38,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
       summary && summary.length > 60
         ? summary.slice(0, 152).trimEnd() + "..."
         : `Book ${home.name} in ${where} direct with the local team that looks after it.`,
-    alternates: { canonical: `/homes/${home.slug}` },
+    alternates: alternatesFor(`/homes/${home.slug}`),
     openGraph: {
       title: `${home.name}, ${where}`,
       url: `/homes/${home.slug}`,

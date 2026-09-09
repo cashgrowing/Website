@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 
 import styles from "./page.module.css";
 import { Button } from "@/components/Button";
@@ -121,9 +122,9 @@ export default async function HomePage() {
       <section className={styles.homes}>
         <div className={styles.homesHead}>
           <h2>Homes we look after</h2>
-          <a className={styles.more} href="/homes">
+          <Link className={styles.more} href="/homes">
             See all homes
-          </a>
+          </Link>
         </div>
         {featured.length > 0 ? (
           <div className={styles.cards}>

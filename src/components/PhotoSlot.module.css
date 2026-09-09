@@ -29,6 +29,11 @@
 .fill {
   position: absolute;
   inset: 0;
+  /* Keep the "photo to come" note clear of the hero copy in the bottom-left. */
+  align-items: flex-start;
+  justify-content: flex-start;
+  /* No placeholder outline behind the hero - it would read as a gold frame. */
+  border: 0;
 }
 
 .note {

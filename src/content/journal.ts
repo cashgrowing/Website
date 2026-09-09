@@ -206,6 +206,264 @@ export const JOURNAL_POSTS: JournalPost[] = [
       { label: "Airbnb management in Costa Rica", href: "/airbnb-management-costa-rica" },
     ],
   },
+  {
+    slug: "green-season-south-pacific-costa-rica",
+    title: "Green season on the South Pacific coast",
+    description:
+      "What May to November actually looks like in Uvita and Dominical, what it does to a house, and why the quiet months are not the cheap months to skip.",
+    publishedAt: "2026-09-09",
+    readingMinutes: 5,
+    excerpt:
+      "The rain here has a shape. Knowing it is the difference between a house that holds its condition and one that quietly loses it.",
+    body: [
+      {
+        kind: "p",
+        text: "People call it the rainy season, which makes it sound like six months of grey. It is not that. On this coast the green season runs roughly May to November, and most of it looks like a bright morning, a hot early afternoon, and then rain that arrives with some conviction and moves on.",
+      },
+      {
+        kind: "p",
+        text: "For a guest that is often a better trip than February. For a house it is the half of the year that decides what condition it is in by Christmas.",
+      },
+      { kind: "h2", text: "What the rain does to a building" },
+      {
+        kind: "p",
+        text: "Humidity is the real agent, not the rainfall. Air that sits at high humidity for months finds every surface that was not sealed properly and every corner where air does not move. Mold does not announce itself. It arrives as a faint grey bloom on a north-facing wall, behind a wardrobe, along the grout in a bathroom nobody used.",
+      },
+      {
+        kind: "p",
+        text: "Salt air does the rest. Anything metal within sight of the ocean is on a clock: hinges, screws, railings, the outdoor kitchen, the pool equipment, the bolts holding a gate on. A house three hundred metres from the water ages differently from one two kilometres inland, and it needs a different schedule.",
+      },
+      {
+        kind: "p",
+        text: "Then there is the water itself. Heavy rain finds the roof detail that was fine last year, the gutter that has filled with leaf litter, the drainage that was adequate until the hillside above shifted slightly. None of these are dramatic on the day they start.",
+      },
+      { kind: "h2", text: "Why an empty house is the harder case" },
+      {
+        kind: "p",
+        text: "A booked house gets looked at constantly. Guests report the thing that is not working, cleaners see the room between stays, and the pool is being used and therefore being maintained.",
+      },
+      {
+        kind: "p",
+        text: "An empty house in September gets none of that. Air conditioning that never runs lets seals dry out. Water sitting in pipes goes stagnant. A pool without circulation turns over in days rather than weeks. The insects that live here treat an unoccupied building as an opportunity, and they are not subtle about it.",
+      },
+      {
+        kind: "p",
+        text: "This is why every house we look after is walked weekly whether it is booked or not. Not as a service line, but because the alternative is discovering three months of quiet deterioration in one visit.",
+      },
+      { kind: "h2", text: "What the green season is actually good for" },
+      {
+        kind: "p",
+        text: "Rates are lower and availability is real. The hills are genuinely spectacular in a way they are not in March, when everything has been dry for months. The rivers run. The waterfalls are worth the drive rather than merely photogenic.",
+      },
+      {
+        kind: "p",
+        text: "And the whales are here. The southern humpback migration comes through from around August to October, which is the largest of the two runs that reach Bahía Ballena, and it falls squarely inside the green season. September and October bring the Festival de Ballenas y Delfines in Uvita.",
+      },
+      {
+        kind: "p",
+        text: "So the quiet months are not uniformly quiet. Priced as one flat low season, a house gives away the weeks that people will pay for and still sits empty in the weeks they will not.",
+      },
+      { kind: "h2", text: "What an owner should expect to happen" },
+      {
+        kind: "p",
+        text: "Roofs and gutters checked before the rain rather than during it. Fumigation on a schedule instead of after a complaint. Pressure washing before mold sets into a stain that needs more than washing. Air conditioning and the water system run deliberately so the house does not seize up from disuse.",
+      },
+      {
+        kind: "p",
+        text: "None of that is glamorous and none of it shows up in a photograph. It is most of the difference between a house that is still worth what you paid for it and one that is quietly not.",
+      },
+    ],
+    faqs: [
+      {
+        question: "Is the green season a bad time to visit Uvita?",
+        answer:
+          "No. The rain usually arrives in the afternoon rather than lasting all day, the hills are at their greenest, rates are lower, and the biggest whale migration of the year falls inside it.",
+      },
+      {
+        question: "Does my house still need attention if nobody is staying in it?",
+        answer:
+          "More, not less. An occupied house is being watched constantly. An empty one in a humid climate loses condition quietly, which is why every house we manage is walked weekly whether it is booked or not.",
+      },
+      {
+        question: "Should the price be the same all through the green season?",
+        answer:
+          "It should not. The whale months and the holiday weeks behave nothing like late September, and one flat low-season rate gives away the weeks people would have paid for.",
+      },
+    ],
+    related: [
+      { label: "Property management in Costa Rica", href: "/property-management-costa-rica" },
+      { label: "Vacation rental management in Uvita", href: "/vacation-rental-management-uvita" },
+      { label: "Whale season", href: "/whale-season" },
+    ],
+  },
+  {
+    slug: "what-a-weekly-house-check-covers",
+    title: "What a weekly house check covers",
+    description:
+      "The difference between a manager who visits a house and one who inspects it, and the specific things worth looking at every week on this coast.",
+    publishedAt: "2026-09-09",
+    readingMinutes: 4,
+    excerpt:
+      "Anyone can say they check the house. Here is what is actually being looked at, and why each thing is on the list.",
+    body: [
+      {
+        kind: "p",
+        text: "Weekly inspection is the phrase every management company uses. It covers everything from a genuine walk-through to somebody driving past and glancing at the gate.",
+      },
+      {
+        kind: "p",
+        text: "The distinction matters, because on this coast the problems that cost real money all start small and all announce themselves early to anyone actually looking.",
+      },
+      { kind: "h2", text: "Water, in both directions" },
+      {
+        kind: "p",
+        text: "The pool first: chemistry, water level, and whether the equipment is running as it should rather than merely running. A pool that has drifted takes days to correct and looks wrong in photographs the whole time.",
+      },
+      {
+        kind: "p",
+        text: "Then the water system. Pressure, the pump, the tank, and any filter that needs changing on a schedule rather than when someone notices the taste. Where a house is on its own supply this matters more, not less.",
+      },
+      {
+        kind: "p",
+        text: "And drainage. Gutters, downpipes, and where the water actually goes when it leaves the roof. In the green season this is the difference between rain being a non-event and rain finding its way inside.",
+      },
+      { kind: "h2", text: "The building itself" },
+      {
+        kind: "p",
+        text: "Roof and ceilings, looked at properly, with particular attention to any stain that was not there last week. Wood, for the insects that eat it. Metal, for the corrosion that salt air guarantees. Seals and grout, for the early grey bloom that becomes a mold problem if it is left a month.",
+      },
+      {
+        kind: "p",
+        text: "Air conditioning gets run rather than assumed. So does anything else with a motor or a seal that suffers from sitting still.",
+      },
+      { kind: "h2", text: "The parts guests judge" },
+      {
+        kind: "p",
+        text: "The connection, tested rather than trusted. Gas, because a house that runs out mid-stay generates exactly one kind of review. Lights, locks, gate mechanisms and the outdoor furniture that lives in weather all year.",
+      },
+      {
+        kind: "p",
+        text: "Grounds too. Growth here is fast enough that a garden left three weeks does not read as lush, it reads as neglected, and it is the first thing a guest sees.",
+      },
+      { kind: "h2", text: "What happens with what is found" },
+      {
+        kind: "p",
+        text: "Small things get fixed. Larger things get quoted before anything starts, and itemised, rather than appearing on a statement three weeks later with no warning.",
+      },
+      {
+        kind: "p",
+        text: "The point of doing this weekly rather than monthly is not thoroughness for its own sake. It is that almost every expensive repair on this coast was a cheap one a few weeks earlier.",
+      },
+    ],
+    faqs: [
+      {
+        question: "Does the house get checked when it is empty?",
+        answer:
+          "Yes. Every house is walked weekly whether it is booked or not. An empty house in this climate is the case that needs it most.",
+      },
+      {
+        question: "Who pays for what gets found?",
+        answer:
+          "Ongoing care sits inside the monthly management fee. Work outside that is billed separately and quoted or itemised before it starts wherever that is practical.",
+      },
+      {
+        question: "Will I hear about small problems or only big ones?",
+        answer:
+          "You get a clear statement every month, and anything that needs a decision comes to you before the work happens rather than after.",
+      },
+    ],
+    related: [
+      { label: "Property management in Costa Rica", href: "/property-management-costa-rica" },
+      { label: "How we charge", href: "/how-we-charge" },
+      { label: "Property manager in Dominical", href: "/property-manager-dominical" },
+    ],
+  },
+  {
+    slug: "pricing-a-vacation-rental-in-uvita",
+    title: "Pricing a vacation rental in Uvita",
+    description:
+      "Why one rate all year costs a house money at both ends, and how the Uvita calendar actually breaks down across the seasons.",
+    publishedAt: "2026-09-09",
+    readingMinutes: 5,
+    excerpt:
+      "The most common pricing mistake on this coast is not charging too much or too little. It is charging the same thing in January and October.",
+    body: [
+      {
+        kind: "p",
+        text: "A house listed at one rate all year does two things wrong at once. It leaves money on the table in the weeks when people would have paid more, and it sits empty in the weeks when the price was the only thing standing between it and a booking.",
+      },
+      {
+        kind: "p",
+        text: "Both are invisible from the owner's side. An empty week in October does not send you a notification, and a week that sold instantly in February looks like success rather than a rate that was too low.",
+      },
+      { kind: "h2", text: "The Uvita calendar is not two seasons" },
+      {
+        kind: "p",
+        text: "The shorthand is dry season from December to April and green season from May to November. That is true as weather and misleading as a pricing model, because inside each half there are weeks that behave nothing like the weeks around them.",
+      },
+      {
+        kind: "p",
+        text: "The December holidays and Semana Santa are their own market, and they are booked far in advance by people who are not comparing on price. Late September is a different business entirely.",
+      },
+      {
+        kind: "p",
+        text: "And sitting inside the supposedly quiet half is the southern whale migration from around August to October, plus the Festival de Ballenas y Delfines. Those weeks have real demand from people planning a trip around a specific thing they cannot get in March.",
+      },
+      { kind: "h2", text: "What actually moves the rate" },
+      {
+        kind: "p",
+        text: "Proximity to the park entrances, honestly assessed. A short drive is a selling point. A steep road that needs the right vehicle is a fact that belongs in the listing, because a guest who arrives surprised leaves a review about it.",
+      },
+      {
+        kind: "p",
+        text: "A reliable connection, which is not optional any more for the longer stays that fill slow weeks. Air conditioning in the bedrooms. A pool that is genuinely well kept rather than merely present.",
+      },
+      {
+        kind: "p",
+        text: "And photography, which is not a pricing input in theory and is one in practice. Most underperforming houses here are not overpriced. They are badly photographed, so they never get compared to the houses they should be competing with.",
+      },
+      { kind: "h2", text: "Length of stay is a lever most owners ignore" },
+      {
+        kind: "p",
+        text: "The slow weeks rarely fill with three-night bookings. They fill with someone staying a month, and a house priced only by the night is invisible to that person.",
+      },
+      {
+        kind: "p",
+        text: "Getting that right often does more for a year's revenue than any adjustment to the nightly rate in high season.",
+      },
+      { kind: "h2", text: "Why this is a job rather than a setting" },
+      {
+        kind: "p",
+        text: "Prices on the platforms move constantly, the calendar has to stay accurate across every channel at once, and demand for a specific week becomes visible weeks before that week arrives, but only if somebody is watching.",
+      },
+      {
+        kind: "p",
+        text: "From another country, with a day job, that is not a realistic thing to keep up. It is a large part of what a manager is actually for.",
+      },
+    ],
+    faqs: [
+      {
+        question: "When is high season in Uvita?",
+        answer:
+          "The dry season from December through April is the busiest stretch, and whale watching brings a second wave when the southern humpbacks arrive around September and October.",
+      },
+      {
+        question: "Should I discount the whole green season?",
+        answer:
+          "No. The whale months sit inside it and carry real demand. Discounting May to November as one block gives away the weeks people would have paid for.",
+      },
+      {
+        question: "Are monthly stays worth taking?",
+        answer:
+          "In the slow weeks, usually yes. Those weeks rarely fill with short bookings, and a house priced only by the night never reaches the people looking for a month.",
+      },
+    ],
+    related: [
+      { label: "Vacation rental management in Uvita", href: "/vacation-rental-management-uvita" },
+      { label: "Airbnb management in Costa Rica", href: "/airbnb-management-costa-rica" },
+      { label: "How we charge", href: "/how-we-charge" },
+    ],
+  },
 ];
 
 export function getJournalPosts(): JournalPost[] {

@@ -19,7 +19,7 @@ type Params = { params: Promise<{ area: string }> };
 const MANAGEMENT_PAGE: Record<string, { href: string; label: string }> = {
   uvita: { href: "/vacation-rental-management-uvita", label: "Vacation rental management in Uvita" },
   dominical: { href: "/property-manager-dominical", label: "Property management in Dominical" },
-  ojochal: { href: "/property-management-costa-rica", label: "Property management on this coast" },
+  ojochal: { href: "/vacation-rental-management-ojochal", label: "Vacation rental management in Ojochal" },
 };
 
 export async function generateStaticParams() {

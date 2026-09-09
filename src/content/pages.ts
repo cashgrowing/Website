@@ -91,8 +91,8 @@ export const MARKETING_PAGES: MarketingPage[] = [
     related: [
       { label: "Vacation rental management in Uvita", href: "/vacation-rental-management-uvita" },
       { label: "Property manager in Dominical", href: "/property-manager-dominical" },
+      { label: "Vacation rental management in Ojochal", href: "/vacation-rental-management-ojochal" },
       { label: "Airbnb management in Costa Rica", href: "/airbnb-management-costa-rica" },
-      { label: "How we charge", href: "/how-we-charge" },
     ],
   },
 
@@ -247,6 +247,81 @@ export const MARKETING_PAGES: MarketingPage[] = [
     ],
   },
 
+  {
+    path: "/vacation-rental-management-ojochal",
+    title: "Vacation rental management in Ojochal",
+    description:
+      "Local management for vacation homes in Ojochal and the southern Costa Ballena. Guests, cleaning, maintenance and pricing from a team that lives here.",
+    h1: "Vacation Rental Management in Ojochal",
+    lede: "Boutique management for vacation homes at the southern end of the Costa Ballena, where the coast gets quieter and the roads get steeper.",
+    audience: "owner",
+    sections: [
+      {
+        kind: "prose",
+        heading: "Ojochal is a different market to Uvita",
+        paragraphs: [
+          "Ojochal sits south of Uvita at the quiet end of the Costa Ballena, known for its restaurants and for hillside homes with long ocean views. It draws a guest who has usually been to Costa Rica before and is choosing calm over convenience.",
+          "That changes how a house is presented and how it is priced. The guest who books here is not looking for the busiest beach town on the coast, and a listing that sells Ojochal as though it were Uvita attracts the wrong booking and then collects the review that follows.",
+          "WildRoots manages a small number of homes between Dominical and Ojochal. Same weekly walks, same vetted local vendors, same guest support in English and Spanish, with the practical differences of the southern end built into how each house is run.",
+        ],
+      },
+      {
+        kind: "prose",
+        heading: "What the hills and the distance actually mean",
+        paragraphs: [
+          "Access is the recurring theme. Many of the best-positioned homes here are up, and up means steeper roads that a small rental car will struggle with in the green season. We say so plainly in the listing, which filters out the wrong guest before they book rather than after they arrive.",
+          "Distance matters for vendors too. A plumber reaching Ojochal is a longer trip than one reaching Uvita, which is exactly why the relationships have to already exist rather than being found on the day something fails.",
+          "The climate does what it does everywhere on this coast, only with more forest around it: humidity, insects, fast growth, and a roof that should be checked before the rain rather than during it.",
+        ],
+      },
+      {
+        kind: "list",
+        heading: "Property management services in Ojochal",
+        intro: "Everything a home at the southern end of the coast needs to stay guest ready.",
+        items: [
+          {
+            title: "Rental management",
+            body: "Reservations, guest messaging in English and Spanish, check in coordination for homes that are genuinely hard to find, and cleaning supervision between stays.",
+          },
+          {
+            title: "Marketing and revenue strategy",
+            body: "Listing optimization for Airbnb and VRBO, photography that shows the view and the road honestly, and pricing built around the Costa Ballena calendar rather than a single flat rate.",
+          },
+          {
+            title: "Property maintenance oversight",
+            body: "Weekly inspections, humidity and mold control, pool, water system and generator checks, and coordination of vendors who will actually make the drive.",
+          },
+          {
+            title: "Guest experience management",
+            body: "Directions guests can follow, recommendations for the restaurants Ojochal is known for, responsive help during stays, and follow up that earns reviews.",
+          },
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Do you cover Ojochal as well as Uvita and Dominical?",
+        answer:
+          "Yes. Uvita, Bahía Ballena, Dominical, Dominicalito and Ojochal are all inside the area we work. We keep the portfolio small on purpose, so we only take on homes we can actually look after.",
+      },
+      {
+        question: "Is it harder to rent a home this far south?",
+        answer:
+          "It is a different guest rather than a harder one. People choose Ojochal for quiet, food and views, and homes presented that way do well. Presented as a substitute for Uvita, they do not.",
+      },
+      {
+        question: "Do guests need a 4x4 to reach my house?",
+        answer:
+          "For some houses yes, for others no, and the green season widens the difference. We will tell you honestly what the road will cost you in bookings and how to set expectations in the listing.",
+      },
+    ],
+    related: [
+      { label: "Stay in Ojochal", href: "/stay/ojochal" },
+      { label: "Property management in Costa Rica", href: "/property-management-costa-rica" },
+      { label: "Property manager in Dominical", href: "/property-manager-dominical" },
+      { label: "How we charge", href: "/how-we-charge" },
+    ],
+  },
   {
     path: "/airbnb-management-costa-rica",
     title: "Airbnb management in Costa Rica",

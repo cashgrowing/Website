@@ -6,11 +6,23 @@
  * No person is ever named anywhere in this file or anything built from it.
  */
 
-export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ?? "https://www.wildrootscr.com";
+/**
+ * Read an origin from the environment, falling back when it is missing *or
+ * blank*. A variable that exists with an empty value is the common case in a
+ * hosting dashboard - `??` alone would let "" through and `new URL("")` throws
+ * at module scope, which fails the whole build.
+ */
+function origin(value: string | undefined, fallback: string): string {
+  const trimmed = value?.trim();
+  return (trimmed && trimmed.length > 0 ? trimmed : fallback).replace(/\/+$/, "");
+}
 
-export const BOOKING_ENGINE_URL =
-  process.env.NEXT_PUBLIC_BOOKING_ENGINE_URL?.replace(/\/$/, "") ?? "https://book.wildrootscr.com";
+export const SITE_URL = origin(process.env.NEXT_PUBLIC_SITE_URL, "https://www.wildrootscr.com");
+
+export const BOOKING_ENGINE_URL = origin(
+  process.env.NEXT_PUBLIC_BOOKING_ENGINE_URL,
+  "https://book.wildrootscr.com",
+);
 
 export const BRAND = {
   name: "WildRoots",

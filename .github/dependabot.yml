@@ -1,0 +1,33 @@
+# Dependency updates, required by section 4 of the build brief.
+#
+# Weekly rather than daily: this is a small site with one maintainer, and a
+# flood of pull requests nobody reads is how updating actually stops happening.
+# Security advisories are raised by Dependabot immediately regardless of this
+# schedule.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+      timezone: America/Costa_Rica
+    open-pull-requests-limit: 5
+    groups:
+      # One PR for the routine noise, so the ones worth reading stand out.
+      minor-and-patch:
+        update-types:
+          - minor
+          - patch
+    labels:
+      - dependencies
+    commit-message:
+      prefix: "deps"
+
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: monthly
+    labels:
+      - dependencies

@@ -1,91 +1,100 @@
 # WildRoots
 
-The new WildRoots Property Management website. `WILDROOTS-BUILD-BRIEF.md` in this
-folder is the source of truth for every decision here; when something in the code
-disagrees with the brief, the brief wins.
+The WildRoots Property Management website. `WILDROOTS-BUILD-BRIEF.md` is the
+source of truth for every decision here; when the code and the brief disagree,
+the brief wins.
+
+- `SECURITY.md` — accounts needing 2FA, the domain lock, and how the enquiry
+  form is defended. Read the first half even if you are not a developer.
+- `LAUNCH.md` — the step-by-step launch runbook.
+- `studio/README.md` — how to edit the words yourself.
 
 ---
 
-## For the owner — what exists right now
+## For the owner — what exists
 
-This is **Phase 1**: the skeleton. It is meant to be looked at, not launched.
+**Working now**
 
-**What works**
+- The homepage in the approved design, and nine content pages: property
+  management, Uvita, Dominical, Ojochal, Airbnb, Bahía Ballena, whale season,
+  about, contact, and how we charge.
+- A journal with four posts, at `/journal`.
+- `/homes`, a page per house, and area pages for Uvita, Dominical and Ojochal —
+  all built automatically from Hostaway, so five homes or a hundred is the same
+  amount of work.
+- An enquiry form that saves to Supabase and can file each owner lead in
+  ClickUp.
+- Redirects from the old Wix addresses, so the pages that already rank keep
+  their position.
 
-- The homepage, in the black / gold / brown design that was approved, in the order
-  agreed: hero, the two doors, the three facts, the homes, the care band, the quote.
-- `/homes` and a page for every single house, built automatically from Hostaway.
-  No page is typed by hand, so 5 homes or 105 homes is the same amount of work.
-- Area pages at `/stay/uvita`, `/stay/dominical`, `/stay/ojochal`.
-- The header, the footer, and every link between them.
+**Waiting on you**
 
-**What is deliberately still empty**
+| What | Why it matters |
+| --- | --- |
+| **Hostaway keys in Vercel** | `/homes` is empty without them. This is the whole guest funnel. |
+| **Photographs** | Every photo slot says what picture belongs there. Nothing is stock or AI-generated, by rule. |
+| **Turnstile keys** | The enquiry form stays hidden until it can be protected from spam. |
+| **Sanity import** | One sign-in, then two commands. See `studio/README.md`. |
+| **A read of the words** | Especially the journal posts. They describe how the business works. |
 
-- **Photographs.** Every photo slot shows a grey panel that says what picture belongs
-  there. Nothing is stock and nothing is AI-generated, per the rule in the brief.
-  Drop the real files into `public/photos` and they appear.
-- **The homes themselves.** They show up the moment the Hostaway API key is added to
-  Vercel. Until then those sections say so.
-- **The words on the management, about, contact and journal pages.** Those come across
-  from the current site in Phase 2 and then live in the CMS, where they can be edited
-  without a developer. Right now those pages are polite placeholders, and they are
-  marked so Google ignores them.
-- **The owner quote.** It stays an obvious placeholder until a real homeowner supplies
-  the words and approves them.
-
-**Two things needed to move forward**
-
-1. The Hostaway API key — pasted into Vercel's settings, not into a chat message.
-2. The photos: the "WildRoots Website Photos" Drive folder, or a Wix Media Manager
-   export.
+**One decision left:** the filled gold button uses white text at a contrast of
+4.39:1, just under the 4.5 accessibility threshold. Fixing it means slightly
+darkening the brand gold. That is your call, not mine.
 
 ---
 
 ## For a developer
 
-Next.js (App Router) + TypeScript. CSS Modules, no CSS framework — the design system
-is small and locked, and tokens live in `src/app/globals.css`.
+Next.js App Router, TypeScript, CSS Modules. Node 20.11+ (developed on 26).
 
 ```bash
 npm install
-npm run dev        # http://localhost:3000
-npm run build
-npm run typecheck
+npm run dev          # http://localhost:3000
+npm test             # 30 tests, Node's built-in runner
+npm run build        # lint + tests + build
+npm run sanity:check # prove the CMS round trip
+npm run backup       # export Sanity and Supabase locally
 ```
-
-Node 20.11 or newer.
 
 ### Layout
 
 ```
-src/app/                 routes; one folder per URL
-src/components/          Button, SiteHeader, SiteFooter, HomeCard, PhotoSlot
-src/lib/site.ts          contact details, areas, nav, footer — change facts here only
-src/lib/schema.tsx       JSON-LD helpers
-src/lib/hostaway/        server-only API client and the Home domain type
-design/                  the approved mock and the three logo files
-public/brand/            the logos the site actually serves
+src/app/          routes, one folder per URL
+src/components/   Button, header, footer, HomeCard, PhotoSlot, forms, analytics
+src/content/      the words, as typed data; validation.ts guards CMS input
+src/lib/          site facts, Hostaway, Supabase, Sanity, schema, i18n
+studio/           Sanity Studio, its own workspace, deployed separately
+tests/            the brief's hard rules, enforced on every build
+scripts/          Sanity export, round-trip check, backups
 ```
 
-### Rules the code enforces
+### What the build refuses to ship
 
-- `src/lib/hostaway/*` imports `server-only`, so a Hostaway key can never reach a
-  browser bundle — an accidental client import fails the build instead.
-- `PhotoSlot` renders a labelled empty panel rather than inventing an image.
-- `HomeCard` and the property page print a price only when Hostaway actually has one.
-  No JSON-LD carries `priceRange`, a rating or a review, because none were supplied.
-- `robots.ts` blocks crawlers on every deploy except production, so preview links
-  never compete with the live site.
-- Redirects from the old Wix URLs live in `next.config.ts`.
+`npm run build` runs ESLint and the tests before Next, so these fail the deploy:
 
-### Environment
+- An image without alt text, or a `PhotoSlot` given a `src` without an `alt`.
+- Any person named in the content, a "no setup fees" claim, an Envision
+  reference, a split brand name, or an invented statistic.
+- A title over 60 characters rendered, or a description over 155.
+- An internal link to a route that does not exist, an orphaned page, or a
+  journal post linking to fewer than two service pages.
 
-Copy `.env.example` to `.env.local` for local work. Real values live only in Vercel.
-`.env*` is gitignored — never commit a key.
+### Things that will surprise you
 
-### Still to come
+- **Content falls back.** Pages read from Sanity and fall back to `src/content`
+  if it is unreachable or a document fails validation. An empty dataset renders
+  the committed copy, which is why configuring Sanity before importing is safe.
+- **`robots.txt` keys off the request host,** not `VERCEL_ENV`. Only
+  `www.wildrootscr.com` invites crawlers; every preview URL is blocked, and the
+  cutover needs no code change.
+- **The CSP is not nonce-based, deliberately.** The reasoning and the conditions
+  that should trigger a rethink are in `SECURITY.md`.
+- **`NEXT_PUBLIC_*` is inlined at build time.** Adding one in Vercel without
+  redeploying does nothing.
+- **Keep this repo off iCloud-synced folders.** Desktop sync corrupted `.next`
+  repeatedly by duplicating files mid-build.
 
-Phase 2: Sanity schema and studio, the content migration, the inquiry form
-(Supabase + ClickUp + Turnstile), availability widgets. Phase 3: the full JSON-LD set,
-OG images, the alt-text build check, CSP and the rest of the security headers,
-monitoring and backups, and `SECURITY.md`.
+### Still outstanding
+
+Hostaway webhook signatures, Sentry or Vercel monitoring, and the area ×
+attribute pages (which need real listing data to know when three homes match).

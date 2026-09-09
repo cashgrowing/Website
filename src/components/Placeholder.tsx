@@ -7,7 +7,16 @@ import { CONTACT } from "@/lib/site";
  * Sanity. It exists now so the preview link has no dead ends - and it is
  * noindex (see each route's metadata) so an empty page never reaches Google.
  */
-export function Placeholder({ title, note }: { title: string; note: string }) {
+export function Placeholder({
+  title,
+  note,
+  /** Optional retry, used by the error boundary. */
+  action,
+}: {
+  title: string;
+  note: string;
+  action?: { label: string; onClick: () => void };
+}) {
   return (
     <div className={styles.page}>
       <h1>{title}</h1>
@@ -18,6 +27,11 @@ export function Placeholder({ title, note }: { title: string; note: string }) {
         in the CMS, where they can be edited without a developer.
       </p>
       <div className={styles.actions}>
+        {action ? (
+          <button className={styles.retry} type="button" onClick={action.onClick}>
+            {action.label}
+          </button>
+        ) : null}
         <Button variant="gold" href={CONTACT.whatsappUrl}>
           Talk to the team on WhatsApp
         </Button>

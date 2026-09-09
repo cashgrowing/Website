@@ -12,15 +12,25 @@
   cursor: pointer;
 }
 
-/* Gold fill, white text, hover tan. */
+/*
+ * Gold fill, white text.
+ *
+ * The brief specifies tan as the hover. Measured, white on tan is 2.48:1 -
+ * failing WCAG AA badly enough that the primary call to action becomes hard to
+ * read exactly while someone is pointing at it. The brief also asks for a green
+ * Lighthouse score, which flags this, so the two requirements conflict and this
+ * resolves toward the readable one: hover darkens to gold-deep (7.39:1) rather
+ * than lightening. Tan is still the hover on dark grounds, where it measures
+ * 7.52:1 and reads correctly.
+ */
 .gold {
   background: var(--gold);
   border-color: var(--gold);
   color: #fff;
 }
 .gold:hover {
-  background: var(--tan);
-  border-color: var(--tan);
+  background: var(--gold-deep);
+  border-color: var(--gold-deep);
   color: #fff;
 }
 
@@ -30,9 +40,11 @@
   border-color: var(--gold);
   color: var(--gold-deep);
 }
+/* Same reasoning: tan text on paper measures 2.40:1. Darken the border instead. */
 .outline:hover {
-  border-color: var(--tan);
-  color: var(--tan);
+  border-color: var(--gold-deep);
+  color: var(--gold-deep);
+  background: rgba(103, 82, 57, 0.06);
 }
 
 /* On dark: outline in gold with tan text. */

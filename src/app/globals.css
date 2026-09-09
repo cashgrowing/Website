@@ -75,7 +75,14 @@ a {
   text-decoration-thickness: 1px;
   text-underline-offset: 0.2em;
 }
-a:hover { color: var(--gold); }
+/*
+ * Hover thickens the underline rather than lightening the colour: gold on paper
+ * is 4.24:1, just under AA, while gold-deep is 7.14:1.
+ */
+a:hover {
+  color: var(--gold-deep);
+  text-decoration-thickness: 2px;
+}
 
 img,
 picture,

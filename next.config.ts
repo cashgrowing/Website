@@ -28,17 +28,17 @@ import type { NextConfig } from "next";
  * 'self'` and `form-action 'self'` stop exfiltration to another origin.
  *
  * When the Hostaway widgets and analytics land, their origins need adding to
- * script-src, frame-src and connect-src. Turnstile is already allowed below;
- * Hostaway and analytics are deliberately still absent.
+ * script-src, frame-src and connect-src. Turnstile, GA4 and the Facebook Pixel
+ * are allowed below; Hostaway's widgets are deliberately still absent.
  */
 const contentSecurityPolicy = [
   "default-src 'self'",
   // challenges.cloudflare.com is Turnstile, which guards the enquiry form.
-  "script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com",
+  "script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://www.googletagmanager.com https://connect.facebook.net",
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https:",
   "font-src 'self' data:",
-  "connect-src 'self' https://challenges.cloudflare.com",
+  "connect-src 'self' https://challenges.cloudflare.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.facebook.com",
   "form-action 'self'",
   "frame-src https://challenges.cloudflare.com",
   "frame-ancestors 'none'",

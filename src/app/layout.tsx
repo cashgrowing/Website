@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Figtree } from "next/font/google";
 
 import "./globals.css";
+import { Analytics } from "@/components/Analytics";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { alternatesFor } from "@/lib/i18n";
@@ -52,6 +53,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main id="main">{children}</main>
         <SiteFooter />
         <JsonLd data={professionalServiceSchema()} />
+        <Analytics
+          gaId={process.env.NEXT_PUBLIC_GA_ID}
+          pixelId={process.env.NEXT_PUBLIC_FB_PIXEL_ID}
+        />
       </body>
     </html>
   );

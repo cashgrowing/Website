@@ -1,0 +1,51 @@
+/* Consent banner. Same rules as everything else: square, hairlines, gold accent. */
+.banner {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 60;
+  background: var(--black);
+  color: #c9bfb0;
+  border-top: 1px solid var(--gold);
+}
+.inner {
+  max-width: 1360px;
+  margin-inline: auto;
+  padding: 1.25rem var(--gutter);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.text {
+  font-size: var(--size-small);
+  max-width: 62ch;
+  margin: 0;
+}
+.actions {
+  display: flex;
+  gap: 0.625rem;
+  flex: none;
+}
+.button {
+  padding: 0.625rem 1.25rem;
+  font-size: var(--size-small);
+  font-weight: 500;
+  border: 1px solid var(--gold);
+  background: transparent;
+  color: var(--tan);
+  cursor: pointer;
+}
+.accept {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #fff;
+}
+.accept:hover {
+  background: var(--tan);
+  border-color: var(--tan);
+}
+.button:hover {
+  color: #fff;
+}

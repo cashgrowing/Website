@@ -14,6 +14,11 @@ const config = [
        * eslint first.
        */
       "jsx-a11y/alt-text": "error",
+      /* Underscore prefix is the deliberate "destructure to omit" idiom. */
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        { argsIgnorePattern: "^_", varsIgnorePattern: "^_", ignoreRestSiblings: true },
+      ],
     },
   },
   { ignores: [".next/**", "node_modules/**", "design/**", "next-env.d.ts", "studio/**"] },

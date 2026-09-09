@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { InquirySection } from "@/components/InquirySection";
 import { MarketingPageView } from "@/components/MarketingPageView";
 import { getMarketingPage } from "@/content/pages";
 import { alternatesFor } from "@/lib/i18n";
@@ -31,7 +32,7 @@ export default function Page() {
 
   return (
     <>
-      <MarketingPageView page={page} />
+      <MarketingPageView page={page} form={<InquirySection kind="owner" sourcePath={PATH} />} />
       <JsonLd
         data={breadcrumbSchema([
           { name: "Home", path: "/" },

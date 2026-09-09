@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 
 import { Button } from "./Button";
 import { Faqs } from "./Faqs";
@@ -14,7 +15,14 @@ import { BOOKING_ENGINE_URL, CONTACT } from "@/lib/site";
  * The words came from the old site; the structure did not. One reading column,
  * hairline rules, and a closing band on black.
  */
-export function MarketingPageView({ page }: { page: MarketingPage }) {
+export function MarketingPageView({
+  page,
+  /** Optional slot rendered inside the reading column, e.g. the enquiry form. */
+  form,
+}: {
+  page: MarketingPage;
+  form?: ReactNode;
+}) {
   const forOwners = page.audience === "owner";
 
   return (
@@ -51,6 +59,8 @@ export function MarketingPageView({ page }: { page: MarketingPage }) {
               ) : null}
             </section>
           ))}
+
+          {form}
 
           <Faqs faqs={page.faqs} />
 

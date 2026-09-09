@@ -1,0 +1,103 @@
+.form {
+  margin-top: 2rem;
+  max-width: 34rem;
+  border-top: 1px solid var(--gold);
+  padding-top: 1.75rem;
+}
+
+.field {
+  margin-bottom: 1.25rem;
+}
+.field label {
+  display: block;
+  font-size: var(--size-small);
+  font-weight: 500;
+  color: var(--black);
+  margin-bottom: 0.375rem;
+}
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 0.75rem 0.875rem;
+  font-size: var(--size-body);
+  font-weight: 300;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--tan-light);
+  border-radius: 0; /* square corners everywhere */
+}
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+.field textarea {
+  min-height: 8rem;
+  resize: vertical;
+}
+.hint {
+  font-size: var(--size-small);
+  color: var(--brown);
+  margin-top: 0.375rem;
+}
+.error {
+  font-size: var(--size-small);
+  color: #8c2f1d;
+  margin-top: 0.375rem;
+}
+
+/* Honeypot: off-screen rather than display:none, which some bots skip. */
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.submit {
+  display: inline-block;
+  padding: 0.875rem 1.625rem;
+  font-size: var(--size-small);
+  font-weight: 500;
+  background: var(--gold);
+  color: #fff;
+  border: 1px solid var(--gold);
+  cursor: pointer;
+}
+.submit:hover:not(:disabled) {
+  background: var(--tan);
+  border-color: var(--tan);
+}
+.submit:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.status {
+  font-size: var(--size-small);
+  color: var(--brown);
+}
+
+.sent {
+  border-top: 1px solid var(--gold);
+  padding-top: 1.75rem;
+  margin-top: 2rem;
+  max-width: 34rem;
+}
+.sent h3 {
+  font-size: var(--size-subhead);
+  color: var(--black);
+  margin-bottom: 0.5rem;
+}
+.sent p {
+  color: var(--brown);
+}

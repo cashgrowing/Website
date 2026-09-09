@@ -65,7 +65,11 @@ Set in `next.config.ts` and applied to every route: Content-Security-Policy,
 HSTS with preload, `X-Content-Type-Options`, `Referrer-Policy`,
 `X-Frame-Options: DENY`, `Permissions-Policy`, `Cross-Origin-Opener-Policy`.
 
-**Known gap — read before changing the CSP.** The brief asks for a nonce-based
+**Decided: no nonce, keep static rendering.** Reasoning below; revisit it if the
+site ever renders user-generated content, renders HTML from the CMS, or loads a
+third-party script.
+
+**The gap, and why it is acceptable here.** The brief asks for a nonce-based
 policy. That is incompatible with the statically generated pages the brief also
 requires: a nonce is minted per request, but prerendered HTML is written once at
 build time with no nonce on it. Serving a nonce policy over that HTML was
@@ -74,8 +78,7 @@ and then never hydrates. Making it work means reading the nonce in the root
 layout, which opts every page out of static rendering and gives up the ISR and
 Core Web Vitals the brief demands.
 
-Until that trade is decided, `script-src` carries `'unsafe-inline'`. What still
-holds the line: no user-generated content is rendered anywhere, all content is
+So `script-src` carries `'unsafe-inline'`. What still holds the line: no user-generated content is rendered anywhere, all content is
 typed data rather than HTML, `object-src 'none'` and `base-uri 'self'` close the
 classic escalation paths, and `connect-src 'self'` plus `form-action 'self'`
 prevent exfiltration to another origin.
@@ -96,16 +99,49 @@ shipping:
 - **`PhotoSlot` props.** A `src` without an `alt` is a type error, not a slot
   that quietly renders the placeholder instead of the photograph.
 
+### The enquiry form
+
+`POST /api/inquiries` is the only endpoint that writes. It fails closed: if
+Supabase or Turnstile is not configured it refuses every request with 503, and
+the form is not rendered at all. An unprotected public write endpoint is worse
+than no form.
+
+Order of checks, each verified against the running server:
+
+1. **Configured?** Otherwise 503 before any work happens.
+2. **Rate limit** — 5 submissions per IP per 10 minutes, checked before the
+   Turnstile call so a flood cannot run up Cloudflare requests. Fixed window
+   held in module memory; see the caveat in `src/lib/rate-limit.ts`.
+3. **Schema** — parsed with zod. Anything unexpected is rejected with 400.
+4. **Honeypot** — a field people never see. Answers 200 and stores nothing, so
+   the bot records a success rather than retrying.
+5. **Turnstile** — verified server-side with Cloudflare. A network failure
+   counts as *not* verified: it refuses rather than falling open.
+6. **Store** — written to Supabase from the server with the service role key.
+   If the write fails the submitter is told, never told it arrived.
+7. **ClickUp** — best effort, after the row is safe. An outage there cannot turn
+   a stored lead into a failed submission.
+
+The browser never holds a Supabase key and never talks to Supabase. RLS is on
+with no policies at all, so anon and authenticated can neither read nor write;
+only the service role can. This is stricter than the anon-insert approach the
+brief suggested.
+
+Submitter IPs are never stored. A SHA-256 of the IP plus `INQUIRY_IP_SALT` is,
+and only when that salt is set — enough to spot abuse, not enough to identify
+someone.
+
+**Environment variables only take effect after a redeploy.** The pages are
+statically generated, so adding keys in Vercel without redeploying leaves the
+form hidden and the endpoint refusing.
+
 ### Still outstanding
 
-These are required by the brief and not yet built, because each depends on an
-account or a key that does not exist yet:
+Required by the brief, still unbuilt, each waiting on something:
 
-- Rate limiting and Turnstile verification on every write route, once the
-  enquiry form and its Supabase and ClickUp destinations exist.
-- Zod validation on those route handlers. `zod` is already a dependency.
-- Hostaway webhook signature verification.
-- Supabase row-level security: enabled on every table, anon key able to insert
-  enquiries only, nothing readable from the browser.
-- Dependabot or Renovate, and Sentry or Vercel monitoring.
+- Hostaway webhook signature verification — waiting on Hostaway being connected.
+- Shared-store rate limiting (Upstash or Vercel KV) if form spam ever justifies
+  it. The in-memory limiter is per-instance.
+- Sentry or Vercel monitoring for errors.
 - Weekly automated export of Sanity content and the Supabase enquiries table.
+- Sanity itself, and moving the page copy out of `src/content` into it.

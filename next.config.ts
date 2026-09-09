@@ -13,9 +13,13 @@ import type { NextConfig } from "next";
  *
  * Making it work means reading the nonce in the root layout, which opts every
  * page out of static rendering and gives up the ISR and Core Web Vitals the
- * brief also demands. That trade is the owner's call, not a silent one, so
- * until it is made this policy keeps static rendering and stays strict
- * everywhere except script-src.
+ * brief also demands.
+ *
+ * DECISION (delegated by the owner): keep static rendering. This site's stated
+ * job is to rank, measured LCP is 276-352ms on mobile, and nonces would put
+ * every page behind a server round trip to defend against an injection vector
+ * that barely exists here - there is no user-generated content, no rendered
+ * HTML, and no third-party script. Revisit if any of those three change.
  *
  * `'unsafe-inline'` here is a real weakening against XSS injected into our own
  * markup. The mitigations that remain: no user-generated content is rendered,
@@ -24,16 +28,19 @@ import type { NextConfig } from "next";
  * 'self'` and `form-action 'self'` stop exfiltration to another origin.
  *
  * When the Hostaway widgets and analytics land, their origins need adding to
- * script-src, frame-src and connect-src. They are deliberately absent now.
+ * script-src, frame-src and connect-src. Turnstile is already allowed below;
+ * Hostaway and analytics are deliberately still absent.
  */
 const contentSecurityPolicy = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline'",
+  // challenges.cloudflare.com is Turnstile, which guards the enquiry form.
+  "script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com",
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https:",
   "font-src 'self' data:",
-  "connect-src 'self'",
+  "connect-src 'self' https://challenges.cloudflare.com",
   "form-action 'self'",
+  "frame-src https://challenges.cloudflare.com",
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "object-src 'none'",

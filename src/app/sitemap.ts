@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 
 import { getAllMarketingPages, getJournalPosts } from "@/content/source";
+import { qualifyingPairs } from "@/lib/attributes";
 import { getHomes } from "@/lib/hostaway/listings";
 import { AREAS, SITE_URL } from "@/lib/site";
 
@@ -37,6 +38,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: now,
       changeFrequency: "weekly" as const,
       priority: 0.7,
+    })),
+    ...qualifyingPairs(homes, AREAS).map((pair) => ({
+      url: `${SITE_URL}/stay/${pair.areaSlug}/${pair.attribute.slug}`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.6,
     })),
     ...homes.map((home) => ({
       url: `${SITE_URL}/homes/${home.slug}`,

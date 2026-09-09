@@ -1,14 +1,37 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
-import { Placeholder } from "@/components/Placeholder";
+import { MarketingPageView } from "@/components/MarketingPageView";
+import { getMarketingPage } from "@/content/pages";
+import { JsonLd, breadcrumbSchema, faqPageSchema } from "@/lib/schema";
 
-export const metadata: Metadata = {
-  title: "About WildRoots",
-  alternates: { canonical: "/about" },
-  // Empty pages stay out of the index until Phase 2 fills them.
-  robots: { index: false, follow: true },
-};
+const PATH = "/about";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const page = getMarketingPage(PATH);
+  if (!page) return {};
+  return {
+    title: page.title,
+    description: page.description,
+    alternates: { canonical: PATH },
+    openGraph: { title: page.title, description: page.description, url: PATH },
+  };
+}
 
 export default function Page() {
-  return <Placeholder title="About WildRoots" note="A boutique management company on Costa Rica's South Pacific coast." />;
+  const page = getMarketingPage(PATH);
+  if (!page) notFound();
+
+  return (
+    <>
+      <MarketingPageView page={page} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "About", path: PATH },
+        ])}
+      />
+      {page.faqs.length > 0 ? <JsonLd data={faqPageSchema(page.faqs)} /> : null}
+    </>
+  );
 }

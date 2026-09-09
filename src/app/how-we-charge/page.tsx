@@ -1,14 +1,37 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
-import { Placeholder } from "@/components/Placeholder";
+import { MarketingPageView } from "@/components/MarketingPageView";
+import { getMarketingPage } from "@/content/pages";
+import { JsonLd, breadcrumbSchema, faqPageSchema } from "@/lib/schema";
 
-export const metadata: Metadata = {
-  title: "How we charge",
-  alternates: { canonical: "/how-we-charge" },
-  // Empty pages stay out of the index until Phase 2 fills them.
-  robots: { index: false, follow: true },
-};
+const PATH = "/how-we-charge";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const page = getMarketingPage(PATH);
+  if (!page) return {};
+  return {
+    title: page.title,
+    description: page.description,
+    alternates: { canonical: PATH },
+    openGraph: { title: page.title, description: page.description, url: PATH },
+  };
+}
 
 export default function Page() {
-  return <Placeholder title="How we charge" note="Three fees and nothing hidden: a one-time setup fee, a flat monthly management fee, and a share of the revenue we bring in." />;
+  const page = getMarketingPage(PATH);
+  if (!page) notFound();
+
+  return (
+    <>
+      <MarketingPageView page={page} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "How we charge", path: PATH },
+        ])}
+      />
+      {page.faqs.length > 0 ? <JsonLd data={faqPageSchema(page.faqs)} /> : null}
+    </>
+  );
 }

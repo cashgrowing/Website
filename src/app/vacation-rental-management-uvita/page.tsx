@@ -1,14 +1,37 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
-import { Placeholder } from "@/components/Placeholder";
+import { MarketingPageView } from "@/components/MarketingPageView";
+import { getMarketingPage } from "@/content/pages";
+import { JsonLd, breadcrumbSchema, faqPageSchema } from "@/lib/schema";
 
-export const metadata: Metadata = {
-  title: "Vacation rental management in Uvita",
-  alternates: { canonical: "/vacation-rental-management-uvita" },
-  // Empty pages stay out of the index until Phase 2 fills them.
-  robots: { index: false, follow: true },
-};
+const PATH = "/vacation-rental-management-uvita";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const page = getMarketingPage(PATH);
+  if (!page) return {};
+  return {
+    title: page.title,
+    description: page.description,
+    alternates: { canonical: PATH },
+    openGraph: { title: page.title, description: page.description, url: PATH },
+  };
+}
 
 export default function Page() {
-  return <Placeholder title="Vacation rental management in Uvita" note="Managing a vacation rental in Uvita and Bahía Ballena, with a team that lives here." />;
+  const page = getMarketingPage(PATH);
+  if (!page) notFound();
+
+  return (
+    <>
+      <MarketingPageView page={page} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Management in Uvita", path: PATH },
+        ])}
+      />
+      {page.faqs.length > 0 ? <JsonLd data={faqPageSchema(page.faqs)} /> : null}
+    </>
+  );
 }

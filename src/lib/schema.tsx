@@ -1,3 +1,4 @@
+import type { Faq, JournalPost } from "@/content/types";
 import { AREA_NAMES, BRAND, CONTACT, SITE_URL, SOCIAL } from "./site";
 
 /** Stable @id for the business node, referenced by every other node on the site. */
@@ -63,6 +64,42 @@ export function breadcrumbSchema(items: BreadcrumbItem[]) {
       name: item.name,
       item: `${SITE_URL}${item.path}`,
     })),
+  };
+}
+
+/** FAQPage node. Required on any page that carries FAQs. */
+export function faqPageSchema(faqs: Faq[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: { "@type": "Answer", text: faq.answer },
+    })),
+  };
+}
+
+/**
+ * Article node for a journal post.
+ *
+ * Authored by the organisation, never a person: the brief forbids naming anyone
+ * on the site, and the Wix original carried a personal byline here.
+ */
+export function articleSchema(post: JournalPost) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "@id": `${SITE_URL}/journal/${post.slug}#article`,
+    headline: post.title,
+    description: post.description,
+    datePublished: post.publishedAt,
+    dateModified: post.publishedAt,
+    inLanguage: "en",
+    author: { "@id": BUSINESS_ID },
+    publisher: { "@id": BUSINESS_ID },
+    isPartOf: { "@type": "Blog", "@id": `${SITE_URL}/journal#blog`, name: `${BRAND.name} Journal` },
+    mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE_URL}/journal/${post.slug}` },
   };
 }
 

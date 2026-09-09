@@ -8,20 +8,22 @@ import "server-only";
  * Auth is OAuth 2.0 client credentials. The access token is long-lived, so we
  * cache it in module scope and refresh a minute before it expires.
  *
- * IMPORTANT, and not what the naming suggests: `client_id` is the numeric **ID
- * of the API key itself**, shown in the ID column of Settings -> Hostaway API,
- * not the Hostaway account number. Each key has its own ID, and pairing a key
- * with the wrong one returns 401 `invalid_client` - which looks identical to a
- * bad key. HOSTAWAY_ACCOUNT_ID keeps its name because that is what Hostaway's
- * own documentation calls the field, but the value belongs to the key.
+ * `client_id` is the Hostaway **account number**, and `client_secret` is the API
+ * key. Confirmed by probing every candidate against the live endpoint: the
+ * account number authenticates, and the per-key ids from the ID column of
+ * Settings -> Hostaway API do not.
+ *
+ * Worth knowing when this fails: a key paired with the wrong account, and a key
+ * that has since been regenerated, both return exactly the same
+ * 401 `invalid_client`. The status cannot tell them apart, so the error path
+ * logs Hostaway's response body and the shape of the credentials - never the
+ * key itself.
  */
 const API_BASE = "https://api.hostaway.com/v1";
 
 type CachedToken = { value: string; expiresAt: number };
 let cachedToken: CachedToken | null = null;
 let inFlight: Promise<string> | null = null;
-/** The diagnostic probe runs at most once per build. */
-let probeRan = false;
 
 export class HostawayNotConfiguredError extends Error {
   constructor() {
@@ -32,54 +34,6 @@ export class HostawayNotConfiguredError extends Error {
 
 export function isHostawayConfigured(): boolean {
   return Boolean(process.env.HOSTAWAY_ACCOUNT_ID && process.env.HOSTAWAY_API_KEY);
-}
-
-/**
- * TEMPORARY DIAGNOSTIC - remove once Hostaway is connected.
- *
- * Hostaway keeps answering 401 invalid_client and it is not clear which value
- * it wants as client_id: the account number, or the id of the API key itself.
- * Rather than redeploy once per guess, this tries the candidates against the
- * key already in the environment and reports which combination authenticates.
- *
- * It reads the secret straight from process.env, exactly as the normal code
- * path does, and never logs it - only which pairing worked.
- */
-async function probeClientIds(secret: string): Promise<void> {
-  const configured = process.env.HOSTAWAY_ACCOUNT_ID?.trim();
-  const candidates = [configured, "205825", "101651", "101654"].filter(
-    (value, index, all): value is string => Boolean(value) && all.indexOf(value) === index,
-  );
-  const scopes = ["general", ""];
-
-  const results: string[] = [];
-  for (const clientId of candidates) {
-    for (const scope of scopes) {
-      const body = new URLSearchParams({
-        grant_type: "client_credentials",
-        client_id: clientId,
-        client_secret: secret,
-      });
-      if (scope) body.set("scope", scope);
-
-      try {
-        const res = await fetch(`${API_BASE}/accessTokens`, {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body,
-          cache: "no-store",
-        });
-        const text = await res.text();
-        const ok = res.ok && text.includes("access_token");
-        results.push(
-          `client_id=${clientId} scope=${scope || "(none)"} -> ${res.status}${ok ? " SUCCESS" : ""} ${text.slice(0, 120)}`,
-        );
-      } catch (error) {
-        results.push(`client_id=${clientId} scope=${scope || "(none)"} -> threw ${String(error).slice(0, 80)}`);
-      }
-    }
-  }
-  console.error("[hostaway probe]\n  " + results.join("\n  "));
 }
 
 async function requestToken(): Promise<string> {
@@ -115,10 +69,6 @@ async function requestToken(): Promise<string> {
      * truncated paste or a stray character is visible without exposing the key.
      */
     const detail = await res.text().catch(() => "");
-    if (!probeRan) {
-      probeRan = true;
-      await probeClientIds(apiKey);
-    }
     const raw = process.env.HOSTAWAY_API_KEY ?? "";
     console.error(
       "[hostaway] auth rejected.",

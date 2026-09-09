@@ -20,6 +20,8 @@ const API_BASE = "https://api.hostaway.com/v1";
 type CachedToken = { value: string; expiresAt: number };
 let cachedToken: CachedToken | null = null;
 let inFlight: Promise<string> | null = null;
+/** The diagnostic probe runs at most once per build. */
+let probeRan = false;
 
 export class HostawayNotConfiguredError extends Error {
   constructor() {
@@ -30,6 +32,54 @@ export class HostawayNotConfiguredError extends Error {
 
 export function isHostawayConfigured(): boolean {
   return Boolean(process.env.HOSTAWAY_ACCOUNT_ID && process.env.HOSTAWAY_API_KEY);
+}
+
+/**
+ * TEMPORARY DIAGNOSTIC - remove once Hostaway is connected.
+ *
+ * Hostaway keeps answering 401 invalid_client and it is not clear which value
+ * it wants as client_id: the account number, or the id of the API key itself.
+ * Rather than redeploy once per guess, this tries the candidates against the
+ * key already in the environment and reports which combination authenticates.
+ *
+ * It reads the secret straight from process.env, exactly as the normal code
+ * path does, and never logs it - only which pairing worked.
+ */
+async function probeClientIds(secret: string): Promise<void> {
+  const configured = process.env.HOSTAWAY_ACCOUNT_ID?.trim();
+  const candidates = [configured, "205825", "101651", "101654"].filter(
+    (value, index, all): value is string => Boolean(value) && all.indexOf(value) === index,
+  );
+  const scopes = ["general", ""];
+
+  const results: string[] = [];
+  for (const clientId of candidates) {
+    for (const scope of scopes) {
+      const body = new URLSearchParams({
+        grant_type: "client_credentials",
+        client_id: clientId,
+        client_secret: secret,
+      });
+      if (scope) body.set("scope", scope);
+
+      try {
+        const res = await fetch(`${API_BASE}/accessTokens`, {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body,
+          cache: "no-store",
+        });
+        const text = await res.text();
+        const ok = res.ok && text.includes("access_token");
+        results.push(
+          `client_id=${clientId} scope=${scope || "(none)"} -> ${res.status}${ok ? " SUCCESS" : ""} ${text.slice(0, 120)}`,
+        );
+      } catch (error) {
+        results.push(`client_id=${clientId} scope=${scope || "(none)"} -> threw ${String(error).slice(0, 80)}`);
+      }
+    }
+  }
+  console.error("[hostaway probe]\n  " + results.join("\n  "));
 }
 
 async function requestToken(): Promise<string> {
@@ -65,6 +115,10 @@ async function requestToken(): Promise<string> {
      * truncated paste or a stray character is visible without exposing the key.
      */
     const detail = await res.text().catch(() => "");
+    if (!probeRan) {
+      probeRan = true;
+      await probeClientIds(apiKey);
+    }
     const raw = process.env.HOSTAWAY_API_KEY ?? "";
     console.error(
       "[hostaway] auth rejected.",

@@ -7,8 +7,14 @@ import "server-only";
  *
  * Auth is OAuth 2.0 client credentials. The access token is long-lived, so we
  * cache it in module scope and refresh a minute before it expires.
+ *
+ * IMPORTANT, and not what the naming suggests: `client_id` is the numeric **ID
+ * of the API key itself**, shown in the ID column of Settings -> Hostaway API,
+ * not the Hostaway account number. Each key has its own ID, and pairing a key
+ * with the wrong one returns 401 `invalid_client` - which looks identical to a
+ * bad key. HOSTAWAY_ACCOUNT_ID keeps its name because that is what Hostaway's
+ * own documentation calls the field, but the value belongs to the key.
  */
-
 const API_BASE = "https://api.hostaway.com/v1";
 
 type CachedToken = { value: string; expiresAt: number };

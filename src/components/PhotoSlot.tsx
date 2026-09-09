@@ -2,11 +2,7 @@ import Image from "next/image";
 
 import styles from "./PhotoSlot.module.css";
 
-type Props = {
-  /** Path under /public/photos once the owner supplies it. Omit while pending. */
-  src?: string;
-  /** Alt text. Required - every image on this site has it. */
-  alt?: string;
+type Base = {
   /** What photograph belongs here. Shown to reviewers while the slot is empty. */
   brief: string;
   className?: string;
@@ -17,6 +13,13 @@ type Props = {
 };
 
 /**
+ * A filled slot needs both a source and alt text; an empty one needs neither.
+ * Expressing that as a union makes `src` without `alt` a compile error rather
+ * than a slot that quietly renders the placeholder instead of the photograph.
+ */
+type Props = Base & ({ src: string; alt: string } | { src?: never; alt?: never });
+
+/**
  * Marks where a real photograph goes.
  *
  * The brief allows real photography only, so an unsupplied photo renders as a
@@ -24,11 +27,16 @@ type Props = {
  * into /public/photos and pass `src` + `alt` to fill it.
  */
 export function PhotoSlot({ src, alt, brief, className, fill, priority, sizes = "100vw" }: Props) {
-  const classes = [styles.slot, src ? undefined : styles.pending, fill ? styles.fill : undefined, className]
+  const classes = [
+    styles.slot,
+    src ? undefined : styles.pending,
+    fill ? styles.fill : undefined,
+    className,
+  ]
     .filter(Boolean)
     .join(" ");
 
-  if (src && alt) {
+  if (src) {
     return (
       <div className={classes}>
         <Image src={src} alt={alt} fill sizes={sizes} priority={priority} />

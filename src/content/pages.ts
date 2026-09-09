@@ -398,6 +398,72 @@ export const MARKETING_PAGES: MarketingPage[] = [
   },
 
   {
+    path: "/whale-season",
+    title: "Whale season in Uvita and Bahía Ballena",
+    description:
+      "When humpbacks pass Uvita, where to watch them, and where to stay. Two migrations a year reach Bahía Ballena, and the southern run is the big one.",
+    h1: "Whale Season on the Ballena Coast",
+    lede: "Two migrations a year reach this bay. The southern run, from August to October, is the one most people plan a trip around.",
+    audience: "guest",
+    sections: [
+      {
+        kind: "prose",
+        heading: "Why the whales come here",
+        paragraphs: [
+          "Bahía Ballena is the bay in front of Uvita, and at its center is Marino Ballena National Park and the Whale's Tail, a sandbar shaped like a tail that appears at low tide. Humpback whales come here to give birth in warm, sheltered water.",
+          "They arrive twice a year, from opposite ends of the planet. A smaller northern group passes earlier in the year. The southern group comes through in far greater numbers between August and October, which is why that second run is the one the season is named for.",
+        ],
+      },
+      {
+        kind: "list",
+        heading: "When to come",
+        intro: "Two windows, and they are not the same trip.",
+        items: [
+          {
+            title: "August to October: the southern migration",
+            body: "The larger of the two runs, and the peak of the season. September and October also bring the Festival de Ballenas y Delfines in Uvita. This is green season, so expect afternoon rain, lush hills and lower rates on the houses.",
+          },
+          {
+            title: "Earlier in the year: the northern migration",
+            body: "A smaller group, overlapping the dry season from December through April. Fewer whales, but clear skies, calm sea and the busiest weeks of the year for everything else. Book early.",
+          },
+        ],
+      },
+      {
+        kind: "prose",
+        heading: "Seeing them, and what else is here",
+        paragraphs: [
+          "Boat tours leave from the park entrances and run out to the whales and dolphins, and further out to Caño Island. Ask us and we will point you to the operators we trust rather than whoever is selling on the beach that morning.",
+          "Around the whale watching there is the Whale's Tail itself, walkable at low tide, Nauyaca Waterfalls up the road near Dominical, and Ojochal for dinner. The tide table decides more of your day here than the clock does.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "When exactly is whale season in Uvita?",
+        answer:
+          "Humpbacks reach this bay twice a year. A smaller northern group arrives earlier in the year, and the larger southern group comes through around September and October. That second run is the one most people plan a trip around.",
+      },
+      {
+        question: "Is green season a bad time to visit?",
+        answer:
+          "Not for this. The southern whale migration falls inside the green season, and the rain usually comes in the afternoon rather than all day. The hills are at their greenest and the houses cost less than they do in February.",
+      },
+      {
+        question: "How do I book a home for whale season?",
+        answer:
+          "Message us on WhatsApp with your dates and how many people are coming. September and October fill up, so the further ahead you ask, the more choice you have.",
+      },
+    ],
+    related: [
+      { label: "Vacation rentals in Bahía Ballena", href: "/vacation-rentals-bahia-ballena" },
+      { label: "All homes", href: "/homes" },
+      { label: "Stay in Uvita", href: "/stay/uvita" },
+      { label: "Stay in Dominical", href: "/stay/dominical" },
+    ],
+  },
+
+  {
     path: "/about",
     title: "About WildRoots",
     description:

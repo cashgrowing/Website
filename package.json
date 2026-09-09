@@ -11,7 +11,9 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "build:only": "next build"
+    "build:only": "next build",
+    "sanity:export": "node scripts/export-sanity.ts",
+    "sanity:check": "node scripts/export-sanity.ts && node scripts/check-sanity-roundtrip.ts"
   },
   "dependencies": {
     "next": "^16.3.4",

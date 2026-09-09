@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 
 import styles from "../journal.module.css";
 import { Faqs } from "@/components/Faqs";
-import { getJournalPost, getJournalPosts } from "@/content/journal";
+import { getJournalPost, getJournalPosts } from "@/content/source";
 import { alternatesFor } from "@/lib/i18n";
 import { ogImage } from "@/lib/og";
 import { JsonLd, articleSchema, breadcrumbSchema, faqPageSchema } from "@/lib/schema";
@@ -14,12 +14,13 @@ type Params = { params: Promise<{ slug: string }> };
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  return getJournalPosts().map((post) => ({ slug: post.slug }));
+  const posts = await getJournalPosts();
+  return posts.map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
-  const post = getJournalPost(slug);
+  const post = await getJournalPost(slug);
   if (!post) return { title: "Post not found" };
 
   return {
@@ -48,7 +49,7 @@ function formatDate(iso: string): string {
 
 export default async function JournalPostPage({ params }: Params) {
   const { slug } = await params;
-  const post = getJournalPost(slug);
+  const post = await getJournalPost(slug);
   if (!post) notFound();
 
   return (

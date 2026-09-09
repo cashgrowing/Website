@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import styles from "./journal.module.css";
-import { getJournalPosts } from "@/content/journal";
+import { getJournalPosts } from "@/content/source";
 import { alternatesFor } from "@/lib/i18n";
 import { ogImage } from "@/lib/og";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
@@ -29,8 +29,8 @@ function formatDate(iso: string): string {
   });
 }
 
-export default function JournalIndexPage() {
-  const posts = getJournalPosts();
+export default async function JournalIndexPage() {
+  const posts = await getJournalPosts();
 
   return (
     <div className={styles.page}>

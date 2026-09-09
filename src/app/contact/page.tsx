@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 
 import { InquirySection } from "@/components/InquirySection";
 import { MarketingPageView } from "@/components/MarketingPageView";
-import { getMarketingPage } from "@/content/pages";
+import { getMarketingPage } from "@/content/source";
 import { alternatesFor } from "@/lib/i18n";
 import { ogImage } from "@/lib/og";
 import { JsonLd, breadcrumbSchema, faqPageSchema } from "@/lib/schema";
@@ -11,7 +11,7 @@ import { JsonLd, breadcrumbSchema, faqPageSchema } from "@/lib/schema";
 const PATH = "/contact";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const page = getMarketingPage(PATH);
+  const page = await getMarketingPage(PATH);
   if (!page) return {};
   return {
     title: page.title,
@@ -26,8 +26,8 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function Page() {
-  const page = getMarketingPage(PATH);
+export default async function Page() {
+  const page = await getMarketingPage(PATH);
   if (!page) notFound();
 
   return (

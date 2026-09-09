@@ -16,7 +16,7 @@ const config = [
       "jsx-a11y/alt-text": "error",
     },
   },
-  { ignores: [".next/**", "node_modules/**", "design/**", "next-env.d.ts"] },
+  { ignores: [".next/**", "node_modules/**", "design/**", "next-env.d.ts", "studio/**"] },
 ];
 
 export default config;

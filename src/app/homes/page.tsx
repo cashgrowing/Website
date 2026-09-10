@@ -2,11 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import styles from "./homes.module.css";
+import stay from "../stay/stay.module.css";
+import { Faqs } from "@/components/Faqs";
 import { HomeCard } from "@/components/HomeCard";
 import { alternatesFor } from "@/lib/i18n";
+import { BOOKING_DIRECT, EVERY_STAY, HOMES_FAQS, HOMES_INTRO } from "@/content/homes";
 import { getHomes } from "@/lib/hostaway/listings";
 import { ogImage } from "@/lib/og";
-import { JsonLd, breadcrumbSchema } from "@/lib/schema";
+import { JsonLd, breadcrumbSchema, faqPageSchema } from "@/lib/schema";
 import { AREAS } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -43,6 +46,40 @@ export default async function HomesPage() {
         </nav>
       </div>
 
+      <div className={stay.column}>
+        <div className={stay.intro}>
+          {HOMES_INTRO.map((paragraph) => (
+            <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+          ))}
+        </div>
+
+        <section className={stay.nearby}>
+          <h2>What booking direct actually means</h2>
+          <div className={stay.list}>
+            {BOOKING_DIRECT.map((point) => (
+              <div className={stay.item} key={point.title}>
+                <h3>{point.title}</h3>
+                <p>{point.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className={stay.nearby}>
+          <h2>What every stay includes</h2>
+          <div className={stay.list}>
+            {EVERY_STAY.map((point) => (
+              <div className={stay.item} key={point.title}>
+                <h3>{point.title}</h3>
+                <p>{point.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+
+      <h2 className={stay.homesHeading}>The homes</h2>
+
       {homes.length > 0 ? (
         <div className={styles.cards}>
           {homes.map((home, index) => (
@@ -56,6 +93,11 @@ export default async function HomesPage() {
         </p>
       )}
 
+      <div className={stay.column}>
+        <Faqs faqs={HOMES_FAQS} heading="Booking a home here" />
+      </div>
+
+      <JsonLd data={faqPageSchema(HOMES_FAQS)} />
       <JsonLd
         data={breadcrumbSchema([
           { name: "Home", path: "/" },

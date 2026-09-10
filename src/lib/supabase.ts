@@ -15,6 +15,21 @@ export function isSupabaseConfigured(): boolean {
   return Boolean(process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY);
 }
 
+/**
+ * Headers for a server-side Supabase request.
+ *
+ * Supabase issues two kinds of secret: the legacy `service_role` key, which is
+ * a JWT (starts `eyJ`), and the newer `sb_secret_...` key, which is not. The
+ * legacy key goes in both `apikey` and `Authorization`; the new one belongs in
+ * `apikey` only, and sending it as a Bearer token gets it rejected as a
+ * malformed JWT. Handle both so it does not matter which one gets pasted.
+ */
+export function supabaseHeaders(key: string): Record<string, string> {
+  const headers: Record<string, string> = { apikey: key };
+  if (key.startsWith("eyJ")) headers.Authorization = `Bearer ${key}`;
+  return headers;
+}
+
 export type StoredInquiry = InquiryInput & {
   sourcePath?: string;
   userAgent?: string;
@@ -44,8 +59,7 @@ export async function insertInquiry(inquiry: StoredInquiry): Promise<string | nu
     const res = await fetch(`${url}/rest/v1/inquiries`, {
       method: "POST",
       headers: {
-        apikey: key,
-        Authorization: `Bearer ${key}`,
+        ...supabaseHeaders(key),
         "Content-Type": "application/json",
         Prefer: "return=representation",
       },

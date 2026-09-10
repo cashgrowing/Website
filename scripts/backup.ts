@@ -59,7 +59,11 @@ async function backupInquiries() {
   for (let from = 0; ; from += pageSize) {
     const res = await fetch(
       `${url}/rest/v1/inquiries?select=*&order=created_at.asc&offset=${from}&limit=${pageSize}`,
-      { headers: { apikey: key, Authorization: `Bearer ${key}` } },
+      {
+        // Legacy service_role keys are JWTs and go in both headers; newer
+        // sb_secret_ keys go in apikey only. See supabaseHeaders in src/lib.
+        headers: key.startsWith("eyJ") ? { apikey: key, Authorization: `Bearer ${key}` } : { apikey: key },
+      },
     );
     if (!res.ok) throw new Error(`Supabase export failed: ${res.status} ${await res.text()}`);
     const page = (await res.json()) as unknown[];

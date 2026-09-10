@@ -17,6 +17,8 @@ export type NearbyPlace = {
   protected?: boolean;
 };
 
+export type Practicality = { name: string; body: string };
+
 export type AreaContent = {
   slug: string;
   name: string;
@@ -26,8 +28,40 @@ export type AreaContent = {
   intro: string[];
   nearbyHeading: string;
   nearby: NearbyPlace[];
+  /** Airports, ordered nearest first. Drive times are deliberately approximate. */
+  gettingHere: Practicality[];
   faqs: Faq[];
 };
+
+/**
+ * Advice that applies the length of this coast, so it is written once and shown
+ * on every area page rather than repeated three times in the content.
+ *
+ * It is the honest sort: the things a local would actually tell a guest on
+ * arrival, including the ones that are slightly awkward to say.
+ */
+export const GOOD_TO_KNOW: Practicality[] = [
+  {
+    name: "Do not leave anything in the car",
+    body: "Not in the boot, not under a seat, not for five minutes at a trailhead or a beach car park. Break-ins here are opportunistic and a visibly empty car is rarely touched.",
+  },
+  {
+    name: "Swim where the lifeguards are",
+    body: "The rip currents on this coast are real and they catch strong swimmers. On beaches with towers, swim between them; on beaches without, ask before you go in.",
+  },
+  {
+    name: "Check the tide before you walk out",
+    body: "The Whale's Tail sandbar and the sea caves at Ventanas are only reachable at low tide, and the water comes back faster than people expect. Check the table, and check it again before walking back.",
+  },
+  {
+    name: "Carry some cash",
+    body: "Cards work in most restaurants and supermarkets. The feria, smaller sodas, parking attendants and some park entrances are easier with colones.",
+  },
+  {
+    name: "Ask about the road before you book a car",
+    body: "Whether a house needs a 4x4 depends on the specific house and the month. We will tell you honestly rather than let you discover it on arrival in the dark.",
+  },
+];
 
 export const AREA_CONTENT: AreaContent[] = [
   {
@@ -64,7 +98,7 @@ export const AREA_CONTENT: AreaContent[] = [
       },
       {
         name: "Caño Island Biological Reserve",
-        body: "A full-day boat trip offshore for snorkelling and diving. Visitor numbers are capped, so it is worth booking a few days ahead.",
+        body: "A full-day boat trip offshore, and the best diving and snorkelling on this coast: clear water, reef, rays and turtles. Visitor numbers are capped, so book a few days ahead.",
         protected: true,
       },
       {
@@ -72,7 +106,26 @@ export const AREA_CONTENT: AreaContent[] = [
         body: "The farmers market, and the easiest way to stock a kitchen with what is actually in season.",
       },
     ],
+    gettingHere: [
+      {
+        name: "La Managua (XQP), Quepos",
+        body: "The closest airport, roughly an hour and a half north on the coastal road. Small domestic flights from San José, and the shortest drive of any option.",
+      },
+      {
+        name: "San José (SJO)",
+        body: "The main international airport. Around three to four hours by road, most of it straightforward, and the route most people take.",
+      },
+      {
+        name: "Palmar Sur (PMZ)",
+        body: "A small domestic airport to the south, closer if you are staying at the Ojochal end of the coast.",
+      },
+    ],
     faqs: [
+      {
+        question: "What is the closest airport to Uvita?",
+        answer:
+          "La Managua (XQP) at Quepos is the nearest, roughly an hour and a half north. Most visitors fly into San José (SJO) instead and drive down in three to four hours, or take a domestic hop to Quepos or Palmar Sur.",
+      },
       {
         question: "Is Uvita a good base for the whole Costa Ballena?",
         answer:
@@ -130,7 +183,22 @@ export const AREA_CONTENT: AreaContent[] = [
         body: "Where the river meets the sea at the north end of the beach. Worth walking at low tide for the birds.",
       },
     ],
+    gettingHere: [
+      {
+        name: "La Managua (XQP), Quepos",
+        body: "The closest airport to Dominical, roughly an hour north. Domestic flights from San José.",
+      },
+      {
+        name: "San José (SJO)",
+        body: "The international arrival point, around three hours by road and the most common way in.",
+      },
+    ],
     faqs: [
+      {
+        question: "What is the closest airport to Dominical?",
+        answer:
+          "La Managua (XQP) at Quepos, roughly an hour north. Most people fly into San José (SJO) and drive down in around three hours.",
+      },
       {
         question: "Is Dominical good for beginners learning to surf?",
         answer:
@@ -185,7 +253,26 @@ export const AREA_CONTENT: AreaContent[] = [
         body: "Ojochal is the last easy stop before the peninsula, which is a longer trip and a wilder one.",
       },
     ],
+    gettingHere: [
+      {
+        name: "Palmar Sur (PMZ)",
+        body: "The closest airport to Ojochal, a short drive south. Small domestic flights.",
+      },
+      {
+        name: "La Managua (XQP), Quepos",
+        body: "Roughly two hours north on the coastal road, and the better option if you are also spending time further up the coast.",
+      },
+      {
+        name: "San José (SJO)",
+        body: "The international arrival point, around four hours by road.",
+      },
+    ],
     faqs: [
+      {
+        question: "What is the closest airport to Ojochal?",
+        answer:
+          "Palmar Sur (PMZ) is nearest, a short drive south. La Managua (XQP) at Quepos is roughly two hours north, and San José (SJO) is around four hours by road.",
+      },
       {
         question: "Is Ojochal too quiet for a first trip to Costa Rica?",
         answer:

@@ -7,7 +7,7 @@ import stay from "../stay.module.css";
 import { Faqs } from "@/components/Faqs";
 import { HomeCard } from "@/components/HomeCard";
 import { alternatesFor } from "@/lib/i18n";
-import { getAreaContent } from "@/content/areas";
+import { GOOD_TO_KNOW, getAreaContent } from "@/content/areas";
 import { getHomesByArea } from "@/lib/hostaway/listings";
 import { ogImage } from "@/lib/og";
 import { JsonLd, breadcrumbSchema, faqPageSchema } from "@/lib/schema";
@@ -104,6 +104,30 @@ export default async function AreaPage({ params }: Params) {
                     ) : null}
                   </h3>
                   <p>{place.body}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className={stay.nearby}>
+            <h2>Getting here</h2>
+            <div className={stay.list}>
+              {content.gettingHere.map((item) => (
+                <div className={stay.item} key={item.name}>
+                  <h3>{item.name}</h3>
+                  <p>{item.body}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className={stay.nearby}>
+            <h2>Good to know</h2>
+            <div className={stay.list}>
+              {GOOD_TO_KNOW.map((item) => (
+                <div className={stay.item} key={item.name}>
+                  <h3>{item.name}</h3>
+                  <p>{item.body}</p>
                 </div>
               ))}
             </div>

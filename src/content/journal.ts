@@ -741,6 +741,130 @@ export const JOURNAL_POSTS: JournalPost[] = [
       { label: "Vacation rentals in Bahía Ballena", href: "/vacation-rentals-bahia-ballena" },
     ],
   },
+  {
+    slug: "humpback-whale-season-uvita",
+    title: "Humpback whale season in Uvita",
+    description:
+      "Bahía Ballena gets two humpback migrations a year: a smaller northern group from January to March and a larger southern group from August to October.",
+    publishedAt: "2026-09-05",
+    readingMinutes: 5,
+    excerpt:
+      "Most whale watching destinations get one season. Bahía Ballena gets two, and between them they give this coast one of the longest humpback seasons anywhere.",
+    body: [
+      { kind: "p", text: "Most whale watching destinations get one season. Bahía Ballena gets two." },
+      {
+        kind: "p",
+        text: "Every year, humpback whales from opposite ends of the Pacific travel to the warm, sheltered water in front of Uvita to give birth and raise their calves. One group comes down from the north at the start of the year. A much larger group comes up from the south in the second half.",
+      },
+      {
+        kind: "p",
+        text: "Between them, they give Costa Rica's South Pacific coast one of the longest humpback seasons anywhere in the world, and they are the reason the bay in front of our homes is called Bahía Ballena in the first place.",
+      },
+      {
+        kind: "p",
+        text: "If you own a vacation home here, or you are planning a trip, this is what the calendar looks like and how to make the most of it.",
+      },
+
+      { kind: "h2", text: "Why humpbacks come to Bahía Ballena" },
+      {
+        kind: "p",
+        text: "Humpbacks feed in cold, nutrient rich water near the poles, then migrate thousands of kilometers to warm tropical water to mate and calve. Newborn calves have very little blubber, so they need warm, calm water while they build strength for the long trip back.",
+      },
+      {
+        kind: "p",
+        text: "The bay protected by the Whale's Tail sandbar, inside Marino Ballena National Park, is exactly that kind of nursery: shallow, warm and relatively sheltered. A mother and calf will typically stay in the area for weeks.",
+      },
+      {
+        kind: "p",
+        text: "That is why sightings here are not a lucky one-off. During the season, boats leaving Uvita see whales on most trips, and on calm days at low tide you can sometimes spot spouts from the sandbar itself.",
+      },
+
+      { kind: "h2", text: "The northern migration: January to March" },
+      {
+        kind: "p",
+        text: "The first group arrives from the North Pacific, from feeding grounds off Oregon, Washington and British Columbia. They begin showing up in December, and the best months are January and February, with sightings tapering off in March.",
+      },
+      {
+        kind: "p",
+        text: "This is the smaller of the two populations, so a tour in February is quieter and more variable than one in September.",
+      },
+      {
+        kind: "p",
+        text: "It also lines up with Costa Rica's dry season, which means glassy water, clear skies and the most reliable boat conditions of the year. For guests who want whales plus guaranteed beach weather, this is the window.",
+      },
+
+      { kind: "h2", text: "The southern migration: August to October" },
+      {
+        kind: "p",
+        text: "The second group is the big one. These whales travel up from Antarctic and southern Chilean waters, a migration of roughly 5,000 to 8,000 kilometers, and they start arriving in July. Numbers build through August, peak in September and stay strong into October, with some animals still around in early November.",
+      },
+      {
+        kind: "p",
+        text: "Mothers with calves are common in this season, and the breaching, tail slapping and spy hopping that people come for happen most often now.",
+      },
+      {
+        kind: "p",
+        text: "It coincides with the green season, so expect afternoon rain, lush hills and lower nightly rates than December to April, which makes it one of the better value windows of the year for a family trip.",
+      },
+
+      { kind: "h2", text: "The Whale and Dolphin Festival" },
+      {
+        kind: "p",
+        text: "Uvita marks the southern peak with the Festival de Ballenas y Delfines, held each September in Bahía Ballena with support from the Costa Rican Tourism Institute. The 16th edition ran September 4 to 6, 2026, with sustainable whale watching tours, a craft market, workshops and local food.",
+      },
+      {
+        kind: "p",
+        text: "If your travel dates are flexible, the first two weeks of September put you in the middle of the peak and the festival at the same time.",
+      },
+
+      { kind: "h2", text: "How to see them responsibly" },
+      {
+        kind: "p",
+        text: "Marino Ballena is a national park and whale watching inside it is regulated. Licensed boats keep a distance of around 100 meters, limit time with each group and never separate a mother from her calf.",
+      },
+      {
+        kind: "p",
+        text: "Tours leave from Uvita in the morning when the sea is calmest, run about three hours and usually combine whales with dolphins, the Whale's Tail and a stop at Isla Ballena. Book a day or two ahead in September; the good operators fill up.",
+      },
+
+      { kind: "h2", text: "What this means if you own a home here" },
+      {
+        kind: "p",
+        text: "For owners, the whale calendar is a booking calendar. The southern season fills what would otherwise be the slowest months on the coast, and it is the single strongest reason guests choose Bahía Ballena over other beach towns in August, September and October.",
+      },
+      {
+        kind: "p",
+        text: "Listings that name the season clearly, quote real dates and recommend a tour partner convert better in those months than listings that only talk about the beach.",
+      },
+      {
+        kind: "p",
+        text: "WildRoots manages a small number of vacation homes in Bahía Ballena, and we build the whale season into how each home is listed, priced and prepared for guests.",
+      },
+    ],
+    faqs: [
+      {
+        question: "When is whale season in Uvita?",
+        answer:
+          "Twice a year. A smaller northern group is best from January to February, and the larger southern group builds through August, peaks in September and stays strong into October.",
+      },
+      {
+        question: "Which migration is better to plan a trip around?",
+        answer:
+          "September and October for numbers and behaviour, since mothers with calves are common and breaching is most frequent. January and February for calmer seas and dry season weather with fewer whales.",
+      },
+      {
+        question: "When is the Festival de Ballenas y Delfines?",
+        answer:
+          "Each September in Bahía Ballena. The first two weeks of September put you in the middle of the southern peak and the festival at the same time.",
+      },
+    ],
+    related: [
+      { label: "Whale season on the Ballena coast", href: "/whale-season" },
+      { label: "Vacation rentals in Bahía Ballena", href: "/vacation-rentals-bahia-ballena" },
+      { label: "Vacation rental management in Uvita", href: "/vacation-rental-management-uvita" },
+      { label: "Property management in Costa Rica", href: "/property-management-costa-rica" },
+    ],
+  },
 ];
 
 export function getJournalPosts(): JournalPost[] {

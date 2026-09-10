@@ -114,6 +114,13 @@ const nextConfig: NextConfig = {
         destination: "/journal/what-a-property-manager-does-costa-rica",
         statusCode: 301,
       },
+      {
+        // Found by auditing the live Wix sitemap: this post was not in the
+        // brief's redirect map and would have 404'd on cutover.
+        source: "/post/humpback-whale-season-uvita",
+        destination: "/journal/humpback-whale-season-uvita",
+        statusCode: 301,
+      },
       { source: "/blog", destination: "/journal", statusCode: 301 },
       { source: "/blog/:path*", destination: "/journal", statusCode: 301 },
     ];

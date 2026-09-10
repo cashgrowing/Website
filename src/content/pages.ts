@@ -531,10 +531,10 @@ export const MARKETING_PAGES: MarketingPage[] = [
       },
     ],
     related: [
+      { label: "Humpback whale season in Uvita", href: "/journal/humpback-whale-season-uvita" },
       { label: "Vacation rentals in Bahía Ballena", href: "/vacation-rentals-bahia-ballena" },
       { label: "All homes", href: "/homes" },
       { label: "Stay in Uvita", href: "/stay/uvita" },
-      { label: "Stay in Dominical", href: "/stay/dominical" },
     ],
   },
 

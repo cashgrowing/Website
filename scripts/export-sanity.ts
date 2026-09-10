@@ -36,6 +36,7 @@ for (const page of MARKETING_PAGES) {
     h1: page.h1,
     lede: page.lede,
     audience: page.audience,
+    ...(page.image ? { image: { _type: "pageImage", ...page.image } } : {}),
     sections: page.sections.map((section, i) =>
       section.kind === "prose"
         ? {

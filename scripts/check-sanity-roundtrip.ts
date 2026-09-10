@@ -67,6 +67,9 @@ for (const doc of docs.filter((d) => d._type === "marketingPage")) {
     h1: doc.h1,
     lede: doc.lede,
     audience: doc.audience,
+    image: doc.image
+      ? { src: (doc.image as Doc).src, alt: (doc.image as Doc).alt }
+      : null,
     sections: (doc.sections as Doc[] | undefined)?.map(projectSection) ?? null,
     faqs: faqsOf(doc),
     related: relatedOf(doc),

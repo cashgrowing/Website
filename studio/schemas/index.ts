@@ -23,4 +23,5 @@ export const schemaTypes = [
   heading2,
   paragraph,
   note,
+  pageImage,
 ];

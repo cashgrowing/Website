@@ -80,6 +80,7 @@ export const FOOTER_COLUMNS = [
     heading: "Guests",
     links: [
       { label: "All homes", href: "/homes" },
+      { label: "Guest services", href: "/guest-services" },
       { label: "Bahía Ballena", href: "/vacation-rentals-bahia-ballena" },
       { label: "Whale season", href: "/whale-season" },
       { label: "Check availability", href: BOOKING_ENGINE_URL },

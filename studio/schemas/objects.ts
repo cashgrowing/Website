@@ -126,3 +126,32 @@ export const note = defineType({
   fields: [defineField({ name: "text", type: "text", rows: 3, validation: (r) => r.required() })],
   preview: { select: { title: "text" }, prepare: ({ title }) => ({ title, subtitle: "Aside" }) },
 });
+
+export const pageImage = defineType({
+  name: "pageImage",
+  title: "Photograph",
+  type: "object",
+  description: "Shown under the opening line. Alt text is required - the build fails without it.",
+  fields: [
+    defineField({
+      name: "src",
+      title: "File path",
+      type: "string",
+      description: "A file in /public/photos, for example /photos/nature-sloth.jpg",
+      validation: (r) =>
+        r.required().custom((value) =>
+          typeof value === "string" && value.startsWith("/photos/")
+            ? true
+            : "Must be a path under /photos/",
+        ),
+    }),
+    defineField({
+      name: "alt",
+      title: "Alt text",
+      type: "string",
+      description: "What the photograph shows, for someone who cannot see it.",
+      validation: (r) => r.required(),
+    }),
+  ],
+  preview: { select: { title: "alt", subtitle: "src" } },
+});

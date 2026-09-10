@@ -38,6 +38,7 @@ export const marketingPageSchema: z.ZodType<MarketingPage> = z.object({
   faqs: z.array(faq),
   related: z.array(related),
   audience: z.enum(["owner", "guest"]),
+  image: z.object({ src: z.string(), alt: z.string() }).optional(),
 });
 
 export const journalPostSchema: z.ZodType<JournalPost> = z.object({

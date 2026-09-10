@@ -73,6 +73,7 @@ export default async function AreaPage({ params }: Params) {
         </p>
         <nav className={styles.areas} aria-label="Related pages">
           <Link href="/homes">All homes</Link>
+          <Link href="/guest-services">Guest services</Link>
           {management ? <Link href={management.href}>{management.label}</Link> : null}
           {AREAS.filter((other) => other.slug && other.slug !== slug).map((other) => (
             <Link key={other.slug} href={`/stay/${other.slug}`}>

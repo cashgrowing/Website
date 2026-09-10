@@ -41,6 +41,8 @@ export type MarketingPage = {
   related: RelatedLink[];
   /** Which funnel this page serves, which decides the closing call to action. */
   audience: "owner" | "guest";
+  /** Optional photograph beneath the opening line. Alt text is required with it. */
+  image?: { src: string; alt: string };
 };
 
 export type JournalBlock =

@@ -466,9 +466,9 @@ export const MARKETING_PAGES: MarketingPage[] = [
     ],
     related: [
       { label: "All homes", href: "/homes" },
+      { label: "Guest services", href: "/guest-services" },
       { label: "Stay in Uvita", href: "/stay/uvita" },
       { label: "Whale season", href: "/whale-season" },
-      { label: "Vacation rental management in Uvita", href: "/vacation-rental-management-uvita" },
     ],
   },
 
@@ -532,12 +532,118 @@ export const MARKETING_PAGES: MarketingPage[] = [
     ],
     related: [
       { label: "Humpback whale season in Uvita", href: "/journal/humpback-whale-season-uvita" },
+      { label: "Guest services", href: "/guest-services" },
       { label: "Vacation rentals in Bahía Ballena", href: "/vacation-rentals-bahia-ballena" },
       { label: "All homes", href: "/homes" },
-      { label: "Stay in Uvita", href: "/stay/uvita" },
     ],
   },
 
+  {
+    path: "/guest-services",
+    title: "Guest services on this coast",
+    description:
+      "A private chef, yoga, massage, dance classes, airport transfers and nature-centric tours, arranged for guests staying in our homes on the Costa Ballena.",
+    h1: "Guest Services",
+    lede: "A chef in the house, a class on the terrace, a driver at the airport, and a guide who knows where the sloths actually are.",
+    audience: "guest",
+    image: {
+      src: "/photos/nature-sloth.jpg",
+      alt: "A three-toed sloth in the canopy on Costa Rica's South Pacific coast",
+    },
+    sections: [
+      {
+        kind: "prose",
+        paragraphs: [
+          "A house is the start of a trip here, not the whole of it. The things guests remember tend to be the dinner someone cooked for them on the terrace, or the morning they saw a sloth close enough to watch it decide where to put its hand next.",
+          "We arrange these because we live here and know who is good. Everything below is delivered by people from the communities between Dominical and Ojochal, paid properly for skilled work close to home.",
+          "Ask us before you arrive if you can. The chef and the guides are the two that book up.",
+        ],
+      },
+      {
+        kind: "list",
+        heading: "What we can arrange",
+        intro: "All of it comes to the house, or starts from it.",
+        items: [
+          {
+            title: "A private chef",
+            body: "Dinner cooked in your kitchen, from a menu agreed beforehand around what you eat and what is in season. Works for one evening or for a week, and is usually the thing guests write to us about afterwards.",
+          },
+          {
+            title: "Yoga",
+            body: "A teacher comes to the house and works on the terrace or by the pool. Single sessions or a daily practice through a longer stay, at whatever level the group is actually at.",
+          },
+          {
+            title: "Massage",
+            body: "In the house, with a table brought in. Straightforward to arrange for one person or for a group over an afternoon.",
+          },
+          {
+            title: "Dance classes",
+            body: "Salsa, merengue and bachata, taught properly and patiently. Popular with groups and with families, and considerably more fun than it sounds if you have never done it.",
+          },
+          {
+            title: "Airport transfers",
+            body: "A driver meets you and brings you to the house, whether you land at San José, Quepos or Palmar Sur. Worth it after a long flight and a road you have never driven in the dark.",
+          },
+          {
+            title: "Nature-centric tours",
+            body: "Whales and dolphins, Caño Island for snorkelling and diving, the waterfalls, the mangroves and early morning walks for birds and sloths. Guided by people who know the ground rather than a booking desk.",
+          },
+        ],
+      },
+      {
+        kind: "prose",
+        heading: "What nature-centric means here",
+        paragraphs: [
+          "It means the point of the trip is the animal, not the photograph you get of it.",
+          "Most of what is worth seeing on this coast sits inside protected land: Marino Ballena National Park in front of Uvita, the Caño Island Biological Reserve offshore, the Térraba-Sierpe wetlands south of Ojochal, the turtle beach at Playa Tortuga. Whale watching inside the marine park is regulated, with licensed boats holding distance, limiting time with each group and never separating a mother from her calf.",
+          "That regulation is the real protection, and it is a fact rather than a promise we are making on someone else's behalf. What we add is knowing which guides respect it when nobody is checking, which is not something you can tell from a website.",
+          "It also means telling you when the answer is no. There are months when the whales are not here, and mornings when the sea is wrong for the island. We would rather say so than sell you a boat trip you will not enjoy.",
+        ],
+      },
+      {
+        kind: "prose",
+        heading: "How to arrange any of it",
+        paragraphs: [
+          "Message us on WhatsApp with your dates and what you are interested in, and we will come back with what is possible and what it costs. Guests already staying with us have the same number in the guest guide, answered around the clock in English and Spanish.",
+          "Nothing here is bundled into the price of the house. You choose what you want, and you pay for that.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Do I have to book these before I arrive?",
+        answer:
+          "Not for everything, but the private chef and the better guides do book up, particularly in the dry season and around the September whale peak. Message us with your dates as early as you can.",
+      },
+      {
+        question: "Can a private chef work around allergies or a specific diet?",
+        answer:
+          "Yes. The menu is agreed beforehand, so tell us what you need when you ask and it gets built into the plan rather than worked around on the night.",
+      },
+      {
+        question: "Which airport should I fly into for a transfer?",
+        answer:
+          "San José is the usual international arrival, around three to four hours by road. La Managua at Quepos and Palmar Sur are closer if you take a domestic flight. We can meet you at any of the three.",
+      },
+      {
+        question: "Are the tours suitable for children?",
+        answer:
+          "Most are. The whale and dolphin trips and the waterfall walks work well with families; the diving at Caño Island does not. Tell us the ages and we will say what fits.",
+      },
+      {
+        question: "What does nature-centric actually mean?",
+        answer:
+          "That the trips go into protected places on the terms those places set: regulated distance from the whales, capped visitor numbers at Caño Island, guides who follow the rules when nobody is watching. It is about how the animals are treated rather than a label on a brochure.",
+      },
+    ],
+    related: [
+      { label: "Stay in Uvita", href: "/stay/uvita" },
+      { label: "Stay in Dominical", href: "/stay/dominical" },
+      { label: "Stay in Ojochal", href: "/stay/ojochal" },
+      { label: "Humpback whale season in Uvita", href: "/journal/humpback-whale-season-uvita" },
+      { label: "All homes", href: "/homes" },
+    ],
+  },
   {
     path: "/about",
     title: "About WildRoots",

@@ -22,6 +22,7 @@ import { sanityQuery } from "@/lib/sanity";
 
 const MARKETING_PROJECTION = `{
   path, title, description, h1, lede, audience,
+  image{ src, alt },
   "sections": sections[]{
     "kind": select(_type == "listSection" => "list", "prose"),
     heading, intro, paragraphs, items[]{ title, body }

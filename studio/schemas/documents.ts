@@ -66,6 +66,12 @@ export const marketingPage = defineType({
       validation: (r) => r.required(),
     }),
     defineField({
+      name: "image",
+      title: "Photograph",
+      type: "pageImage",
+      group: "content",
+    }),
+    defineField({
       name: "sections",
       title: "Sections",
       type: "array",

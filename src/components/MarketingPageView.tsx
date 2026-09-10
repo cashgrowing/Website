@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
@@ -33,6 +34,19 @@ export function MarketingPageView({
             <h1>{page.h1}</h1>
             <p className={styles.lede}>{page.lede}</p>
           </header>
+
+          {page.image ? (
+            <div className={styles.image}>
+              <Image
+                src={page.image.src}
+                alt={page.image.alt}
+                width={1800}
+                height={1200}
+                sizes="(max-width: 900px) 100vw, 42rem"
+                priority
+              />
+            </div>
+          ) : null}
 
           {page.sections.map((section, index) => (
             <section className={styles.section} key={`${section.heading ?? "s"}-${index}`}>

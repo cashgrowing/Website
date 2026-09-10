@@ -28,6 +28,15 @@
   max-width: 40ch;
 }
 
+/* Square corners, no shadow. The photograph carries itself. */
+.image {
+  margin-top: 2rem;
+}
+.image img {
+  width: 100%;
+  height: auto;
+}
+
 .section {
   padding-top: 2.75rem;
 }

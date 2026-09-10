@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 
 import styles from "./page.module.css";
@@ -8,7 +7,7 @@ import { HomeCard } from "@/components/HomeCard";
 import { PhotoSlot } from "@/components/PhotoSlot";
 import { alternatesFor } from "@/lib/i18n";
 import { getHomes } from "@/lib/hostaway/listings";
-import { BOOKING_ENGINE_URL, CONTACT, LOGOS } from "@/lib/site";
+import { BOOKING_ENGINE_URL, CONTACT } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "WildRoots | Vacation rental management, Uvita Costa Rica",
@@ -46,20 +45,22 @@ export default async function HomePage() {
         <PhotoSlot
           fill
           className={styles.heroPhoto}
-          brief="IMG_5671 - Uvita coastline looking over Bahía Ballena and the Whale's Tail. Full bleed, landscape."
+          src="/photos/hero-uvita-whales-tail.jpg"
+          alt="The Whale's Tail sandbar curving into Bahía Ballena, seen from the air above Uvita on Costa Rica's South Pacific coast"
+          brief="Uvita coastline over Bahía Ballena and the Whale's Tail."
           sizes="100vw"
           priority
         />
-        <Image
-          className={styles.heroMark}
-          src={LOGOS.texturedGold}
-          alt=""
-          aria-hidden="true"
-          width={242}
-          height={110}
-          sizes="242px"
-          priority
-        />
+        {/*
+          The brief asks for the textured gold lockup here, and also says never
+          to put the textured file on a light background. Those agreed while the
+          hero was a black placeholder. Against a real photograph with a bright
+          sky it reads as washed out, so the more emphatic rule wins.
+
+          The flat lockup sits in the header roughly forty pixels above this, so
+          nothing is lost. Restore by putting the <Image> back if a darker hero
+          photograph is chosen later.
+        */}
         <div className={styles.heroCopy}>
           <h1>Your home on this coast, looked after properly.</h1>
           <p>
@@ -147,7 +148,9 @@ export default async function HomePage() {
       <section className={styles.care}>
         <PhotoSlot
           className={styles.carePhoto}
-          brief="Pool and water feature at one of the managed homes. Daylight, no people in frame."
+          src="/photos/care-pool-casa-canto-ballena.jpg"
+          alt="The pool and covered terrace at Casa Canto Ballena, a managed home in Bahía Ballena"
+          brief="Pool at one of the managed homes."
           sizes="(max-width: 900px) 100vw, 50vw"
         />
         <div className={styles.careText}>
@@ -174,7 +177,9 @@ export default async function HomePage() {
         </blockquote>
         <PhotoSlot
           className={styles.quotePhoto}
-          brief="Covered terrace at a managed home, furnished and ready for guests."
+          src="/photos/terrace-casa-canto-ballena.jpg"
+          alt="The covered terrace at Casa Canto Ballena, with dining table and loungers beside the pool"
+          brief="Covered terrace at a managed home."
           sizes="(max-width: 900px) 100vw, 50vw"
         />
       </section>

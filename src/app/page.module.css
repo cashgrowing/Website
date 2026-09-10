@@ -25,15 +25,6 @@
   );
 }
 
-.heroMark {
-  position: absolute;
-  top: clamp(1.5rem, 0.6rem + 2.8vw, 2.75rem);
-  right: var(--gutter);
-  height: clamp(4rem, 2rem + 6vw, 6.875rem);
-  width: auto;
-  opacity: 0.9;
-}
-
 .heroCopy {
   position: relative;
   padding: var(--band) var(--gutter);
@@ -239,12 +230,7 @@
   .quotePhoto {
     min-height: 18rem;
   }
-  .heroMark {
-    display: none;
-  }
-}
-
-@media (max-width: 520px) {
+  @media (max-width: 520px) {
   .cards {
     grid-template-columns: 1fr;
   }

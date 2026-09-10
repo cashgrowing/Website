@@ -3,11 +3,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import styles from "../../homes/homes.module.css";
+import stay from "../stay.module.css";
+import { Faqs } from "@/components/Faqs";
 import { HomeCard } from "@/components/HomeCard";
 import { alternatesFor } from "@/lib/i18n";
+import { getAreaContent } from "@/content/areas";
 import { getHomesByArea } from "@/lib/hostaway/listings";
 import { ogImage } from "@/lib/og";
-import { JsonLd, breadcrumbSchema } from "@/lib/schema";
+import { JsonLd, breadcrumbSchema, faqPageSchema } from "@/lib/schema";
 import { AREAS } from "@/lib/site";
 
 export const revalidate = 900;
@@ -35,9 +38,13 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const area = areaFromSlug(slug);
   if (!area) return { title: "Area not found" };
 
+  const content = getAreaContent(slug);
+
   return {
     title: `Vacation rentals in ${area.name}, Costa Rica`,
-    description: `Homes to rent in ${area.name} on Costa Rica's South Pacific coast, looked after and booked direct with the local WildRoots team.`,
+    description:
+      content?.description ??
+      `Homes to rent in ${area.name} on Costa Rica's South Pacific coast, looked after and booked direct with the local WildRoots team.`,
     alternates: alternatesFor(`/stay/${area.slug}`),
     openGraph: {
       title: `Stay in ${area.name}`,
@@ -54,14 +61,15 @@ export default async function AreaPage({ params }: Params) {
 
   const homes = await getHomesByArea(area.name);
   const management = MANAGEMENT_PAGE[slug];
+  const content = getAreaContent(slug);
 
   return (
     <div className={styles.page}>
       <div className={styles.intro}>
         <h1>Stay in {area.name}</h1>
         <p>
-          Homes in {area.name} looked after by the WildRoots team. Booked direct, answered
-          24/7, and walked every week whether a guest is in them or not.
+          {content?.lede ??
+            `Homes in ${area.name} looked after by the WildRoots team, booked direct.`}
         </p>
         <nav className={styles.areas} aria-label="Related pages">
           <Link href="/homes">All homes</Link>
@@ -73,6 +81,37 @@ export default async function AreaPage({ params }: Params) {
           ))}
         </nav>
       </div>
+
+      {content ? (
+        <div className={stay.column}>
+          <div className={stay.intro}>
+            {content.intro.map((paragraph) => (
+              <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+            ))}
+          </div>
+
+          <section className={stay.nearby}>
+            <h2>{content.nearbyHeading}</h2>
+            <div className={stay.list}>
+              {content.nearby.map((place) => (
+                <div className={stay.item} key={place.name}>
+                  <h3>
+                    {place.name}
+                    {place.protected ? (
+                      <span className={stay.protected} title="Protected land or regulated activity">
+                        protected
+                      </span>
+                    ) : null}
+                  </h3>
+                  <p>{place.body}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
+      ) : null}
+
+      <h2 className={stay.homesHeading}>Homes in {area.name}</h2>
 
       {homes.length > 0 ? (
         <div className={styles.cards}>
@@ -87,6 +126,13 @@ export default async function AreaPage({ params }: Params) {
         </p>
       )}
 
+      {content && content.faqs.length > 0 ? (
+        <div className={stay.column}>
+          <Faqs faqs={content.faqs} heading={`Staying in ${area.name}`} />
+        </div>
+      ) : null}
+
+      {content && content.faqs.length > 0 ? <JsonLd data={faqPageSchema(content.faqs)} /> : null}
       <JsonLd
         data={breadcrumbSchema([
           { name: "Home", path: "/" },

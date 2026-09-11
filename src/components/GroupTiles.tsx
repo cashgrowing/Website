@@ -13,8 +13,14 @@ import type { Home } from "@/lib/hostaway/types";
 export function GroupTiles({ groups }: { groups: Array<{ group: HomeGroup; homes: Home[] }> }) {
   return (
     <div className={styles.tiles}>
-      {groups.map(({ group, homes }) => {
-        const cover = homes.find((home) => home.photos[0])?.photos[0];
+      {groups.map(({ group, homes }, index) => {
+        /*
+         * Groups overlap heavily while the portfolio is small - three homes
+         * with pools are the same three that welcome pets - so start each
+         * tile at a different home, or every tile shows the same photograph.
+         */
+        const withPhotos = homes.filter((home) => home.photos[0]);
+        const cover = withPhotos[index % Math.max(1, withPhotos.length)]?.photos[0];
         return (
           <Link key={group.slug} className={styles.tile} href={`/homes/groups/${group.slug}`}>
             <div className={`${styles.frame} ${cover ? "" : styles.empty}`}>

@@ -63,6 +63,7 @@ export const NAV = [
   { label: "Areas", href: "/stay/uvita" },
   { label: "About", href: "/about" },
   { label: "Journal", href: "/journal" },
+  { label: "Contact", href: "/contact" },
 ] as const;
 
 export const FOOTER_COLUMNS = [
@@ -73,6 +74,7 @@ export const FOOTER_COLUMNS = [
       { label: "How we charge", href: "/how-we-charge" },
       { label: "Management in Uvita", href: "/vacation-rental-management-uvita" },
       { label: "Management in Dominical", href: "/property-manager-dominical" },
+      { label: "Send an enquiry", href: "/contact" },
       { label: "Talk to the team", href: CONTACT.whatsappUrl },
     ],
   },

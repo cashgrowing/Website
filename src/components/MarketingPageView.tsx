@@ -99,16 +99,27 @@ export function MarketingPageView({
             <>
               <h2>Tell us about your home.</h2>
               <p>
-                Message the team on WhatsApp with where the house is and how you use it. We
-                answer in English and Spanish, usually within minutes.
+                Message the team on WhatsApp, or send an enquiry, with where the house is and
+                how you use it. We answer in English and Spanish, usually within minutes.
               </p>
               <div className={styles.ctaActions}>
                 <Button variant="gold" href={CONTACT.whatsappUrl}>
                   Talk to the team on WhatsApp
                 </Button>
-                <Button variant="onDark" href="/how-we-charge">
-                  How we charge
-                </Button>
+                {/*
+                 * The form is the quieter route for owners who would rather not
+                 * WhatsApp a stranger. On the contact page itself the form is
+                 * already on screen, so that page keeps the pricing link instead.
+                 */}
+                {page.path === "/contact" ? (
+                  <Button variant="onDark" href="/how-we-charge">
+                    How we charge
+                  </Button>
+                ) : (
+                  <Button variant="onDark" href="/contact">
+                    Send an enquiry
+                  </Button>
+                )}
               </div>
             </>
           ) : (

@@ -65,15 +65,17 @@ function toPhotos(listing: HostawayListing, homeName: string, area: string | nul
 function toHome(listing: HostawayListing): Home {
   /*
    * The house's own name - "Casa Canto Ballena" - not the channel title.
-   * Hostaway keeps both: `name` is what the office calls the house, and
-   * `externalListingName` is the keyword-stuffed title written for Airbnb
-   * ("8 personas, piscina, wifi | 3 cuartos, 4 baños"). Our pages are ours,
-   * and a house should be called by its name on them. Whoever adds a
-   * listing in Hostaway should give it a name fit to print.
+   * Hostaway keeps both: `internalListingName` is the name in the dashboard,
+   * what the office calls the house; `name` and `externalListingName` carry
+   * the keyword-stuffed title written for Airbnb ("8 personas, piscina,
+   * wifi | 3 cuartos, 4 baños"). Checked against a live build: `name` is
+   * the channel title too. Our pages are ours, and a house should be called
+   * by its name on them. Whoever adds a listing in Hostaway should give it
+   * a name fit to print.
    */
   const name =
-    listing.name?.trim() ||
     listing.internalListingName?.trim() ||
+    listing.name?.trim() ||
     listing.externalListingName?.trim() ||
     `Home ${listing.id}`;
 

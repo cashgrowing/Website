@@ -24,14 +24,28 @@
   gap: 2px;
 }
 
+/*
+ * Title block and reading matter down the left, the booking rail spanning
+ * both rows on the right. Named areas so the phone layout can slide the rail
+ * between the two without moving anything in the markup.
+ */
 .body {
   padding: var(--band) var(--gutter);
   max-width: 1360px;
   margin-inline: auto;
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-  gap: 3.5rem;
+  grid-template-areas:
+    "head rail"
+    "rest rail";
+  column-gap: 3.5rem;
   align-items: start;
+}
+.head {
+  grid-area: head;
+}
+.rest {
+  grid-area: rest;
 }
 
 .crumbs {
@@ -60,20 +74,6 @@
   margin-bottom: 1.5rem;
 }
 
-/* Price and actions under the title. Phones only; the rail does this on wide screens. */
-.bookingBar {
-  display: none;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--tan-light);
-  margin-bottom: 1.5rem;
-}
-.bookingBar .price {
-  font-size: var(--size-subhead);
-  color: var(--black);
-  font-weight: 400;
-  margin-bottom: 1rem;
-}
-
 .prose p {
   margin-bottom: 1rem;
   color: var(--ink);
@@ -98,8 +98,12 @@
   margin-bottom: 0.375rem;
 }
 
-/* Booking rail. Checkout is handed off to book.wildrootscr.com, never iframed. */
+/*
+ * Booking rail: heading, base price, then the calendar (StayPlanner). Only
+ * the payment form is handed off to book.wildrootscr.com, never iframed.
+ */
 .rail {
+  grid-area: rail;
   position: sticky;
   top: 1.5rem;
   border: 1px solid var(--tan-light);
@@ -111,20 +115,11 @@
   color: var(--black);
   margin-bottom: 0.5rem;
 }
-.rail p {
-  font-size: var(--size-small);
-  color: var(--brown);
-  margin-bottom: 1.25rem;
-}
-.rail .price {
+.rail > .price {
   font-size: var(--size-subhead);
   color: var(--black);
   font-weight: 400;
-  margin-bottom: 0.25rem;
-}
-.railActions {
-  display: grid;
-  gap: 0.75rem;
+  margin-bottom: 1rem;
 }
 
 .areaLink {
@@ -139,10 +134,16 @@
 @media (max-width: 1000px) {
   .body {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    grid-template-areas:
+      "head"
+      "rail"
+      "rest";
+    row-gap: 2.5rem;
   }
-  .bookingBar {
-    display: block;
+  .facts {
+    border-bottom: 0;
+    padding-bottom: 0;
+    margin-bottom: 0;
   }
   .rail {
     position: static;

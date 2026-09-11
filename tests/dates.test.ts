@@ -2,6 +2,7 @@ import { strict as assert } from "node:assert";
 import { describe, it } from "node:test";
 
 import {
+  engineCheckoutUrl,
   engineListingUrl,
   engineSearchUrl,
   readStay,
@@ -47,6 +48,14 @@ describe("carrying a guest's dates through to the booking engine", () => {
     // The engine ignores ?listingId= on its homepage and strands the guest there.
     assert.ok(!engineListingUrl(ENGINE, 581362, null).includes("listingId"));
     assert.equal(engineListingUrl(ENGINE, 581362, null), "https://book.wildrootscr.com/listings/581362");
+  });
+
+  it("sends a chosen stay straight to the engine's payment form", () => {
+    const stay = { checkin: "2026-10-19", checkout: "2026-10-22", guests: 4 };
+    assert.equal(
+      engineCheckoutUrl(ENGINE, 581362, stay),
+      "https://book.wildrootscr.com/checkout/581362?start=2026-10-19&end=2026-10-22&numberOfGuests=4",
+    );
   });
 
   it("passes the stay along our own links only when there is one", () => {

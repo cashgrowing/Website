@@ -1,6 +1,6 @@
 /**
  * The dates a guest typed into the availability strip, carried through the
- * whole chain: strip -> /homes -> a house -> the booking engine, so nobody
+ * whole chain: strip -> /homes -> a house -> the engine's checkout, so nobody
  * types them twice.
  *
  * Plain data and plain functions, safe on the server and in the browser, and
@@ -60,6 +60,17 @@ export function engineListingUrl(base: string, listingId: number, stay: Stay | n
 /** The engine's search results, with the guest's dates when known. */
 export function engineSearchUrl(base: string, stay: Stay | null): string {
   return engineParams(new URL("/search", base), stay);
+}
+
+/**
+ * The engine's payment form for one house - the page after its calendar.
+ * Only reachable with a stay: without dates the form has nothing to charge
+ * for, so callers link to the house's engine page instead. Verified live:
+ * `/checkout/581362?start&end&numberOfGuests=4` opens "Finalize your
+ * booking" with those dates, four guests and the full price breakdown.
+ */
+export function engineCheckoutUrl(base: string, listingId: number, stay: Stay): string {
+  return engineParams(new URL(`/checkout/${listingId}`, base), stay);
 }
 
 export function formatStayDate(iso: string): string {

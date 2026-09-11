@@ -27,9 +27,12 @@ import type { NextConfig } from "next";
  * `base-uri 'self'` close the classic escalation paths, and `connect-src
  * 'self'` and `form-action 'self'` stop exfiltration to another origin.
  *
- * When the Hostaway widgets and analytics land, their origins need adding to
- * script-src, frame-src and connect-src. Turnstile, GA4 and the Facebook Pixel
- * are allowed below; Hostaway's widgets are deliberately still absent.
+ * Hostaway's embeddable widgets are deliberately absent. The house page's
+ * calendar is our own, fed by /api/homes/[id]/calendar and /quote on this
+ * origin, so nothing here needed loosening for it. Should a Hostaway widget
+ * ever be embedded after all, it needs d2q3n06xhbi0am.cloudfront.net in
+ * script-src and booking-engine.hostaway.com in connect-src. Turnstile, GA4
+ * and the Facebook Pixel are allowed below.
  */
 const contentSecurityPolicy = [
   "default-src 'self'",

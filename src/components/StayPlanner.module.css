@@ -1,0 +1,112 @@
+/*
+ * The booking rail's insides. Ruled with hairlines like the strip under the
+ * hero, so the two calendars on the site are obviously the same instrument.
+ */
+.planner {
+  display: grid;
+  gap: 1rem;
+  border-top: 1px solid var(--tan-light);
+  padding-top: 1rem;
+}
+
+/* Nights beside Guests, one hairline between and one above and below. */
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--tan-light);
+  border-bottom: 1px solid var(--tan-light);
+}
+.cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.875rem 0;
+  min-width: 0;
+}
+.cell + .cell {
+  border-left: 1px solid var(--tan-light);
+  padding-left: 1.25rem;
+}
+.cell > span {
+  font-size: 0.6875rem; /* 11 */
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--brown);
+}
+.cell b,
+.cell select {
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font-size: var(--size-body);
+  font-weight: 300;
+  font-family: inherit;
+  padding: 0;
+  width: 100%;
+  font-variant-numeric: tabular-nums;
+}
+.cell select {
+  cursor: pointer;
+}
+.cell select:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+.placeholder {
+  color: #8a7d6d;
+}
+
+/* What the stay costs, or why it cannot happen. Reserves its two lines so the button does not jump. */
+.summary {
+  min-height: 3.2rem;
+  font-size: var(--size-small);
+  color: var(--brown);
+}
+.summary p {
+  max-width: none;
+}
+.nightsLine b {
+  font-weight: 500;
+  color: var(--black);
+  font-size: var(--size-body);
+}
+.lines {
+  display: grid;
+  gap: 0.2rem;
+  margin: 0.5rem 0;
+  font-variant-numeric: tabular-nums;
+}
+.lines > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.lines dd {
+  color: var(--ink);
+}
+.total {
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--tan-light);
+  color: var(--ink);
+}
+.total b {
+  font-weight: 500;
+  color: var(--black);
+}
+
+.actions {
+  display: grid;
+  gap: 0.75rem;
+}
+.actions > * {
+  text-align: center;
+}
+
+.fine {
+  font-size: var(--size-small);
+  color: var(--brown);
+}
+.fine a {
+  color: var(--gold-deep);
+}

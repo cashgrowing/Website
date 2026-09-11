@@ -150,3 +150,37 @@ export async function hostawayGet<T>(
   }
   return json.result;
 }
+
+/**
+ * POST a Hostaway endpoint and return its `result` payload. Never cached:
+ * the only POST the site makes asks for a price, and a price is only worth
+ * having fresh.
+ */
+export async function hostawayPost<T>(path: string, body: Record<string, unknown>): Promise<T> {
+  const token = await getAccessToken();
+
+  const res = await fetch(`${API_BASE}${path}`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+      "Cache-Control": "no-cache",
+    },
+    body: JSON.stringify(body),
+  });
+
+  if (res.status === 401) {
+    cachedToken = null;
+  }
+  if (!res.ok) {
+    // Hostaway says why in the body; a 400 here usually names the bad field.
+    const detail = await res.text().catch(() => "");
+    throw new Error(`Hostaway POST ${path} failed: ${res.status} ${res.statusText} ${detail.slice(0, 200)}`);
+  }
+
+  const json = (await res.json()) as { status?: string; result?: T };
+  if (json.result === undefined) {
+    throw new Error(`Hostaway POST ${path} returned no result.`);
+  }
+  return json.result;
+}

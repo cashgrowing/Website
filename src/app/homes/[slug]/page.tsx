@@ -4,8 +4,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import styles from "./home.module.css";
-import { BookingLinks } from "@/components/BookingLinks";
 import { PhotoSlot } from "@/components/PhotoSlot";
+import { StayPlanner } from "@/components/StayPlanner";
 import { alternatesFor } from "@/lib/i18n";
 import { getHomeBySlug, getHomes } from "@/lib/hostaway/listings";
 import type { Home } from "@/lib/hostaway/types";
@@ -132,8 +132,14 @@ export default async function HomeDetailPage({ params }: Params) {
         ) : null}
       </div>
 
+      {/*
+        Three areas: the title block, the reading matter, and the booking
+        rail. Beside each other on wide screens; on a phone the rail comes
+        straight after the title, so the calendar is where a guest looks
+        first and the paragraphs follow for anyone who reads on.
+      */}
       <div className={styles.body}>
-        <div>
+        <header className={styles.head}>
           <p className={styles.crumbs}>
             <Link href="/homes">Homes</Link>
             {where ? ` · ${where}` : null}
@@ -146,32 +152,9 @@ export default async function HomeDetailPage({ params }: Params) {
             {home.bathrooms ? <li>{home.bathrooms} bathrooms</li> : null}
             {home.sleeps ? <li>Sleeps {home.sleeps}</li> : null}
           </ul>
+        </header>
 
-          {/*
-            On a phone the booking rail lands at the very bottom, after every
-            paragraph and amenity. This bar puts the price and the two actions
-            under the title, where a guest looks first; the rail stays below
-            for anyone who reads the whole page. Hidden on wide screens, where
-            the rail sits beside the text.
-          */}
-          <div className={styles.bookingBar}>
-            {home.basePrice ? (
-              <p className={styles.price}>
-                from {home.currency === "USD" ? "$" : ""}
-                {Math.round(home.basePrice)}
-                {home.currency === "USD" ? "" : ` ${home.currency}`} / night
-              </p>
-            ) : (
-              <p className={styles.price}>Price on request</p>
-            )}
-            <BookingLinks
-              className={styles.railActions}
-              listingId={home.id}
-              bookingEngineUrl={BOOKING_ENGINE_URL}
-              whatsappUrl={CONTACT.whatsappUrl}
-            />
-          </div>
-
+        <div className={styles.rest}>
           {paragraphs.length > 0 ? (
             <div className={styles.prose}>
               {paragraphs.map((paragraph, index) => (
@@ -198,7 +181,7 @@ export default async function HomeDetailPage({ params }: Params) {
           ) : null}
         </div>
 
-        <aside className={styles.rail}>
+        <aside className={styles.rail} aria-label="Book this house">
           <h2>Check the dates</h2>
           {home.basePrice ? (
             <p className={styles.price}>
@@ -206,14 +189,13 @@ export default async function HomeDetailPage({ params }: Params) {
               {Math.round(home.basePrice)}
               {home.currency === "USD" ? "" : ` ${home.currency}`} / night
             </p>
-          ) : null}
-          <p>
-            Availability and checkout run on our own booking engine. Same house, same team,
-            no platform fee.
-          </p>
-          <BookingLinks
-            className={styles.railActions}
+          ) : (
+            <p className={styles.price}>Price on request</p>
+          )}
+          <StayPlanner
             listingId={home.id}
+            sleeps={home.sleeps}
+            currency={home.currency}
             bookingEngineUrl={BOOKING_ENGINE_URL}
             whatsappUrl={CONTACT.whatsappUrl}
           />

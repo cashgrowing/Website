@@ -5,13 +5,7 @@ import { useState } from "react";
 import btn from "./Button.module.css";
 import { DateRangePicker } from "./DateRangePicker";
 import styles from "./AvailabilityStrip.module.css";
-
-/** Whole nights between two YYYY-MM-DD strings, or null when either is missing. */
-function nightsBetween(checkin: string, checkout: string): number | null {
-  if (!checkin || !checkout) return null;
-  const nights = Math.round((Date.parse(`${checkout}T00:00:00Z`) - Date.parse(`${checkin}T00:00:00Z`)) / 86_400_000);
-  return nights > 0 ? nights : null;
-}
+import { nightsBetween } from "@/lib/availability";
 
 /**
  * Dates and guests on the first screen: Dates · Nights · Guests · button.

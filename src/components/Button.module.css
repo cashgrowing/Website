@@ -13,6 +13,18 @@
 }
 
 /*
+ * A real <button> that cannot be pressed yet - "Book these dates" before
+ * there are dates. Hairline and muted text, the same as a placeholder, so it
+ * reads as "not yet" rather than as a broken gold button.
+ */
+.btn:disabled {
+  background: transparent;
+  border-color: var(--tan-light);
+  color: #8a7d6d;
+  cursor: default;
+}
+
+/*
  * Gold fill, white text.
  *
  * The brief specifies tan as the hover. Measured, white on tan is 2.48:1 -

@@ -30,9 +30,9 @@
   padding: 0.875rem 1.625rem;
   font-size: var(--size-small);
   font-weight: 500;
-  background: var(--gold);
+  background: var(--gold-fill);
   color: #fff;
-  border: 1px solid var(--gold);
+  border: 1px solid var(--gold-fill);
   cursor: pointer;
 }
 .retry:hover {

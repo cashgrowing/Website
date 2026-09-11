@@ -38,13 +38,14 @@
   cursor: pointer;
 }
 .accept {
-  background: var(--gold);
-  border-color: var(--gold);
+  background: var(--gold-fill);
+  border-color: var(--gold-fill);
   color: #fff;
 }
+/* Darkens like the gold button: white on tan is 2.48:1 and unreadable. */
 .accept:hover {
-  background: var(--tan);
-  border-color: var(--tan);
+  background: var(--gold-deep);
+  border-color: var(--gold-deep);
 }
 .button:hover {
   color: #fff;

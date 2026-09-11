@@ -24,8 +24,8 @@
  * 7.52:1 and reads correctly.
  */
 .gold {
-  background: var(--gold);
-  border-color: var(--gold);
+  background: var(--gold-fill);
+  border-color: var(--gold-fill);
   color: #fff;
 }
 .gold:hover {

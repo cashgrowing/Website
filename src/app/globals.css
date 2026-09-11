@@ -10,6 +10,14 @@
   --brown: #3a2e22;
   --gold: #877750; /* Pantone 871 C — the only accent */
   --gold-deep: #675239; /* gold, darkened for link text on paper (contrast) */
+  /*
+   * Gold as a button fill under white text. Two steps darker than --gold:
+   * white on #877750 measures 4.39:1, just under the 4.5:1 AA needs for
+   * button-sized text, and Lighthouse flags it. #83734b measures 4.65:1 and
+   * is not distinguishable from --gold by eye. Fills only - never for text,
+   * rules or outlines, which keep --gold.
+   */
+  --gold-fill: #83734b;
   --tan: #b8a181; /* hover state, kickers on dark */
   --tan-light: #d0bca9; /* hairlines on paper */
   --paper: #fcfbf8; /* every reading section. never pure white */

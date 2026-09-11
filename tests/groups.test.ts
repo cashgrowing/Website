@@ -11,6 +11,7 @@ function home(
   return {
     id,
     slug: `home-${id}`,
+    aliases: [],
     name: `Home ${id}`,
     area: overrides.area ?? "Uvita",
     city: "Uvita",

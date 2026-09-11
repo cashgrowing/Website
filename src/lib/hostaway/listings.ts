@@ -62,6 +62,27 @@ function toPhotos(listing: HostawayListing, homeName: string, area: string | nul
   return photos;
 }
 
+/**
+ * Addresses the site once used for a house, by Hostaway id. Renaming a house
+ * in Hostaway changes its address here; add the old one so links already
+ * shared, indexed or bookmarked keep working. Never remove an entry.
+ */
+const LEGACY_HOME_SLUGS: Record<string, number> = {
+  "8-personas-piscina-wifi-3-cuartos-4-banos": 580709,
+  "sleeps-8-pool-privacy-wifi-tropical-gardens": 580720,
+};
+
+/** Every slug this house should answer to besides its own. */
+function aliasesFor(listing: HostawayListing, slug: string): string[] {
+  const fromNames = [listing.name, listing.externalListingName, listing.internalListingName]
+    .map((value) => slugify(value?.trim() ?? ""))
+    .filter((candidate) => candidate && candidate !== slug);
+  const legacy = Object.entries(LEGACY_HOME_SLUGS)
+    .filter(([, id]) => id === listing.id)
+    .map(([old]) => old);
+  return [...new Set([...fromNames, ...legacy])].filter((alias) => alias !== slug);
+}
+
 function toHome(listing: HostawayListing): Home {
   /*
    * The house's own name - "Casa Canto Ballena" - not the channel title.
@@ -80,10 +101,12 @@ function toHome(listing: HostawayListing): Home {
     `Home ${listing.id}`;
 
   const area = matchArea(listing);
+  const slug = slugify(name) || `home-${listing.id}`;
 
   return {
     id: listing.id,
-    slug: slugify(name) || `home-${listing.id}`,
+    slug,
+    aliases: aliasesFor(listing, slug),
     name,
     area,
     city: listing.city?.trim() || null,
@@ -169,6 +192,12 @@ export async function getHomes(): Promise<Home[]> {
 export async function getHomeBySlug(slug: string): Promise<Home | null> {
   const homes = await getHomes();
   return homes.find((home) => home.slug === slug) ?? null;
+}
+
+/** The house an old or alternative address belongs to, so the page can redirect. */
+export async function getHomeByAlias(slug: string): Promise<Home | null> {
+  const homes = await getHomes();
+  return homes.find((home) => home.aliases.includes(slug)) ?? null;
 }
 
 export async function getHomesByArea(area: string): Promise<Home[]> {

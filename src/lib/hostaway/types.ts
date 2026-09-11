@@ -47,6 +47,11 @@ export type HomePhoto = {
 export type Home = {
   id: number;
   slug: string;
+  /**
+   * Other addresses this house has answered to - slugs of its channel title
+   * and of names it had before - so an old link redirects instead of 404ing.
+   */
+  aliases: string[];
   name: string;
   /** Matched against AREAS when Hostaway's city maps to an area we serve. */
   area: string | null;

@@ -15,6 +15,7 @@ function home(id: number, area: string | null, amenities: string[]): Home {
   return {
     id,
     slug: `home-${id}`,
+    aliases: [],
     name: `Home ${id}`,
     area,
     city: area,

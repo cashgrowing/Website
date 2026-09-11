@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 
 import styles from "./home.module.css";
 import { HouseGallery } from "@/components/HouseGallery";
 import { PhotoSlot } from "@/components/PhotoSlot";
 import { StayPlanner } from "@/components/StayPlanner";
 import { alternatesFor } from "@/lib/i18n";
-import { getHomeBySlug, getHomes } from "@/lib/hostaway/listings";
+import { getHomeByAlias, getHomeBySlug, getHomes } from "@/lib/hostaway/listings";
 import type { Home } from "@/lib/hostaway/types";
 import { BUSINESS_ID, JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { AREAS, BOOKING_ENGINE_URL, CONTACT, SITE_URL } from "@/lib/site";
@@ -23,10 +23,22 @@ export async function generateStaticParams() {
   return homes.map((home) => ({ slug: home.slug }));
 }
 
+/**
+ * The house at this address. An address the house used to have - its
+ * channel title, or a name it had before a rename in Hostaway - sends the
+ * visitor on to the current one rather than to a dead end.
+ */
+async function resolveHome(slug: string): Promise<Home> {
+  const home = await getHomeBySlug(slug);
+  if (home) return home;
+  const renamed = await getHomeByAlias(slug);
+  if (renamed) permanentRedirect(`/homes/${renamed.slug}`);
+  notFound();
+}
+
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
-  const home = await getHomeBySlug(slug);
-  if (!home) return { title: "Home not found" };
+  const home = await resolveHome(slug);
 
   const where = home.area ?? home.city ?? "Costa Rica";
   const summary = home.description?.split("\n")[0]?.trim();
@@ -91,8 +103,7 @@ function lodgingSchema(home: Home) {
 
 export default async function HomeDetailPage({ params }: Params) {
   const { slug } = await params;
-  const home = await getHomeBySlug(slug);
-  if (!home) notFound();
+  const home = await resolveHome(slug);
 
   const where = home.area ?? home.city;
   const areaSlug = AREAS.find((area) => area.name === home.area)?.slug ?? null;

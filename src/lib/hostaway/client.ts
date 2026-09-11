@@ -18,6 +18,10 @@ import "server-only";
  * 401 `invalid_client`. The status cannot tell them apart, so the error path
  * logs Hostaway's response body and the shape of the credentials - never the
  * key itself.
+ *
+ * A key also carries the permissions of the Partner it was created for. Only
+ * "Hostaway Public API" (shown as hostaway-api) may read /v1/listings; an
+ * owner-portal key authenticates and then gets 403 on every listing call.
  */
 const API_BASE = "https://api.hostaway.com/v1";
 

@@ -31,9 +31,8 @@ the brief wins.
 
 | What | Why it matters |
 | --- | --- |
-| **Hostaway keys in Vercel** | `/homes` is empty without them. This is the whole guest funnel. |
 | **Photographs** | Every photo slot says what picture belongs there. Nothing is stock or AI-generated, by rule. |
-| **Turnstile keys** | The enquiry form stays hidden until it can be protected from spam. |
+| **Resend key** | Enquiries are stored in Supabase but no email reaches the inbox until `RESEND_API_KEY` and `INQUIRY_NOTIFY_TO` are set. |
 | **Sanity import** | One sign-in, then two commands. See `studio/README.md`. |
 | **A read of the words** | Especially the journal posts. They describe how the business works. |
 

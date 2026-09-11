@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
 
 import styles from "./homes.module.css";
 import stay from "../stay/stay.module.css";
+import { AvailabilityHandoff } from "@/components/AvailabilityHandoff";
 import { Faqs } from "@/components/Faqs";
 import { HomeCard } from "@/components/HomeCard";
 import { alternatesFor } from "@/lib/i18n";
@@ -10,7 +12,7 @@ import { BOOKING_DIRECT, EVERY_STAY, HOMES_FAQS, HOMES_INTRO } from "@/content/h
 import { getHomes } from "@/lib/hostaway/listings";
 import { ogImage } from "@/lib/og";
 import { JsonLd, breadcrumbSchema, faqPageSchema } from "@/lib/schema";
-import { AREAS } from "@/lib/site";
+import { AREAS, BOOKING_ENGINE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Vacation rentals in Uvita, Dominical, Ojochal",
@@ -43,8 +45,17 @@ export default async function HomesPage() {
               Stay in {area.name}
             </Link>
           ))}
+          <Link href="/homes/groups">Homes by what matters</Link>
         </nav>
       </div>
+
+      {/*
+        Only renders when the visitor arrived from the availability strip with
+        dates in the address. Suspense keeps the rest of the page static.
+      */}
+      <Suspense fallback={null}>
+        <AvailabilityHandoff bookingEngineUrl={BOOKING_ENGINE_URL} />
+      </Suspense>
 
       <div className={stay.column}>
         <div className={stay.intro}>

@@ -1,0 +1,22 @@
+/* A ruled panel, not a box: hairline above and below, gold accent on the dates. */
+.panel {
+  border-top: 1px solid var(--gold);
+  border-bottom: 1px solid var(--tan-light);
+  padding: 1.5rem 0;
+  margin-bottom: 2.5rem;
+  max-width: 42rem;
+}
+.dates {
+  font-size: var(--size-subhead);
+  line-height: 1.35;
+  color: var(--black);
+  margin-bottom: 0.5rem;
+}
+.dates b {
+  font-weight: 500;
+}
+.note {
+  font-size: var(--size-small);
+  color: var(--brown);
+  margin-bottom: 1.25rem;
+}

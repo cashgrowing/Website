@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import styles from "./journal.module.css";
 import { getJournalPosts } from "@/content/source";
+import { JOURNAL_CATEGORY_LABELS } from "@/content/types";
 import { alternatesFor } from "@/lib/i18n";
 import { ogImage } from "@/lib/og";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
@@ -48,6 +49,8 @@ export default async function JournalIndexPage() {
             {posts.map((post) => (
               <Link className={styles.entry} href={`/journal/${post.slug}`} key={post.slug}>
                 <p className={styles.meta}>
+                  <span className={styles.category}>{JOURNAL_CATEGORY_LABELS[post.category]}</span>
+                  {" · "}
                   <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
                   {" · "}
                   {post.readingMinutes} min read

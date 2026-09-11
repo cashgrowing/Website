@@ -91,8 +91,18 @@ function toHome(listing: HostawayListing): Home {
     amenities: (listing.listingAmenities ?? [])
       .map((amenity) => amenity?.amenityName?.trim())
       .filter((value): value is string => Boolean(value)),
+    tags: toTags(listing),
     photos: toPhotos(listing, name, area),
   };
+}
+
+/** Tags under either of the names Hostaway has used for them. */
+function toTags(listing: HostawayListing): string[] {
+  const raw = [
+    ...(listing.listingTags ?? []).map((tag) => tag?.name),
+    ...(listing.tags ?? []).map((tag) => (typeof tag === "string" ? tag : tag?.name)),
+  ];
+  return raw.map((tag) => tag?.trim()).filter((tag): tag is string => Boolean(tag));
 }
 
 /** Guarantee slugs stay unique even if two homes share a name. */

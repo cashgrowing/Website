@@ -51,8 +51,22 @@ export type JournalBlock =
   /** Set apart in the design: disclaimers, asides. */
   | { kind: "note"; text: string };
 
+/**
+ * Who a post is for. Shown ahead of the date on every card so an owner and a
+ * guest can each find their articles. Never an author: the company speaks as
+ * WildRoots.
+ */
+export type JournalCategory = "owners" | "guests" | "coast";
+
+export const JOURNAL_CATEGORY_LABELS: Record<JournalCategory, string> = {
+  owners: "For owners",
+  guests: "For guests",
+  coast: "From the coast",
+};
+
 export type JournalPost = {
   slug: string;
+  category: JournalCategory;
   title: string;
   description: string;
   /** ISO date. Drives <time>, Article schema and ordering. */

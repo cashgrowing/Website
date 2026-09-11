@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import styles from "../journal.module.css";
 import { Faqs } from "@/components/Faqs";
 import { getJournalPost, getJournalPosts } from "@/content/source";
+import { JOURNAL_CATEGORY_LABELS } from "@/content/types";
 import { alternatesFor } from "@/lib/i18n";
 import { ogImage } from "@/lib/og";
 import { JsonLd, articleSchema, breadcrumbSchema, faqPageSchema } from "@/lib/schema";
@@ -63,6 +64,8 @@ export default async function JournalPostPage({ params }: Params) {
           <h1>{post.title}</h1>
           {/* No byline: the company speaks as WildRoots, never as a person. */}
           <p className={styles.postMeta}>
+            <span className={styles.category}>{JOURNAL_CATEGORY_LABELS[post.category]}</span>
+            {" · "}
             <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
             {" · "}
             {post.readingMinutes} min read

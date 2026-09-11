@@ -32,7 +32,7 @@ const MARKETING_PROJECTION = `{
 }`;
 
 const JOURNAL_PROJECTION = `{
-  "slug": slug.current, title, description, publishedAt, readingMinutes, excerpt,
+  "slug": slug.current, category, title, description, publishedAt, readingMinutes, excerpt,
   "body": body[]{
     "kind": select(_type == "heading2" => "h2", _type == "note" => "note", "p"),
     text
@@ -42,7 +42,11 @@ const JOURNAL_PROJECTION = `{
 }`;
 
 /** Log once with enough detail to find the offending document, then fall back. */
-function validated<T>(schema: z.ZodType<T>, value: unknown, label: string): T | null {
+function validated<T>(
+  schema: z.ZodType<T, z.ZodTypeDef, unknown>,
+  value: unknown,
+  label: string,
+): T | null {
   if (value == null) return null;
   const parsed = schema.safeParse(stripNulls(value));
   if (parsed.success) return parsed.data;
@@ -88,6 +92,19 @@ export async function getJournalPosts(): Promise<JournalPost[]> {
     if (posts.length > 0) return posts;
   }
   return [...JOURNAL_POSTS].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+}
+
+/**
+ * The opening paragraph of a grouped-homes page, when an editor has written
+ * one in the Studio. Null means "use the fallback in groups.ts". Anything but
+ * a non-empty string is treated as absent, so a half-finished edit cannot
+ * blank the page.
+ */
+export async function getHomeGroupIntro(slug: string): Promise<string | null> {
+  const intro = await sanityQuery<unknown>(`*[_type == "homeGroup" && slug == $slug][0].intro`, {
+    params: { slug },
+  });
+  return typeof intro === "string" && intro.trim().length > 0 ? intro.trim() : null;
 }
 
 export async function getJournalPost(slug: string): Promise<JournalPost | undefined> {

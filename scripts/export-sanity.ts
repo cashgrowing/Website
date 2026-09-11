@@ -79,6 +79,7 @@ for (const post of JOURNAL_POSTS) {
     _type: "journalPost",
     title: post.title,
     slug: { _type: "slug", current: post.slug },
+    category: post.category,
     description: post.description,
     publishedAt: post.publishedAt,
     readingMinutes: post.readingMinutes,

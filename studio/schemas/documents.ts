@@ -119,6 +119,44 @@ export const marketingPage = defineType({
   preview: { select: { title: "h1", subtitle: "path" } },
 });
 
+/**
+ * The editable opening paragraph of a grouped-homes page (/homes/groups/…).
+ * The list of homes on those pages comes from Hostaway and cannot be edited
+ * here; only the words above it can.
+ */
+export const homeGroup = defineType({
+  name: "homeGroup",
+  title: "Homes group intro",
+  type: "document",
+  fields: [
+    defineField({
+      name: "slug",
+      title: "Which group",
+      type: "string",
+      description: "Must match one of the site's groups exactly.",
+      options: {
+        list: [
+          { title: "Homes with a pool", value: "pool-homes" },
+          { title: "Homes with an ocean view", value: "ocean-view" },
+          { title: "Homes that sleep 8 or more", value: "sleeps-8-plus" },
+          { title: "A short walk to the beach", value: "walk-to-beach" },
+          { title: "Homes for two", value: "for-two" },
+          { title: "Homes that welcome pets", value: "pets-welcome" },
+        ],
+      },
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "intro",
+      title: "Opening paragraph",
+      type: "text",
+      rows: 4,
+      description: "Shown under the heading, above the homes. Leave empty to use the site's default.",
+    }),
+  ],
+  preview: { select: { title: "slug", subtitle: "intro" } },
+});
+
 export const journalPost = defineType({
   name: "journalPost",
   title: "Journal post",
@@ -146,6 +184,23 @@ export const journalPost = defineType({
       group: "seo",
       options: { source: "title", maxLength: 80 },
       description: "Becomes /journal/… . Changing it on a published post breaks incoming links.",
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "category",
+      title: "Who is this for?",
+      type: "string",
+      group: "content",
+      description: "Shown ahead of the date on the journal page, so owners and guests can find their articles.",
+      options: {
+        list: [
+          { title: "For owners", value: "owners" },
+          { title: "For guests", value: "guests" },
+          { title: "From the coast", value: "coast" },
+        ],
+        layout: "radio",
+      },
+      initialValue: "owners",
       validation: (r) => r.required(),
     }),
     defineField({

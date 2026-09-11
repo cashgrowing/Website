@@ -4,19 +4,50 @@ import Link from "next/link";
 import styles from "./HomeCard.module.css";
 import type { Home } from "@/lib/hostaway/types";
 
-/** One line of facts under the name: area, bedrooms, sleeps. Nothing invented. */
-function metaLine(home: Home): string {
-  const parts: string[] = [];
-  if (home.area) parts.push(home.area);
-  else if (home.city) parts.push(home.city);
-  if (home.bedrooms) parts.push(`${home.bedrooms} bed`);
-  if (home.sleeps) parts.push(`sleeps ${home.sleeps}`);
-  return parts.join(" · ");
+/*
+ * Three line icons, drawn once here so every card on the site uses the same
+ * ones. Stroke inherits the gold from the stylesheet; nothing is filled.
+ * They are decorative - the text beside each one already says "3 bed".
+ */
+function BedIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+      <path d="M3 18V8h18v10M3 12h18M6 8V6h12v2" />
+    </svg>
+  );
+}
+function BathIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+      <path d="M4 12h16v3a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-3ZM6 12V6a2 2 0 0 1 4 0" />
+    </svg>
+  );
+}
+function GuestsIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+      <circle cx="9" cy="8" r="3" />
+      <circle cx="17" cy="9" r="2.5" />
+      <path d="M3 19a6 6 0 0 1 12 0M14 19a4.5 4.5 0 0 1 7 0" />
+    </svg>
+  );
 }
 
+function formatPrice(home: Home): string {
+  const amount = Math.round(home.basePrice ?? 0);
+  return home.currency === "USD" ? `$${amount}` : `${amount} ${home.currency}`;
+}
+
+/**
+ * The one home card. Homepage, /homes, area pages and grouped pages all use
+ * it, so a change here is a change everywhere - which is the point.
+ *
+ * Facts come straight from Hostaway; a missing fact is left out rather than
+ * guessed. A missing price says "On request" so the card never looks broken.
+ */
 export function HomeCard({ home, priority = false }: { home: Home; priority?: boolean }) {
   const cover = home.photos[0];
-  const meta = metaLine(home);
+  const place = home.area ?? home.city;
 
   return (
     <Link className={styles.card} href={`/homes/${home.slug}`}>
@@ -31,19 +62,40 @@ export function HomeCard({ home, priority = false }: { home: Home; priority?: bo
           />
         ) : null}
       </div>
+
       <h3 className={styles.name}>{home.name}</h3>
-      {meta ? <p className={styles.meta}>{meta}</p> : null}
-      {home.basePrice ? (
-        <p className={styles.price}>
-          from{" "}
-          <b>
-            {home.currency === "USD" ? "$" : ""}
-            {Math.round(home.basePrice)}
-            {home.currency === "USD" ? "" : ` ${home.currency}`}
-          </b>{" "}
-          / night
-        </p>
-      ) : null}
+
+      <p className={styles.facts}>
+        {place ? <span>{place}</span> : null}
+        {home.bedrooms ? (
+          <span>
+            <BedIcon />
+            {home.bedrooms} bed
+          </span>
+        ) : null}
+        {home.bathrooms ? (
+          <span>
+            <BathIcon />
+            {home.bathrooms} bath
+          </span>
+        ) : null}
+        {home.sleeps ? (
+          <span>
+            <GuestsIcon />
+            sleeps {home.sleeps}
+          </span>
+        ) : null}
+      </p>
+
+      <p className={styles.price}>
+        {home.basePrice ? (
+          <>
+            from <b>{formatPrice(home)}</b> / night
+          </>
+        ) : (
+          <b>On request</b>
+        )}
+      </p>
     </Link>
   );
 }

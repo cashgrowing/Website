@@ -87,6 +87,7 @@ for (const doc of docs.filter((d) => d._type === "marketingPage")) {
 for (const doc of docs.filter((d) => d._type === "journalPost")) {
   const projected = {
     slug: (doc.slug as Doc | undefined)?.current,
+    category: doc.category ?? null,
     title: doc.title,
     description: doc.description,
     publishedAt: doc.publishedAt,

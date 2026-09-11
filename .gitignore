@@ -33,3 +33,7 @@ sanity-content.ndjson
 
 # backups contain personal data; never commit them
 /backup
+
+# Sanity Studio build output
+studio/dist
+studio/.sanity

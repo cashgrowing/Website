@@ -41,8 +41,11 @@ export const marketingPageSchema: z.ZodType<MarketingPage> = z.object({
   image: z.object({ src: z.string(), alt: z.string() }).optional(),
 });
 
-export const journalPostSchema: z.ZodType<JournalPost> = z.object({
+export const journalPostSchema: z.ZodType<JournalPost, z.ZodTypeDef, unknown> = z.object({
   slug: z.string(),
+  // Posts written before categories existed default to the owner audience,
+  // which is where nearly all of them sit, rather than failing validation.
+  category: z.enum(["owners", "guests", "coast"]).default("owners"),
   title: z.string(),
   description: z.string(),
   publishedAt: z.string(),

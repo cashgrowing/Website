@@ -26,6 +26,7 @@ function home(id: number, area: string | null, amenities: string[]): Home {
     currency: "USD",
     geo: null,
     amenities,
+    tags: [],
     photos: [],
   };
 }

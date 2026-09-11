@@ -1,4 +1,4 @@
-import { journalPost, marketingPage } from "./documents";
+import { homeGroup, journalPost, marketingPage } from "./documents";
 import {
   faq,
   heading2,
@@ -14,6 +14,7 @@ export const schemaTypes = [
   // Documents
   marketingPage,
   journalPost,
+  homeGroup,
   // Objects
   proseSection,
   listSection,

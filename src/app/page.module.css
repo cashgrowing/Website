@@ -108,21 +108,33 @@
   color: var(--brown);
 }
 
-/* ---------- 5. Homes ---------- */
-.homes {
+/* ---------- 5. Bands on paper: homes, grouped homes ---------- */
+/*
+ * Every paper section reads the same way: heading, one sentence of intro,
+ * the content, one link. The head row holds the first two and the link.
+ */
+.band {
   padding: var(--band) var(--gutter);
   max-width: 1360px;
   margin-inline: auto;
 }
-.homesHead {
+.groups {
+  padding-top: 0;
+}
+.bandHead {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: flex-end;
   gap: 1.5rem;
   margin-bottom: 1.75rem;
 }
-.homesHead h2 {
+.bandHead h2 {
   color: var(--black);
+}
+.sectionIntro {
+  color: var(--brown);
+  max-width: 52ch;
+  margin-top: 0.5rem;
 }
 .more {
   flex: none;
@@ -130,6 +142,7 @@
   color: var(--gold-deep);
   text-decoration: none;
   border-bottom: 1px solid var(--gold);
+  margin-bottom: 0.35rem;
 }
 .cards {
   display: grid;
@@ -145,68 +158,65 @@
   font-size: var(--size-small);
 }
 
-/* ---------- 6. Care band ---------- */
-.care {
-  background: var(--brown);
-  color: #f3ede3;
+/* ---------- 6. Owner section ---------- */
+.owner {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: stretch;
-}
-.carePhoto {
-  min-height: 26rem;
-}
-.careText {
-  padding: var(--band) var(--gutter);
-  align-self: center;
-}
-.careText h2 {
-  color: #fff;
-  margin-bottom: 1rem;
-}
-.careText p {
-  max-width: 50ch;
-  opacity: 0.9;
-  margin-bottom: 0.625rem;
-}
-.careText a {
-  margin-top: 1rem;
-}
-
-/* ---------- 7. Owner quote ---------- */
-.quote {
+  grid-template-columns: 1.15fr 1fr;
+  gap: 3rem;
+  align-items: center;
   padding: var(--band) var(--gutter);
   max-width: 1360px;
   margin-inline: auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  align-items: center;
+  border-top: 1px solid var(--tan-light);
 }
-.quote blockquote {
-  border-left: 1px solid var(--gold);
-  padding-left: 1.75rem;
-}
-.quote blockquote p {
-  font-size: var(--size-subhead);
-  line-height: 1.35;
+.ownerText h2 {
   color: var(--black);
-  max-width: 30ch;
 }
-.quoteNote {
-  display: block;
+.ownerList {
+  list-style: none;
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--tan-light);
+}
+.ownerList li {
+  display: grid;
+  grid-template-columns: 2.25rem 1fr;
+  gap: 0.5rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--tan-light);
+}
+.index {
+  font-size: var(--size-small);
+  font-weight: 500;
+  color: var(--gold);
+  padding-top: 0.35rem;
+  font-variant-numeric: tabular-nums;
+}
+.ownerList h3 {
+  font-size: var(--size-subhead);
+  color: var(--black);
+  margin-bottom: 0.25rem;
+}
+.ownerList p {
   font-size: var(--size-small);
   color: var(--brown);
-  margin-top: 1.25rem;
+  max-width: 52ch;
 }
-.quotePhoto {
-  min-height: 22rem;
+.ownerActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: 1.75rem;
+  font-size: var(--size-small);
+  color: var(--brown);
+}
+.ownerPhoto {
+  min-height: 26rem;
 }
 
 @media (max-width: 900px) {
   .doors,
-  .care,
-  .quote {
+  .owner {
     grid-template-columns: 1fr;
   }
   .door + .door {
@@ -223,14 +233,20 @@
   .proof > div:first-child {
     border-top: 0;
   }
+  .bandHead {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
   .cards {
     grid-template-columns: 1fr 1fr;
   }
-  .carePhoto,
-  .quotePhoto {
+  .ownerPhoto {
     min-height: 18rem;
+    order: -1;
   }
-  @media (max-width: 520px) {
+}
+@media (max-width: 520px) {
   .cards {
     grid-template-columns: 1fr;
   }

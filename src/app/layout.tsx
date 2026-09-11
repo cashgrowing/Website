@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     siteName: BRAND.legalName,
     locale: "en_US",
     url: "/",
-    images: [ogImage("Your home on this coast, looked after properly.")],
+    images: [ogImage("Homes on the Whale's Tail coast, cared for like our own.")],
   },
   twitter: { card: "summary_large_image" },
   robots: { index: true, follow: true },

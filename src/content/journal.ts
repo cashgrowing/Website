@@ -14,6 +14,7 @@ import type { JournalPost } from "./types";
 export const JOURNAL_POSTS: JournalPost[] = [
   {
     slug: "what-a-property-manager-does-costa-rica",
+    category: "owners",
     title: "What a property manager does in Costa Rica",
     description:
       "What a property manager actually handles for a Costa Rica vacation home: ICT registration, IVA, guests, maintenance, and how the fees work.",
@@ -208,6 +209,7 @@ export const JOURNAL_POSTS: JournalPost[] = [
   },
   {
     slug: "green-season-south-pacific-costa-rica",
+    category: "coast",
     title: "Green season on the South Pacific coast",
     description:
       "What May to November actually looks like in Uvita and Dominical, what it does to a house, and why the quiet months are not the cheap months to skip.",
@@ -298,6 +300,7 @@ export const JOURNAL_POSTS: JournalPost[] = [
   },
   {
     slug: "what-a-weekly-house-check-covers",
+    category: "owners",
     title: "What a weekly house check covers",
     description:
       "The difference between a manager who visits a house and one who inspects it, and the specific things worth looking at every week on this coast.",
@@ -380,6 +383,7 @@ export const JOURNAL_POSTS: JournalPost[] = [
   },
   {
     slug: "pricing-a-vacation-rental-in-uvita",
+    category: "owners",
     title: "Pricing a vacation rental in Uvita",
     description:
       "Why one rate all year costs a house money at both ends, and how the Uvita calendar actually breaks down across the seasons.",
@@ -466,6 +470,7 @@ export const JOURNAL_POSTS: JournalPost[] = [
   },
   {
     slug: "what-to-check-before-buying-on-this-coast",
+    category: "owners",
     title: "What to check before buying here",
     description:
       "The practical things that decide whether a vacation home on Costa Rica's South Pacific coast rents well: road, water, power, connection and orientation.",
@@ -569,6 +574,7 @@ export const JOURNAL_POSTS: JournalPost[] = [
   },
   {
     slug: "setting-up-a-house-for-its-first-guests",
+    category: "owners",
     title: "Setting up a house for guests",
     description:
       "The one-time work that happens before a vacation home goes live, and why skipping it is what leaves a house underbooked a year later.",
@@ -656,6 +662,7 @@ export const JOURNAL_POSTS: JournalPost[] = [
   },
   {
     slug: "why-houses-here-get-bad-reviews",
+    category: "owners",
     title: "Why houses here get bad reviews",
     description:
       "Most bad reviews on this coast are not about the house. They are about expectations nobody set, and almost all of them are preventable.",
@@ -743,6 +750,7 @@ export const JOURNAL_POSTS: JournalPost[] = [
   },
   {
     slug: "humpback-whale-season-uvita",
+    category: "guests",
     title: "Humpback whale season in Uvita",
     description:
       "Bahía Ballena gets two humpback migrations a year: a smaller northern group from January to March and a larger southern group from August to October.",

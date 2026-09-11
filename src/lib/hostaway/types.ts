@@ -24,6 +24,12 @@ export type HostawayListing = {
     sortOrder?: number | null;
   }> | null;
   listingAmenities?: Array<{ amenityId?: number; amenityName?: string | null }> | null;
+  /**
+   * Owner-set tags. Hostaway has exposed these under more than one name over
+   * time, so both shapes are read; whichever is present wins.
+   */
+  listingTags?: Array<{ id?: number; name?: string | null }> | null;
+  tags?: Array<string | { name?: string | null }> | null;
 };
 
 /** A photo we are willing to render. `alt` is always populated. */
@@ -52,5 +58,7 @@ export type Home = {
   currency: string;
   geo: { latitude: number; longitude: number } | null;
   amenities: string[];
+  /** Owner-set Hostaway tags, e.g. "walk to beach". Empty when none are set. */
+  tags: string[];
   photos: HomePhoto[];
 };

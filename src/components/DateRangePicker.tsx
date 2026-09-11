@@ -11,7 +11,7 @@ import styles from "./DateRangePicker.module.css";
  * buttons and a little arithmetic, and a date-picker package would be the
  * largest thing on the page. Dates are handled as YYYY-MM-DD strings built
  * from the visitor's local calendar, so nothing shifts by a day across time
- * zones. The two hidden inputs are what the surrounding form submits.
+ * zones. The surrounding form owns the hidden inputs it submits.
  */
 
 const WEEKDAYS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
@@ -42,16 +42,20 @@ function addMonths({ year, month }: Month, n: number): Month {
   return { year: Math.floor(total / 12), month: ((total % 12) + 12) % 12 };
 }
 
+/**
+ * Controlled: the form that owns the hidden inputs owns the dates too, so it
+ * can show the night count beside this field.
+ */
 export function DateRangePicker({
-  initialCheckin = "",
-  initialCheckout = "",
+  checkin,
+  checkout,
+  onChange,
 }: {
-  initialCheckin?: string;
-  initialCheckout?: string;
+  checkin: string;
+  checkout: string;
+  onChange: (checkin: string, checkout: string) => void;
 }) {
   const [open, setOpen] = useState(false);
-  const [checkin, setCheckin] = useState(initialCheckin);
-  const [checkout, setCheckout] = useState(initialCheckout);
   const [view, setView] = useState<Month>(() => {
     const now = new Date();
     return { year: now.getFullYear(), month: now.getMonth() };
@@ -81,22 +85,20 @@ export function DateRangePicker({
   function pick(iso: string) {
     if (!checkin || checkout) {
       // Starting a new stay.
-      setCheckin(iso);
-      setCheckout("");
+      onChange(iso, "");
       return;
     }
     if (iso <= checkin) {
       // Tapped a day before the start: treat it as a new start.
-      setCheckin(iso);
+      onChange(iso, "");
       return;
     }
-    setCheckout(iso);
+    onChange(checkin, iso);
     setOpen(false);
   }
 
   function clear() {
-    setCheckin("");
-    setCheckout("");
+    onChange("", "");
   }
 
   const summary = checkin
@@ -105,9 +107,6 @@ export function DateRangePicker({
 
   return (
     <div className={styles.root} ref={rootRef}>
-      <input type="hidden" name="checkin" value={checkin} />
-      <input type="hidden" name="checkout" value={checkout} />
-
       <button
         type="button"
         className={styles.field}

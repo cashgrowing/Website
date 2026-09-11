@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     template: `%s | ${BRAND.name}`,
   },
   description:
-    "Vacation rental management and direct stays in Uvita, Dominical and Ojochal. Bilingual, on the ground, answering 24/7.",
+    "Vacation rental management and direct stays in Uvita, Dominical and Ojochal. A local team that answers, day or night, in English and Spanish.",
   alternates: alternatesFor("/"),
   openGraph: {
     type: "website",

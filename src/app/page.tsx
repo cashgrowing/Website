@@ -15,7 +15,7 @@ import { BOOKING_ENGINE_URL, CONTACT } from "@/lib/site";
 export const metadata: Metadata = {
   title: "WildRoots | Vacation rental management, Uvita Costa Rica",
   description:
-    "Vacation rental management and direct stays in Uvita, Dominical and Ojochal. Bilingual, on the ground, answering 24/7.",
+    "Vacation rental management and direct stays in Uvita, Dominical and Ojochal. A local team that answers, day or night, in English and Spanish.",
   alternates: alternatesFor("/"),
 };
 
@@ -92,8 +92,8 @@ export default async function HomePage() {
         <div className={styles.heroCopy}>
           <h1>Homes on the Whale&rsquo;s Tail coast, cared for like our own.</h1>
           <p>
-            Vacation rental management and direct stays in Uvita, Dominical and Ojochal. On
-            the ground, bilingual, answering at 2am.
+            Vacation rental management and direct stays in Uvita, Dominical and Ojochal. A
+            local team that answers, day or night, in English and Spanish.
           </p>
           <div className={styles.actions}>
             <Button variant="gold" href="/homes">

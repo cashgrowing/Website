@@ -47,17 +47,17 @@ function toPhotos(listing: HostawayListing, homeName: string, area: string | nul
 
   const place = area ? `${homeName} in ${area}, Costa Rica` : `${homeName}, Costa Rica`;
 
-  const photos: HomePhoto[] = images.map((image, index) => ({
-    url: image.url,
-    alt: image.caption?.trim()
-      ? `${image.caption.trim()} - ${homeName}`
-      : index === 0
-        ? place
-        : `${place}, photo ${index + 1}`,
-  }));
+  const photos: HomePhoto[] = images.map((image, index) => {
+    const caption = image.caption?.trim() || null;
+    return {
+      url: image.url,
+      alt: caption ? `${caption} - ${homeName}` : index === 0 ? place : `${place}, photo ${index + 1}`,
+      caption,
+    };
+  });
 
   if (photos.length === 0 && listing.thumbnailUrl) {
-    photos.push({ url: listing.thumbnailUrl, alt: place });
+    photos.push({ url: listing.thumbnailUrl, alt: place, caption: null });
   }
   return photos;
 }

@@ -116,6 +116,11 @@ textarea {
   outline-offset: 3px;
 }
 
+/* While a photo sheet covers the page, the page itself stays put. */
+body:has(dialog[open]) {
+  overflow: hidden;
+}
+
 /* One page-load reveal on the hero only — and only when motion is welcome. */
 @media (prefers-reduced-motion: reduce) {
   *,

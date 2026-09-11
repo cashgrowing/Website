@@ -36,6 +36,8 @@ export type HostawayListing = {
 export type HomePhoto = {
   url: string;
   alt: string;
+  /** The owner's own words about the photo, when Hostaway has them. Shown under it. */
+  caption: string | null;
 };
 
 /**

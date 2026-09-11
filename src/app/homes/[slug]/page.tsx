@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import styles from "./home.module.css";
+import { HouseGallery } from "@/components/HouseGallery";
 import { PhotoSlot } from "@/components/PhotoSlot";
 import { StayPlanner } from "@/components/StayPlanner";
 import { alternatesFor } from "@/lib/i18n";
@@ -94,43 +94,22 @@ export default async function HomeDetailPage({ params }: Params) {
   const home = await getHomeBySlug(slug);
   if (!home) notFound();
 
-  const [lead, ...rest] = home.photos;
-  const secondary = rest.slice(0, 2);
   const where = home.area ?? home.city;
   const areaSlug = AREAS.find((area) => area.name === home.area)?.slug ?? null;
   const paragraphs = home.description?.split("\n\n").filter(Boolean).slice(0, 6) ?? [];
 
   return (
     <article>
-      <div className={styles.gallery}>
-        {lead ? (
-          <div className={`${styles.shot} ${styles.lead}`}>
-            <Image
-              src={lead.url}
-              alt={lead.alt}
-              fill
-              sizes="(max-width: 1000px) 100vw, 66vw"
-              priority
-            />
-          </div>
-        ) : (
-          <PhotoSlot
-            className={`${styles.shot} ${styles.lead}`}
-            brief={`Lead photograph of ${home.name}. Pull it from the property library in Hostaway or the owner's Drive folder.`}
-            sizes="(max-width: 1000px) 100vw, 66vw"
-            priority
-          />
-        )}
-        {secondary.length > 0 ? (
-          <div className={styles.stack}>
-            {secondary.map((photo) => (
-              <div className={styles.shot} key={photo.url}>
-                <Image src={photo.url} alt={photo.alt} fill sizes="(max-width: 1000px) 50vw, 33vw" />
-              </div>
-            ))}
-          </div>
-        ) : null}
-      </div>
+      {home.photos.length > 0 ? (
+        <HouseGallery photos={home.photos} name={home.name} />
+      ) : (
+        <PhotoSlot
+          className={styles.noPhoto}
+          brief={`Lead photograph of ${home.name}. Pull it from the property library in Hostaway or the owner's Drive folder.`}
+          sizes="100vw"
+          priority
+        />
+      )}
 
       {/*
         Three areas: the title block, the reading matter, and the booking

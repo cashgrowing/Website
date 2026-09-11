@@ -1,27 +1,8 @@
-.gallery {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 2px;
-  background: var(--paper);
-}
-.shot {
+/* The photographs live in HouseGallery; this is the space they would take when there are none yet. */
+.noPhoto {
   position: relative;
-  overflow: hidden;
-  background: var(--black);
-  min-height: 14rem;
-}
-.shot img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.lead {
-  grid-row: span 2;
   min-height: 28rem;
-}
-.stack {
-  display: grid;
-  gap: 2px;
+  background: var(--black);
 }
 
 /*
@@ -148,14 +129,7 @@
   .rail {
     position: static;
   }
-  .gallery {
-    grid-template-columns: 1fr;
-  }
-  .lead {
+  .noPhoto {
     min-height: 18rem;
-  }
-  .stack {
-    grid-template-columns: 1fr 1fr;
-    grid-auto-flow: column;
   }
 }

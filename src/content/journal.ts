@@ -293,9 +293,9 @@ export const JOURNAL_POSTS: JournalPost[] = [
       },
     ],
     related: [
-      { label: "Property management in Costa Rica", href: "/property-management-costa-rica" },
-      { label: "Vacation rental management in Uvita", href: "/vacation-rental-management-uvita" },
       { label: "Whale season", href: "/whale-season" },
+      { label: "Guest services", href: "/guest-services" },
+      { label: "Stay in Uvita", href: "/stay/uvita" },
     ],
   },
   {
@@ -745,7 +745,7 @@ export const JOURNAL_POSTS: JournalPost[] = [
     related: [
       { label: "Airbnb management in Costa Rica", href: "/airbnb-management-costa-rica" },
       { label: "Property management in Costa Rica", href: "/property-management-costa-rica" },
-      { label: "Vacation rentals in Bahía Ballena", href: "/vacation-rentals-bahia-ballena" },
+      { label: "How we charge", href: "/how-we-charge" },
     ],
   },
   {
@@ -869,8 +869,8 @@ export const JOURNAL_POSTS: JournalPost[] = [
     related: [
       { label: "Whale season on the Ballena coast", href: "/whale-season" },
       { label: "Vacation rentals in Bahía Ballena", href: "/vacation-rentals-bahia-ballena" },
-      { label: "Vacation rental management in Uvita", href: "/vacation-rental-management-uvita" },
-      { label: "Property management in Costa Rica", href: "/property-management-costa-rica" },
+      { label: "Guest services", href: "/guest-services" },
+      { label: "Homes to stay in", href: "/homes" },
     ],
   },
 ];

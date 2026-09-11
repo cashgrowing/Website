@@ -1,4 +1,4 @@
-/* ---------- 2. Hero ---------- */
+/* ---------- 1. Hero ---------- */
 .hero {
   position: relative;
   min-height: clamp(30rem, 24rem + 26vw, 45rem);
@@ -61,54 +61,7 @@
   gap: 0.75rem;
 }
 
-/* ---------- 3. Two doors ---------- */
-.doors {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  background: var(--black);
-  color: #fff;
-}
-.door {
-  padding: var(--band) var(--gutter);
-}
-.door + .door {
-  border-left: 1px solid var(--gold); /* the seam */
-}
-.door p {
-  max-width: 44ch;
-  opacity: 0.88;
-  margin-bottom: 1.5rem;
-}
-.door h2 {
-  color: #fff;
-  margin-bottom: 0.75rem;
-}
-
-/* ---------- 4. Proof strip ---------- */
-.proof {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  border-bottom: 1px solid var(--tan-light);
-  background: var(--paper);
-}
-.proof > div {
-  padding: 2rem var(--gutter);
-  border-left: 1px solid var(--tan-light);
-}
-.proof > div:first-child {
-  border-left: 0;
-}
-.proof h2 {
-  font-size: var(--size-subhead);
-  color: var(--black);
-  margin-bottom: 0.25rem;
-}
-.proof p {
-  font-size: var(--size-small);
-  color: var(--brown);
-}
-
-/* ---------- 5. Bands on paper: homes, grouped homes ---------- */
+/* ---------- 3-4. Bands on paper: homes, grouped homes ---------- */
 /*
  * Every paper section reads the same way: heading, one sentence of intro,
  * the content, one link. The head row holds the first two and the link.
@@ -158,81 +111,35 @@
   font-size: var(--size-small);
 }
 
-/* ---------- 6. Owner section ---------- */
-.owner {
-  display: grid;
-  grid-template-columns: 1.15fr 1fr;
-  gap: 3rem;
-  align-items: center;
-  padding: var(--band) var(--gutter);
+/* ---------- 5. Homeowners' door ---------- */
+.ownerBand {
+  background: var(--black);
+  color: #fff;
+}
+.ownerBandInner {
   max-width: 1360px;
   margin-inline: auto;
-  border-top: 1px solid var(--tan-light);
+  padding: var(--band) var(--gutter);
 }
-.ownerText h2 {
-  color: var(--black);
-}
-.ownerList {
-  list-style: none;
-  margin-top: 1.5rem;
-  border-top: 1px solid var(--tan-light);
-}
-.ownerList li {
-  display: grid;
-  grid-template-columns: 2.25rem 1fr;
-  gap: 0.5rem;
-  padding: 1rem 0;
-  border-bottom: 1px solid var(--tan-light);
-}
-.index {
+.kicker {
   font-size: var(--size-small);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tan);
   font-weight: 500;
-  color: var(--gold);
-  padding-top: 0.35rem;
-  font-variant-numeric: tabular-nums;
+  margin-bottom: 0.75rem;
 }
-.ownerList h3 {
-  font-size: var(--size-subhead);
-  color: var(--black);
-  margin-bottom: 0.25rem;
+.ownerBand h2 {
+  color: #fff;
+  margin-bottom: 0.75rem;
 }
-.ownerList p {
-  font-size: var(--size-small);
-  color: var(--brown);
-  max-width: 52ch;
-}
-.ownerActions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1.25rem;
-  margin-top: 1.75rem;
-  font-size: var(--size-small);
-  color: var(--brown);
-}
-.ownerPhoto {
-  min-height: 26rem;
+.ownerBand > div > p:not(.kicker) {
+  color: #c9bfb0;
+  max-width: 48ch;
+  margin-bottom: 1.75rem;
 }
 
 @media (max-width: 900px) {
-  .doors,
-  .owner {
-    grid-template-columns: 1fr;
-  }
-  .door + .door {
-    border-left: 0;
-    border-top: 1px solid var(--gold);
-  }
-  .proof {
-    grid-template-columns: 1fr;
-  }
-  .proof > div {
-    border-left: 0;
-    border-top: 1px solid var(--tan-light);
-  }
-  .proof > div:first-child {
-    border-top: 0;
-  }
   .bandHead {
     flex-direction: column;
     align-items: flex-start;
@@ -240,10 +147,6 @@
   }
   .cards {
     grid-template-columns: 1fr 1fr;
-  }
-  .ownerPhoto {
-    min-height: 18rem;
-    order: -1;
   }
 }
 @media (max-width: 520px) {

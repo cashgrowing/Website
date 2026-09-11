@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { InquirySection } from "@/components/InquirySection";
+import styles from "@/components/MarketingPage.module.css";
 import { MarketingPageView } from "@/components/MarketingPageView";
 import { getMarketingPage } from "@/content/source";
 import { alternatesFor } from "@/lib/i18n";
@@ -32,7 +34,16 @@ export default async function Page() {
 
   return (
     <>
-      <MarketingPageView page={page} form={<InquirySection kind="owner" sourcePath={PATH} />} />
+      <MarketingPageView
+        page={page}
+        intro={
+          <p className={styles.redirect}>
+            This page is for homeowners. Looking for a place to stay?{" "}
+            <Link href="/homes">See the homes</Link> or message us on WhatsApp.
+          </p>
+        }
+        form={<InquirySection kind="owner" sourcePath={PATH} />}
+      />
       <JsonLd
         data={breadcrumbSchema([
           { name: "Home", path: "/" },

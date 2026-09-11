@@ -18,10 +18,13 @@ import { BOOKING_ENGINE_URL, CONTACT } from "@/lib/site";
  */
 export function MarketingPageView({
   page,
+  /** Optional slot rendered right under the opening line, before the sections. */
+  intro,
   /** Optional slot rendered inside the reading column, e.g. the enquiry form. */
   form,
 }: {
   page: MarketingPage;
+  intro?: ReactNode;
   form?: ReactNode;
 }) {
   const forOwners = page.audience === "owner";
@@ -34,6 +37,8 @@ export function MarketingPageView({
             <h1>{page.h1}</h1>
             <p className={styles.lede}>{page.lede}</p>
           </header>
+
+          {intro}
 
           {page.image ? (
             <div className={styles.image}>

@@ -19,11 +19,6 @@ export const dynamicParams = false;
 type Params = { params: Promise<{ area: string }> };
 
 /** Management page each area links to - one of the internal linking rules. */
-const MANAGEMENT_PAGE: Record<string, { href: string; label: string }> = {
-  uvita: { href: "/vacation-rental-management-uvita", label: "Vacation rental management in Uvita" },
-  dominical: { href: "/property-manager-dominical", label: "Property management in Dominical" },
-  ojochal: { href: "/vacation-rental-management-ojochal", label: "Vacation rental management in Ojochal" },
-};
 
 export async function generateStaticParams() {
   return AREAS.filter((area) => area.slug).map((area) => ({ area: area.slug as string }));
@@ -60,7 +55,6 @@ export default async function AreaPage({ params }: Params) {
   if (!area) notFound();
 
   const homes = await getHomesByArea(area.name);
-  const management = MANAGEMENT_PAGE[slug];
   const content = getAreaContent(slug);
 
   return (
@@ -74,7 +68,6 @@ export default async function AreaPage({ params }: Params) {
         <nav className={styles.areas} aria-label="Related pages">
           <Link href="/homes">All homes</Link>
           <Link href="/guest-services">Guest services</Link>
-          {management ? <Link href={management.href}>{management.label}</Link> : null}
           {AREAS.filter((other) => other.slug && other.slug !== slug).map((other) => (
             <Link key={other.slug} href={`/stay/${other.slug}`}>
               Stay in {other.name}

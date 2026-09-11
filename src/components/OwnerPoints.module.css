@@ -1,0 +1,67 @@
+/* Sits inside the reading column of an owner page, under the opening line. */
+.points {
+  padding-top: 2.75rem;
+}
+.points h2 {
+  color: var(--black);
+}
+.intro {
+  color: var(--brown);
+  margin-top: 0.5rem;
+  max-width: 52ch;
+}
+
+.list {
+  list-style: none;
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--tan-light);
+}
+.list li {
+  display: grid;
+  grid-template-columns: 2.25rem 1fr;
+  gap: 0.5rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--tan-light);
+}
+.index {
+  font-size: var(--size-small);
+  font-weight: 500;
+  color: var(--gold);
+  padding-top: 0.35rem;
+  font-variant-numeric: tabular-nums;
+}
+.list h3 {
+  font-size: var(--size-subhead);
+  color: var(--black);
+  margin-bottom: 0.25rem;
+}
+.list p {
+  font-size: var(--size-small);
+  color: var(--brown);
+  max-width: 52ch;
+}
+
+/* Three true sentences, never a number. */
+.facts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--gold);
+}
+.facts dt {
+  font-size: var(--size-body);
+  font-weight: 500;
+  color: var(--black);
+  margin-bottom: 0.25rem;
+}
+.facts dd {
+  font-size: var(--size-small);
+  color: var(--brown);
+}
+@media (max-width: 640px) {
+  .facts {
+    grid-template-columns: 1fr;
+  }
+}

@@ -6,7 +6,7 @@ import { useState } from "react";
 
 import { Button } from "./Button";
 import styles from "./SiteHeader.module.css";
-import { CONTACT, LOGOS, NAV } from "@/lib/site";
+import { CONTACT, LOGOS, NAV, OWNER_LINK } from "@/lib/site";
 
 /**
  * White header with the flat gold lockup. The textured logo is never used on a
@@ -47,6 +47,10 @@ export function SiteHeader() {
               {item.label}
             </Link>
           ))}
+          {/* The one owner entry in a guest-facing menu, set apart by a rule and its colour. */}
+          <Link className={styles.owner} href={OWNER_LINK.href} onClick={() => setOpen(false)}>
+            {OWNER_LINK.label}
+          </Link>
           <a
             className={styles.mobileCta}
             href={CONTACT.whatsappUrl}

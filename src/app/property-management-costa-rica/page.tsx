@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { MarketingPageView } from "@/components/MarketingPageView";
+import { OwnerPoints } from "@/components/OwnerPoints";
 import { getMarketingPage } from "@/content/source";
 import { alternatesFor } from "@/lib/i18n";
 import { ogImage } from "@/lib/og";
@@ -31,7 +32,8 @@ export default async function Page() {
 
   return (
     <>
-      <MarketingPageView page={page} />
+      {/* The owners' front page: what they get comes before the longer read. */}
+      <MarketingPageView page={page} intro={<OwnerPoints />} />
       <JsonLd
         data={breadcrumbSchema([
           { name: "Home", path: "/" },

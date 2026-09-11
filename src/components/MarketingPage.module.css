@@ -32,6 +32,21 @@
 .image {
   margin-top: 2rem;
 }
+
+/* A one-line aside for people on the wrong side of the door. */
+.redirect {
+  margin-top: 1.5rem;
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--tan-light);
+  font-size: var(--size-small);
+  color: var(--brown);
+  max-width: none;
+}
+.redirect a {
+  color: var(--gold-deep);
+  text-decoration: none;
+  border-bottom: 1px solid var(--gold);
+}
 .image img {
   width: 100%;
   height: auto;

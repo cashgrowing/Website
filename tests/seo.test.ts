@@ -86,14 +86,39 @@ describe("brief section 5: SEO requirements", () => {
     }
   });
 
-  it("links every journal post to at least two service pages", () => {
-    // Section 5: "blog posts link to at least two service pages".
-    const servicePages = new Set(
+  it("links every journal post to at least two pages for its own audience", () => {
+    // Section 5: "blog posts link to at least two service pages" - read as pages
+    // for the reader the post is written for. Owner posts feed the owner pages;
+    // guest posts feed the guest pages. A post never sends a reader across.
+    const ownerPages = new Set(
       MARKETING_PAGES.filter((p) => p.audience === "owner").map((p) => p.path),
     );
+    const guestPages = new Set([
+      ...MARKETING_PAGES.filter((p) => p.audience === "guest").map((p) => p.path),
+      "/homes",
+      "/homes/groups",
+      ...AREAS.filter((a) => a.slug).map((a) => `/stay/${a.slug}`),
+    ]);
     for (const post of JOURNAL_POSTS) {
-      const hits = post.related.filter((link) => servicePages.has(link.href));
-      assert.ok(hits.length >= 2, `${post.slug} links to ${hits.length} service page(s), needs 2`);
+      const own = post.category === "owners" ? ownerPages : guestPages;
+      const other = post.category === "owners" ? guestPages : ownerPages;
+      const hits = post.related.filter((link) => own.has(link.href));
+      assert.ok(hits.length >= 2, `${post.slug} links to ${hits.length} page(s) for its audience, needs 2`);
+      const crossed = post.related.filter((link) => other.has(link.href));
+      assert.equal(crossed.length, 0, `${post.slug} sends its reader to the other audience: ${crossed.map((l) => l.href).join(", ")}`);
+    }
+  });
+
+  it("keeps guest pages and owner pages from linking across", () => {
+    const audienceOf = new Map(MARKETING_PAGES.map((p) => [p.path, p.audience]));
+    for (const page of MARKETING_PAGES) {
+      // /about is the company page: neutral, reachable from either side.
+      if (page.path === "/about") continue;
+      for (const link of page.related) {
+        const target = audienceOf.get(link.href);
+        if (!target || link.href === "/about") continue;
+        assert.equal(target, page.audience, `${page.path} (${page.audience}) links to ${link.href} (${target})`);
+      }
     }
   });
 

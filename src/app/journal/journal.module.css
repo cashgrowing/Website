@@ -23,6 +23,31 @@
   max-width: 40ch;
 }
 
+/* Two lanes on the index: guests, then homeowners. */
+.lanes {
+  display: flex;
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+  font-size: var(--size-small);
+}
+.lanes a {
+  color: var(--gold-deep);
+  text-decoration: none;
+  border-bottom: 1px solid var(--gold);
+}
+.lane {
+  padding-top: 2.5rem;
+}
+.laneHeading {
+  color: var(--black);
+  font-size: var(--size-heading);
+}
+.laneIntro {
+  color: var(--brown);
+  margin-top: 0.5rem;
+  max-width: 52ch;
+}
+
 /* Index list: one entry per row, hairline between. No thumbnails. */
 .list {
   margin-top: 0.5rem;
@@ -33,6 +58,15 @@
   border-bottom: 1px solid var(--tan-light);
   text-decoration: none;
   color: inherit;
+}
+.entry h3 {
+  font-size: var(--size-subhead);
+  color: var(--black);
+  margin-bottom: 0.5rem;
+  max-width: 26ch;
+}
+.entry:hover h3 {
+  color: var(--gold-deep);
 }
 .meta {
   font-size: var(--size-small);

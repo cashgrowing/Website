@@ -164,9 +164,9 @@ export const MARKETING_PAGES: MarketingPage[] = [
       },
     ],
     related: [
-      { label: "Stay in Uvita", href: "/stay/uvita" },
-      { label: "Vacation rentals in Bahía Ballena", href: "/vacation-rentals-bahia-ballena" },
       { label: "Property management in Costa Rica", href: "/property-management-costa-rica" },
+      { label: "Airbnb management in Costa Rica", href: "/airbnb-management-costa-rica" },
+      { label: "Vacation rental management in Ojochal", href: "/vacation-rental-management-ojochal" },
       { label: "How we charge", href: "/how-we-charge" },
     ],
   },
@@ -240,9 +240,9 @@ export const MARKETING_PAGES: MarketingPage[] = [
       },
     ],
     related: [
-      { label: "Stay in Dominical", href: "/stay/dominical" },
       { label: "Property management in Costa Rica", href: "/property-management-costa-rica" },
       { label: "Vacation rental management in Uvita", href: "/vacation-rental-management-uvita" },
+      { label: "Airbnb management in Costa Rica", href: "/airbnb-management-costa-rica" },
       { label: "How we charge", href: "/how-we-charge" },
     ],
   },
@@ -316,8 +316,8 @@ export const MARKETING_PAGES: MarketingPage[] = [
       },
     ],
     related: [
-      { label: "Stay in Ojochal", href: "/stay/ojochal" },
       { label: "Property management in Costa Rica", href: "/property-management-costa-rica" },
+      { label: "Vacation rental management in Uvita", href: "/vacation-rental-management-uvita" },
       { label: "Property manager in Dominical", href: "/property-manager-dominical" },
       { label: "How we charge", href: "/how-we-charge" },
     ],
@@ -766,7 +766,7 @@ export const MARKETING_PAGES: MarketingPage[] = [
     path: "/contact",
     title: "Contact WildRoots",
     description:
-      "Reach WildRoots on WhatsApp, phone or email. Boutique property management and vacation rentals in Uvita, Dominical and Ojochal, Costa Rica.",
+      "Talk to WildRoots about managing your vacation home in Uvita, Dominical or Ojochal. WhatsApp, phone or email, answered in English and Spanish.",
     h1: "Contact WildRoots",
     lede: "WhatsApp is the fastest way to reach us. We answer in English and Spanish, usually within minutes.",
     audience: "owner",
@@ -776,22 +776,21 @@ export const MARKETING_PAGES: MarketingPage[] = [
         heading: "How to reach us",
         paragraphs: [
           "WhatsApp and phone: +506 8734-7178. Email: info@wildrootscr.com. We are based in Uvita, on Costa Rica's South Pacific coast, and work with homes from Dominical to Ojochal.",
-          "If you own a home, tell us where it is, how you use it yourself and whether it is already listed on Airbnb or VRBO. That is enough for a first conversation.",
-          "If you are a guest, send your dates, the number of people and the area you prefer, and we will tell you what is available. If you are already staying with us, the WhatsApp line in your guest guide is answered around the clock.",
+          "Tell us where the home is, how you use it yourself and whether it is already listed on Airbnb or VRBO. That is enough for a first conversation.",
         ],
       },
       {
         kind: "prose",
         heading: "What happens after you write",
         paragraphs: [
-          "Owners: we reply with a few questions, then arrange a walk-through of the property. After the visit you get a plain assessment of what the home needs and a proposal with three components: a one-time setup fee, a flat monthly management fee and a booking commission. Work outside normal operations is quoted separately.",
-          "Guests: we confirm availability, send the details of the home and answer any question before you book. Vendors, cleaners and local businesses who would like to work with WildRoots are welcome to write as well; we keep a small network of trusted partners on this coast.",
+          "We reply with a few questions, then arrange a walk-through of the property. After the visit you get a plain assessment of what the home needs and a proposal with three components: a one-time setup fee, a flat monthly management fee and a booking commission. Work outside normal operations is quoted separately.",
+          "Vendors, cleaners and local businesses who would like to work with WildRoots are welcome to write as well; we keep a small network of trusted partners on this coast.",
         ],
       },
       {
         kind: "list",
         heading: "Who we work with",
-        intro: "Owners, guests and local partners, from Dominical to Ojochal.",
+        intro: "Owners and local partners, from Dominical to Ojochal.",
         items: [
           {
             title: "Property owners",
@@ -805,18 +804,14 @@ export const MARKETING_PAGES: MarketingPage[] = [
             title: "Local vendors",
             body: "Cleaners, pool and garden crews, electricians and other trades who take pride in their work and want steady jobs with a team that respects their trade.",
           },
-          {
-            title: "Guests",
-            body: "Travelers looking for a private home near Marino Ballena National Park. See our Bahía Ballena rentals or message us with your dates.",
-          },
         ],
       },
     ],
     faqs: [],
     related: [
-      { label: "Vacation rentals in Bahía Ballena", href: "/vacation-rentals-bahia-ballena" },
       { label: "Property management in Costa Rica", href: "/property-management-costa-rica" },
       { label: "How we charge", href: "/how-we-charge" },
+      { label: "About WildRoots", href: "/about" },
     ],
   },
 ];

@@ -20,15 +20,6 @@ export const dynamicParams = false;
 
 type Params = { params: Promise<{ area: string; attribute: string }> };
 
-const MANAGEMENT_PAGE: Record<string, { href: string; label: string }> = {
-  uvita: { href: "/vacation-rental-management-uvita", label: "Vacation rental management in Uvita" },
-  dominical: { href: "/property-manager-dominical", label: "Property manager in Dominical" },
-  ojochal: {
-    href: "/vacation-rental-management-ojochal",
-    label: "Vacation rental management in Ojochal",
-  },
-};
-
 export async function generateStaticParams() {
   const homes = await getHomes();
   return qualifyingPairs(homes, AREAS).map((pair) => ({
@@ -75,8 +66,6 @@ export default async function AttributePage({ params }: Params) {
   // Listings change; a pair that qualified at build time may not any more.
   if (matching.length === 0) notFound();
 
-  const management = MANAGEMENT_PAGE[areaSlug];
-
   return (
     <div className={styles.page}>
       <div className={styles.intro}>
@@ -90,7 +79,7 @@ export default async function AttributePage({ params }: Params) {
         <nav className={styles.areas} aria-label="Related pages">
           <Link href={`/stay/${area.slug}`}>All homes in {area.name}</Link>
           <Link href="/homes">Every home we look after</Link>
-          {management ? <Link href={management.href}>{management.label}</Link> : null}
+          <Link href="/homes/groups">Homes by what matters</Link>
         </nav>
       </div>
 

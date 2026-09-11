@@ -38,6 +38,13 @@
 .nav a:hover {
   color: var(--gold);
 }
+/* Homeowners' door: a hairline and gold-deep text mark it as the other audience. */
+.nav .owner {
+  color: var(--gold-deep);
+  font-weight: 500;
+  padding-left: 2rem;
+  border-left: 1px solid var(--tan-light);
+}
 
 .toggle {
   display: none;
@@ -81,6 +88,10 @@
     width: 100%;
     padding: 1rem var(--gutter);
     border-top: 1px solid var(--tan-light);
+  }
+  .nav .owner {
+    border-left: 0;
+    padding-left: var(--gutter);
   }
   .mobileCta {
     font-size: var(--size-small);

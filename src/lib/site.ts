@@ -57,18 +57,35 @@ export const AREAS = [
 
 export const AREA_NAMES = AREAS.map((a) => a.name);
 
+/**
+ * Guests first. The main menu speaks to people looking for a place to stay;
+ * homeowners get one clearly labelled door of their own (OWNER_LINK), shown
+ * beside the WhatsApp button. No page tries to talk to both.
+ */
 export const NAV = [
   { label: "Homes", href: "/homes" },
-  { label: "Management", href: "/property-management-costa-rica" },
   { label: "Areas", href: "/stay/uvita" },
-  { label: "About", href: "/about" },
+  { label: "Guest services", href: "/guest-services" },
   { label: "Journal", href: "/journal" },
-  { label: "Contact", href: "/contact" },
+  { label: "About", href: "/about" },
 ] as const;
+
+export const OWNER_LINK = { label: "For homeowners", href: "/property-management-costa-rica" } as const;
 
 export const FOOTER_COLUMNS = [
   {
-    heading: "Homeowners",
+    heading: "For guests",
+    links: [
+      { label: "All homes", href: "/homes" },
+      { label: "Homes by what matters", href: "/homes/groups" },
+      { label: "Guest services", href: "/guest-services" },
+      { label: "Bahía Ballena", href: "/vacation-rentals-bahia-ballena" },
+      { label: "Whale season", href: "/whale-season" },
+      { label: "Check availability", href: BOOKING_ENGINE_URL },
+    ],
+  },
+  {
+    heading: "For homeowners",
     links: [
       { label: "Property management", href: "/property-management-costa-rica" },
       { label: "How we charge", href: "/how-we-charge" },
@@ -76,16 +93,6 @@ export const FOOTER_COLUMNS = [
       { label: "Management in Dominical", href: "/property-manager-dominical" },
       { label: "Send an enquiry", href: "/contact" },
       { label: "Talk to the team", href: CONTACT.whatsappUrl },
-    ],
-  },
-  {
-    heading: "Guests",
-    links: [
-      { label: "All homes", href: "/homes" },
-      { label: "Guest services", href: "/guest-services" },
-      { label: "Bahía Ballena", href: "/vacation-rentals-bahia-ballena" },
-      { label: "Whale season", href: "/whale-season" },
-      { label: "Check availability", href: BOOKING_ENGINE_URL },
     ],
   },
   {

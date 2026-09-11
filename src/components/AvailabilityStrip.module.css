@@ -1,7 +1,7 @@
 /* A ruled strip on paper. Hairlines do the separating; there is no box. */
 .strip {
   display: grid;
-  grid-template-columns: 1.1fr 1.1fr 0.7fr auto;
+  grid-template-columns: 2fr 0.8fr auto;
   align-items: stretch;
   background: var(--paper);
   border-bottom: 1px solid var(--tan-light);
@@ -18,7 +18,7 @@
   border-right: 1px solid var(--tan-light);
   min-width: 0;
 }
-.field span {
+.field > span {
   font-size: 0.6875rem; /* 11 */
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -35,9 +35,6 @@
   min-width: 0;
   width: 100%;
 }
-.field input::-webkit-calendar-picker-indicator {
-  opacity: 0.6;
-}
 .field input:focus-visible {
   outline: 2px solid var(--gold);
   outline-offset: 3px;
@@ -49,9 +46,9 @@
 }
 
 /*
- * Phones: two rows of two. Dates side by side, then guests beside a button
- * that fills its cell. Hairlines run between the rows and down the middle,
- * so nothing dangles.
+ * Phones: the dates field takes the first row on its own, then guests beside
+ * a button that fills its cell. Hairlines between the rows and down the
+ * middle of the second, so nothing dangles.
  */
 @media (max-width: 900px) {
   .strip {
@@ -63,12 +60,13 @@
     border-right: 0;
     border-bottom: 1px solid var(--tan-light);
   }
-  .field:nth-child(odd) {
+  .field:first-child {
+    grid-column: 1 / -1;
+  }
+  .field:nth-child(2) {
     padding-right: 1rem;
     margin-right: 1rem;
     border-right: 1px solid var(--tan-light);
-  }
-  .field:nth-child(3) {
     border-bottom: 0;
   }
   .go {

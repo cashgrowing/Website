@@ -30,15 +30,21 @@ npm run deploy            # publishes to https://wildroots.sanity.studio
 
 ## Loading the existing words into it
 
-The site currently reads the copy committed in `src/content`. To move it into
-Sanity so it can be edited:
+The site reads the copy committed in `src/content` until Sanity has it. To load
+(or reload) it, from the repository root:
 
 ```bash
-npm run seed
+npm run sanity:check                     # writes sanity-content.ndjson and proves it round-trips
+cd studio && npx sanity dataset import ../sanity-content.ndjson production --replace
 ```
 
 It creates one document per page and one per journal post, and is safe to run
 again — documents have fixed ids, so a second run updates rather than duplicates.
+Done on 2026-09-11: 11 pages and 8 posts imported, and the site reads them.
+
+Sign in with the Google account that owns the project (the one listed under
+Members at sanity.io/manage). Any other account signs in fine and then fails
+every command with "missing required grant".
 
 ## How this connects to the site
 

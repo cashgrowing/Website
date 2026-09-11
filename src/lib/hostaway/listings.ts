@@ -63,11 +63,18 @@ function toPhotos(listing: HostawayListing, homeName: string, area: string | nul
 }
 
 function toHome(listing: HostawayListing): Home {
-  // Prefer the guest-facing name; internal names are for the office, not the site.
+  /*
+   * The house's own name - "Casa Canto Ballena" - not the channel title.
+   * Hostaway keeps both: `name` is what the office calls the house, and
+   * `externalListingName` is the keyword-stuffed title written for Airbnb
+   * ("8 personas, piscina, wifi | 3 cuartos, 4 baños"). Our pages are ours,
+   * and a house should be called by its name on them. Whoever adds a
+   * listing in Hostaway should give it a name fit to print.
+   */
   const name =
-    listing.externalListingName?.trim() ||
     listing.name?.trim() ||
     listing.internalListingName?.trim() ||
+    listing.externalListingName?.trim() ||
     `Home ${listing.id}`;
 
   const area = matchArea(listing);
@@ -146,6 +153,8 @@ export async function getHomes(): Promise<Home[]> {
     console.log(
       `[hostaway] fetched ${listings.length} listing(s), mapped ${homes.length} home(s).`,
       `areas=${JSON.stringify(areas)}`,
+      // The names the site will print, so a wrong pick shows up in the build log.
+      `names=${JSON.stringify(homes.map((home) => home.name))}`,
     );
 
     return withUniqueSlugs(homes).sort((a, b) => a.name.localeCompare(b.name));

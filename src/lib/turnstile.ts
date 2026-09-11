@@ -29,7 +29,23 @@ export async function verifyTurnstile(token: string, ip?: string): Promise<boole
     });
     if (!res.ok) return false;
 
-    const json = (await res.json()) as { success?: boolean };
+    const json = (await res.json()) as {
+      success?: boolean;
+      "error-codes"?: string[];
+      hostname?: string;
+    };
+    if (json.success !== true) {
+      /*
+       * Cloudflare says why it refused: invalid-input-secret (the secret does
+       * not belong to this widget), timeout-or-duplicate (token expired or
+       * reused), invalid-input-response, and so on. Without this line a
+       * failure is indistinguishable from a bot. Never includes the secret.
+       */
+      console.error(
+        "[turnstile] siteverify refused:",
+        JSON.stringify({ errors: json["error-codes"] ?? [], hostname: json.hostname ?? null }),
+      );
+    }
     return json.success === true;
   } catch (error) {
     console.error("[turnstile] verification failed:", error);

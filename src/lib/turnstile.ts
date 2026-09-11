@@ -24,7 +24,11 @@ export function isTurnstileConfigured(): boolean {
  */
 export async function verifyTurnstile(token: string, ip?: string): Promise<boolean> {
   const key = secret();
-  if (!key || !token) return false;
+  if (!key || !token) {
+    // Every refusal says why; a silent `false` looks exactly like a bot.
+    console.error("[turnstile] refused before siteverify:", JSON.stringify({ hasSecret: Boolean(key), tokenLength: token.length }));
+    return false;
+  }
 
   try {
     const body = new URLSearchParams({ secret: key, response: token });
@@ -36,14 +40,13 @@ export async function verifyTurnstile(token: string, ip?: string): Promise<boole
       body,
       cache: "no-store",
     });
-    if (!res.ok) return false;
 
-    const json = (await res.json()) as {
+    const json = (await res.json().catch(() => ({}))) as {
       success?: boolean;
       "error-codes"?: string[];
       hostname?: string;
     };
-    if (json.success !== true) {
+    if (!res.ok || json.success !== true) {
       /*
        * Cloudflare says why it refused: invalid-input-secret (the secret does
        * not belong to this widget), timeout-or-duplicate (token expired or

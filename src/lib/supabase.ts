@@ -11,8 +11,16 @@ import type { InquiryInput } from "./inquiries";
  * `server-only` above means an accidental import from a client component fails
  * the build rather than shipping the key to a browser.
  */
+/** Pasted values are trimmed: a stray newline makes a valid key fail auth. */
+function supabaseUrl(): string {
+  return process.env.SUPABASE_URL?.trim().replace(/\/+$/, "") ?? "";
+}
+function serviceKey(): string {
+  return process.env.SUPABASE_SERVICE_ROLE_KEY?.trim() ?? "";
+}
+
 export function isSupabaseConfigured(): boolean {
-  return Boolean(process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY);
+  return Boolean(supabaseUrl() && serviceKey());
 }
 
 /**
@@ -38,8 +46,8 @@ export type StoredInquiry = InquiryInput & {
 
 /** Insert one enquiry. Returns the new row's id, or null if the write failed. */
 export async function insertInquiry(inquiry: StoredInquiry): Promise<string | null> {
-  const url = process.env.SUPABASE_URL?.replace(/\/+$/, "");
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const url = supabaseUrl();
+  const key = serviceKey();
   if (!url || !key) return null;
 
   const row = {

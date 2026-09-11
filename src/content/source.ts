@@ -67,6 +67,10 @@ export async function getAllMarketingPages(): Promise<MarketingPage[]> {
     const pages = fromSanity
       .map((doc, i) => validated(marketingPageSchema, doc, `marketingPage[${i}]`))
       .filter((page): page is MarketingPage => page !== null);
+    // Logged on success as well as failure: Sanity content and the committed
+    // copy render identically by design, so the build log is the only place
+    // that shows which one a deploy actually used.
+    console.log(`[content] ${pages.length} of ${fromSanity.length} marketing page(s) from Sanity.`);
     if (pages.length > 0) return pages;
   }
   return MARKETING_PAGES;
@@ -80,6 +84,7 @@ export async function getJournalPosts(): Promise<JournalPost[]> {
     const posts = fromSanity
       .map((doc, i) => validated(journalPostSchema, doc, `journalPost[${i}]`))
       .filter((post): post is JournalPost => post !== null);
+    console.log(`[content] ${posts.length} of ${fromSanity.length} journal post(s) from Sanity.`);
     if (posts.length > 0) return posts;
   }
   return [...JOURNAL_POSTS].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));

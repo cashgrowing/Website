@@ -53,9 +53,19 @@ export async function verifyTurnstile(token: string, ip?: string): Promise<boole
        * reused), invalid-input-response, and so on. Without this line a
        * failure is indistinguishable from a bot. Never includes the secret.
        */
+      /*
+       * The secret's shape, never its value. Site key and secret both begin
+       * `0x4AAAAAA`, so pasting the site key into the secret field is an easy
+       * mistake - and a secret is 35 characters where a site key is about 24.
+       */
       console.error(
         "[turnstile] siteverify refused:",
-        JSON.stringify({ errors: json["error-codes"] ?? [], hostname: json.hostname ?? null }),
+        JSON.stringify({
+          errors: json["error-codes"] ?? [],
+          hostname: json.hostname ?? null,
+          secretLength: key.length,
+          secretIsTheSiteKey: key === process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim(),
+        }),
       );
     }
     return json.success === true;

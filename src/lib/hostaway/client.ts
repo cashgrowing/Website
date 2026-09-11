@@ -77,6 +77,9 @@ async function requestToken(): Promise<string> {
       "[hostaway] auth rejected.",
       `accountId=${accountId}`,
       `keyLength=${apiKey.length}`,
+      // Same first-4/last-4 mask Hostaway shows in Settings -> Hostaway API, so
+      // the key in use can be matched to a row there without revealing it.
+      `key=${apiKey.slice(0, 4)}****${apiKey.slice(-4)}`,
       `keyHadSurroundingWhitespace=${raw !== raw.trim()}`,
       `response=${detail.slice(0, 300)}`,
     );

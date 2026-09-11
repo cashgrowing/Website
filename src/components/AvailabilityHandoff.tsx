@@ -25,8 +25,8 @@ export function AvailabilityHandoff({ bookingEngineUrl }: { bookingEngineUrl: st
         for {stay.guests} {stay.guests === 1 ? "guest" : "guests"}.
       </p>
       <p className={styles.note}>
-        Open any house below and your dates come with you. Or see everything that is free at
-        once on our booking engine.
+        Tap any house below to see its calendar and price for these dates. Or see everything
+        that is free at once.
       </p>
       <a
         className={`${btn.btn} ${btn.gold}`}

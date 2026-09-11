@@ -1,8 +1,9 @@
 import Image from "next/image";
 
-import { DatedLink } from "./DatedLink";
+import { EngineListingLink } from "./EngineListingLink";
 import styles from "./HomeCard.module.css";
 import type { Home } from "@/lib/hostaway/types";
+import { BOOKING_ENGINE_URL } from "@/lib/site";
 
 /*
  * Three line icons, drawn once here so every card on the site uses the same
@@ -42,6 +43,11 @@ function formatPrice(home: Home): string {
  * The one home card. Homepage, /homes, area pages and grouped pages all use
  * it, so a change here is a change everywhere - which is the point.
  *
+ * The card opens the booking engine's page for the house, where a guest can
+ * see the calendar and price and book. Our own /homes/[slug] pages still
+ * exist for search engines and shared links; they are just not a stop on
+ * the way to booking.
+ *
  * Facts come straight from Hostaway; a missing fact is left out rather than
  * guessed. A missing price says "On request" so the card never looks broken.
  */
@@ -50,7 +56,11 @@ export function HomeCard({ home, priority = false }: { home: Home; priority?: bo
   const place = home.area ?? home.city;
 
   return (
-    <DatedLink className={styles.card} href={`/homes/${home.slug}`}>
+    <EngineListingLink
+      className={styles.card}
+      listingId={home.id}
+      bookingEngineUrl={BOOKING_ENGINE_URL}
+    >
       <div className={`${styles.frame} ${cover ? "" : styles.empty}`}>
         {cover ? (
           <Image
@@ -96,6 +106,6 @@ export function HomeCard({ home, priority = false }: { home: Home; priority?: bo
           <b>On request</b>
         )}
       </p>
-    </DatedLink>
+    </EngineListingLink>
   );
 }

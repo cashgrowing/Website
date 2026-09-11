@@ -83,8 +83,22 @@ export default async function AreaPage({ params }: Params) {
         </nav>
       </div>
 
+      {/* Houses first; the guide to the area follows for whoever wants it. */}
+      {homes.length > 0 ? (
+        <div className={styles.cards}>
+          {homes.map((home, index) => (
+            <HomeCard key={home.id} home={home} priority={index < 4} />
+          ))}
+        </div>
+      ) : (
+        <p className={styles.empty}>
+          No {area.name} homes are live in Hostaway yet. As soon as one is, it appears here
+          on its own.
+        </p>
+      )}
+
       {content ? (
-        <div className={stay.column}>
+        <div className={`${stay.column} ${styles.after}`}>
           <div className={stay.intro}>
             {content.intro.map((paragraph) => (
               <p key={paragraph.slice(0, 40)}>{paragraph}</p>
@@ -135,21 +149,6 @@ export default async function AreaPage({ params }: Params) {
           </section>
         </div>
       ) : null}
-
-      <h2 className={stay.homesHeading}>Homes in {area.name}</h2>
-
-      {homes.length > 0 ? (
-        <div className={styles.cards}>
-          {homes.map((home, index) => (
-            <HomeCard key={home.id} home={home} priority={index < 4} />
-          ))}
-        </div>
-      ) : (
-        <p className={styles.empty}>
-          No {area.name} homes are live in Hostaway yet. As soon as one is, it appears here
-          on its own.
-        </p>
-      )}
 
       {content && content.faqs.length > 0 ? (
         <div className={stay.column}>

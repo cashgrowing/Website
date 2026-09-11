@@ -60,6 +60,20 @@
   margin-bottom: 1.5rem;
 }
 
+/* Price and actions under the title. Phones only; the rail does this on wide screens. */
+.bookingBar {
+  display: none;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--tan-light);
+  margin-bottom: 1.5rem;
+}
+.bookingBar .price {
+  font-size: var(--size-subhead);
+  color: var(--black);
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
 .prose p {
   margin-bottom: 1rem;
   color: var(--ink);
@@ -126,6 +140,9 @@
   .body {
     grid-template-columns: 1fr;
     gap: 2.5rem;
+  }
+  .bookingBar {
+    display: block;
   }
   .rail {
     position: static;

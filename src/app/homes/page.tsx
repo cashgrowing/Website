@@ -28,6 +28,12 @@ export const metadata: Metadata = {
 
 export const revalidate = 900;
 
+/**
+ * Houses first. A guest who tapped "Find a home to stay in" expects homes,
+ * not an essay: the cards come straight after the opening line, and the
+ * words about booking direct and what a stay includes sit beneath them for
+ * whoever wants them.
+ */
 export default async function HomesPage() {
   const homes = await getHomes();
 
@@ -57,7 +63,20 @@ export default async function HomesPage() {
         <AvailabilityHandoff bookingEngineUrl={BOOKING_ENGINE_URL} />
       </Suspense>
 
-      <div className={stay.column}>
+      {homes.length > 0 ? (
+        <div className={styles.cards}>
+          {homes.map((home, index) => (
+            <HomeCard key={home.id} home={home} priority={index < 4} />
+          ))}
+        </div>
+      ) : (
+        <p className={styles.empty}>
+          Listings load straight from Hostaway. They appear here as soon as the API key is
+          added to the Vercel project.
+        </p>
+      )}
+
+      <div className={`${stay.column} ${styles.after}`}>
         <div className={stay.intro}>
           {HOMES_INTRO.map((paragraph) => (
             <p key={paragraph.slice(0, 40)}>{paragraph}</p>
@@ -87,24 +106,7 @@ export default async function HomesPage() {
             ))}
           </div>
         </section>
-      </div>
 
-      <h2 className={stay.homesHeading}>The homes</h2>
-
-      {homes.length > 0 ? (
-        <div className={styles.cards}>
-          {homes.map((home, index) => (
-            <HomeCard key={home.id} home={home} priority={index < 4} />
-          ))}
-        </div>
-      ) : (
-        <p className={styles.empty}>
-          Listings load straight from Hostaway. They appear here as soon as the API key is
-          added to the Vercel project.
-        </p>
-      )}
-
-      <div className={stay.column}>
         <Faqs faqs={HOMES_FAQS} heading="Booking a home here" />
       </div>
 

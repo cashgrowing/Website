@@ -135,7 +135,7 @@ export default async function HomePage() {
             Book directly with the local team that looks after every house. The same homes
             you see on Airbnb, no platform fee, and a number that actually answers.
           </p>
-          <Button variant="onDark" href={BOOKING_ENGINE_URL}>
+          <Button variant="onDark" href={`${BOOKING_ENGINE_URL}/search`}>
             Check availability
           </Button>
         </div>
@@ -155,10 +155,10 @@ export default async function HomePage() {
       <section className={styles.band}>
         <div className={styles.bandHead}>
           <div>
-            <h2>Homes we look after</h2>
+            <h2>Homes to stay in</h2>
             <p className={styles.sectionIntro}>
-              A small number of houses between Dominical and Ojochal, walked weekly whether a
-              guest is in them or not.
+              A small number of houses between Dominical and Ojochal, each looked after by the
+              team you will be talking to.
             </p>
           </div>
           <Link className={styles.more} href="/homes">

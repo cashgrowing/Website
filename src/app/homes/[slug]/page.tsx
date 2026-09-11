@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import styles from "./home.module.css";
-import { Button } from "@/components/Button";
+import { BookingLinks } from "@/components/BookingLinks";
 import { PhotoSlot } from "@/components/PhotoSlot";
 import { alternatesFor } from "@/lib/i18n";
 import { getHomeBySlug, getHomes } from "@/lib/hostaway/listings";
@@ -147,6 +147,31 @@ export default async function HomeDetailPage({ params }: Params) {
             {home.sleeps ? <li>Sleeps {home.sleeps}</li> : null}
           </ul>
 
+          {/*
+            On a phone the booking rail lands at the very bottom, after every
+            paragraph and amenity. This bar puts the price and the two actions
+            under the title, where a guest looks first; the rail stays below
+            for anyone who reads the whole page. Hidden on wide screens, where
+            the rail sits beside the text.
+          */}
+          <div className={styles.bookingBar}>
+            {home.basePrice ? (
+              <p className={styles.price}>
+                from {home.currency === "USD" ? "$" : ""}
+                {Math.round(home.basePrice)}
+                {home.currency === "USD" ? "" : ` ${home.currency}`} / night
+              </p>
+            ) : (
+              <p className={styles.price}>Price on request</p>
+            )}
+            <BookingLinks
+              className={styles.railActions}
+              listingId={home.id}
+              bookingEngineUrl={BOOKING_ENGINE_URL}
+              whatsappUrl={CONTACT.whatsappUrl}
+            />
+          </div>
+
           {paragraphs.length > 0 ? (
             <div className={styles.prose}>
               {paragraphs.map((paragraph, index) => (
@@ -186,14 +211,12 @@ export default async function HomeDetailPage({ params }: Params) {
             Availability and checkout run on our own booking engine. Same house, same team,
             no platform fee.
           </p>
-          <div className={styles.railActions}>
-            <Button variant="gold" href={`${BOOKING_ENGINE_URL}/?listingId=${home.id}`}>
-              Check availability
-            </Button>
-            <Button variant="outline" href={CONTACT.whatsappUrl}>
-              Ask us on WhatsApp
-            </Button>
-          </div>
+          <BookingLinks
+            className={styles.railActions}
+            listingId={home.id}
+            bookingEngineUrl={BOOKING_ENGINE_URL}
+            whatsappUrl={CONTACT.whatsappUrl}
+          />
         </aside>
       </div>
 

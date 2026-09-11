@@ -1,6 +1,6 @@
 import Image from "next/image";
-import Link from "next/link";
 
+import { DatedLink } from "./DatedLink";
 import styles from "./HomeCard.module.css";
 import type { Home } from "@/lib/hostaway/types";
 
@@ -50,7 +50,7 @@ export function HomeCard({ home, priority = false }: { home: Home; priority?: bo
   const place = home.area ?? home.city;
 
   return (
-    <Link className={styles.card} href={`/homes/${home.slug}`}>
+    <DatedLink className={styles.card} href={`/homes/${home.slug}`}>
       <div className={`${styles.frame} ${cover ? "" : styles.empty}`}>
         {cover ? (
           <Image
@@ -96,6 +96,6 @@ export function HomeCard({ home, priority = false }: { home: Home; priority?: bo
           <b>On request</b>
         )}
       </p>
-    </Link>
+    </DatedLink>
   );
 }

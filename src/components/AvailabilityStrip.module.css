@@ -48,16 +48,33 @@
   align-items: center;
 }
 
+/*
+ * Phones: two rows of two. Dates side by side, then guests beside a button
+ * that fills its cell. Hairlines run between the rows and down the middle,
+ * so nothing dangles.
+ */
 @media (max-width: 900px) {
   .strip {
     grid-template-columns: 1fr 1fr;
   }
-  .field:nth-child(2) {
-    border-right: 0;
+  .field {
     margin-right: 0;
+    padding: 0.875rem 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--tan-light);
+  }
+  .field:nth-child(odd) {
+    padding-right: 1rem;
+    margin-right: 1rem;
+    border-right: 1px solid var(--tan-light);
+  }
+  .field:nth-child(3) {
+    border-bottom: 0;
   }
   .go {
-    grid-column: 1 / -1;
-    padding: 0.25rem 0 1rem;
+    padding: 0.75rem 0;
+  }
+  .go button {
+    width: 100%;
   }
 }

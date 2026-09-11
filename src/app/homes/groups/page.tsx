@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 import styles from "../homes.module.css";
 import { GroupTiles } from "@/components/GroupTiles";
@@ -26,6 +27,8 @@ export const revalidate = 900;
 export default async function GroupsIndexPage() {
   const homes = await getHomes();
   const groups = qualifyingGroups(homes);
+  // Nothing links here while no group narrows the choice; a direct visit gets a 404, not an empty page.
+  if (groups.length === 0) notFound();
 
   return (
     <div className={styles.page}>

@@ -77,7 +77,8 @@ export const FOOTER_COLUMNS = [
     heading: "For guests",
     links: [
       { label: "All homes", href: "/homes" },
-      { label: "Homes by what matters", href: "/homes/groups" },
+      // "Homes by what matters" (/homes/groups) is linked from the homepage and
+      // /homes only while a group narrows the choice; a static footer cannot know.
       { label: "Guest services", href: "/guest-services" },
       { label: "Bahía Ballena", href: "/vacation-rentals-bahia-ballena" },
       { label: "Whale season", href: "/whale-season" },

@@ -6,9 +6,12 @@ import type { Home } from "./hostaway/types";
  * attributes.ts, and driven entirely by Hostaway data - nothing is curated by
  * hand, so a page cannot go stale.
  *
- * The same rule as everywhere else on the site: a group exists only when at
- * least three homes belong to it. Below that, no page is built, no tile is
- * shown and nothing links to it. A page listing one house is a thin page.
+ * A group exists only when it narrows the choice: at least three homes
+ * belong to it, and not every home does. Below three it is a thin page; at
+ * all of them it is the /homes list again under another heading, which is
+ * what the owner saw with three houses and asked to have hidden. Groups come
+ * back on their own once the portfolio is big enough for one to exclude
+ * something.
  *
  * Deliberately not called "collections" anywhere a visitor can read: that is
  * a competitor's word.
@@ -41,7 +44,6 @@ function anyOf(patterns: RegExp[]): (home: Home) => boolean {
  * "Pool table" is a games room, not a pool; the lookahead keeps it out.
  */
 const POOL = [/\bpool\b(?!\s*table)/i];
-const PETS = [/pets?\s*(allowed|friendly|welcome)/i, /\bdog\s*friendly\b/i];
 
 export const HOME_GROUPS: HomeGroup[] = [
   {
@@ -98,17 +100,12 @@ export const HOME_GROUPS: HomeGroup[] = [
       "One bedroom, one pool, nobody else. These are the houses we send couples to.",
     matches: (home) => home.bedrooms === 1,
   },
-  {
-    slug: "pets-welcome",
-    name: "Homes that welcome pets",
-    title: "Pet friendly vacation homes, Uvita & Dominical",
-    description:
-      "Houses on Costa Rica's South Pacific coast where the owner welcomes dogs, so the whole household can travel. Book direct with the team.",
-    intro:
-      "Houses where the owner is happy to have a dog along. Ask us about the specific house before booking: fencing and neighbours differ.",
-    matches: anyOf(PETS),
-  },
 ];
+/*
+ * There is no pets group. The owner asked for it to go (2026-09-11); whether
+ * a house takes dogs is a conversation, not a filter. Pets still appear as an
+ * amenity on each house page, straight from Hostaway.
+ */
 
 /** The site-wide threshold. Below this, no page is built. */
 export const MIN_HOMES_FOR_GROUP = 3;
@@ -122,11 +119,12 @@ export function homesInGroup(homes: Home[], group: HomeGroup): Home[] {
 }
 
 /**
- * Every group that clears the threshold, with its homes. The single source
- * of truth for the routes, the sitemap and the tiles, so they cannot disagree.
+ * Every group that clears the threshold AND leaves something out, with its
+ * homes. The single source of truth for the routes, the sitemap, the tiles
+ * and the links to them, so they cannot disagree.
  */
 export function qualifyingGroups(homes: Home[]): Array<{ group: HomeGroup; homes: Home[] }> {
   return HOME_GROUPS.map((group) => ({ group, homes: homesInGroup(homes, group) })).filter(
-    (entry) => entry.homes.length >= MIN_HOMES_FOR_GROUP,
+    (entry) => entry.homes.length >= MIN_HOMES_FOR_GROUP && entry.homes.length < homes.length,
   );
 }

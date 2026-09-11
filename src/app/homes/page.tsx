@@ -9,6 +9,7 @@ import { Faqs } from "@/components/Faqs";
 import { HomeCard } from "@/components/HomeCard";
 import { alternatesFor } from "@/lib/i18n";
 import { BOOKING_DIRECT, EVERY_STAY, HOMES_FAQS, HOMES_INTRO } from "@/content/homes";
+import { qualifyingGroups } from "@/lib/groups";
 import { getHomes } from "@/lib/hostaway/listings";
 import { ogImage } from "@/lib/og";
 import { JsonLd, breadcrumbSchema, faqPageSchema } from "@/lib/schema";
@@ -51,7 +52,9 @@ export default async function HomesPage() {
               Stay in {area.name}
             </Link>
           ))}
-          <Link href="/homes/groups">Homes by what matters</Link>
+          {qualifyingGroups(homes).length > 0 ? (
+            <Link href="/homes/groups">Homes by what matters</Link>
+          ) : null}
         </nav>
       </div>
 

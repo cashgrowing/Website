@@ -46,12 +46,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly" as const,
       priority: 0.6,
     })),
-    {
-      url: `${SITE_URL}/homes/groups`,
-      lastModified: now,
-      changeFrequency: "weekly" as const,
-      priority: 0.6,
-    },
+    // The grouped pages and their index exist only while a group narrows the choice.
+    ...(qualifyingGroups(homes).length > 0
+      ? [
+          {
+            url: `${SITE_URL}/homes/groups`,
+            lastModified: now,
+            changeFrequency: "weekly" as const,
+            priority: 0.6,
+          },
+        ]
+      : []),
     ...qualifyingGroups(homes).map(({ group }) => ({
       url: `${SITE_URL}/homes/groups/${group.slug}`,
       lastModified: now,

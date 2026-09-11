@@ -141,7 +141,6 @@ export const homeGroup = defineType({
           { title: "Homes that sleep 8 or more", value: "sleeps-8-plus" },
           { title: "A short walk to the beach", value: "walk-to-beach" },
           { title: "Homes for two", value: "for-two" },
-          { title: "Homes that welcome pets", value: "pets-welcome" },
         ],
       },
       validation: (r) => r.required(),

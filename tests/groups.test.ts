@@ -35,13 +35,24 @@ describe("grouped home pages", () => {
 
   it("refuses a group below three homes and builds it at exactly three", () => {
     const two = [home(1, { amenities: ["Pool"] }), home(2, { amenities: ["Private pool"] })];
-    assert.deepEqual(qualifyingGroups(two), []);
+    const without = home(9, { amenities: [] });
+    assert.deepEqual(qualifyingGroups([...two, without]), []);
 
     const three = [...two, home(3, { amenities: ["Swimming pool"] })];
-    const groups = qualifyingGroups(three);
+    const groups = qualifyingGroups([...three, without]);
     assert.equal(groups.length, 1);
     assert.equal(groups[0]?.group.slug, "pool-homes");
     assert.equal(groups[0]?.homes.length, MIN_HOMES_FOR_GROUP);
+  });
+
+  it("hides a group that every home belongs to - it would be the full list again", () => {
+    const allPools = [
+      home(1, { amenities: ["Pool"] }),
+      home(2, { amenities: ["Pool"] }),
+      home(3, { amenities: ["Pool"] }),
+    ];
+    assert.deepEqual(qualifyingGroups(allPools), []);
+    assert.equal(qualifyingGroups([...allPools, home(4, { amenities: [] })]).length, 1);
   });
 
   it("counts across areas, unlike the area pages", () => {
@@ -49,6 +60,7 @@ describe("grouped home pages", () => {
       home(1, { amenities: ["Pool"], area: "Uvita" }),
       home(2, { amenities: ["Pool"], area: "Dominical" }),
       home(3, { amenities: ["Pool"], area: "Ojochal" }),
+      home(4, { amenities: [], area: "Uvita" }),
     ];
     assert.equal(qualifyingGroups(split).length, 1);
   });

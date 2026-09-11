@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import styles from "../../../homes/homes.module.css";
 import { HomeCard } from "@/components/HomeCard";
 import { getAttribute, homesWithAttribute, qualifyingPairs } from "@/lib/attributes";
+import { qualifyingGroups } from "@/lib/groups";
 import { getHomes } from "@/lib/hostaway/listings";
 import { alternatesFor } from "@/lib/i18n";
 import { ogImage } from "@/lib/og";
@@ -79,7 +80,9 @@ export default async function AttributePage({ params }: Params) {
         <nav className={styles.areas} aria-label="Related pages">
           <Link href={`/stay/${area.slug}`}>All homes in {area.name}</Link>
           <Link href="/homes">Every home we look after</Link>
-          <Link href="/homes/groups">Homes by what matters</Link>
+          {qualifyingGroups(homes).length > 0 ? (
+            <Link href="/homes/groups">Homes by what matters</Link>
+          ) : null}
         </nav>
       </div>
 

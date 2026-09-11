@@ -58,8 +58,11 @@ async function requestToken(): Promise<string> {
       client_secret: apiKey,
       scope: "general",
     }),
-    // Token requests are never cached by the data cache.
-    cache: "no-store",
+    /*
+     * No `cache` option on purpose. POSTs never enter the data cache anyway, and
+     * `cache: "no-store"` opts every page that lists homes out of static
+     * rendering - which fails at runtime with "static to dynamic".
+     */
   });
 
   if (!res.ok) {

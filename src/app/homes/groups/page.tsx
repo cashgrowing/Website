@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import styles from "../homes.module.css";
 import { GroupTiles } from "@/components/GroupTiles";
 import { qualifyingGroups } from "@/lib/groups";
-import { getHomes } from "@/lib/hostaway/listings";
+import { getBookableHomes } from "@/lib/hostaway/listings";
 import { alternatesFor } from "@/lib/i18n";
 import { ogImage } from "@/lib/og";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 export const revalidate = 900;
 
 export default async function GroupsIndexPage() {
-  const homes = await getHomes();
+  const homes = await getBookableHomes();
   const groups = qualifyingGroups(homes);
   // Nothing links here while no group narrows the choice; a direct visit gets a 404, not an empty page.
   if (groups.length === 0) notFound();

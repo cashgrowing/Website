@@ -96,6 +96,14 @@
   color: var(--black);
   margin-bottom: 0.5rem;
 }
+/* A house let long-term: said plainly, above the calendar that shows it. */
+.booked {
+  font-size: var(--size-small);
+  color: var(--brown);
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--tan-light);
+  margin-bottom: 0.25rem;
+}
 .rail > .price {
   font-size: var(--size-subhead);
   color: var(--black);

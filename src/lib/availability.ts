@@ -150,6 +150,37 @@ export function checkStay(index: Map<string, Night>, checkin: string, checkout: 
   return { ok: true, nights, total };
 }
 
+export type CalendarSummary = {
+  /** The cheapest open night in the window, or null when nothing is open. */
+  fromPrice: number | null;
+  /** The first open night in the window, or null. */
+  nextOpen: string | null;
+  /** How many nights in the window can be booked at all. */
+  openNights: number;
+};
+
+/**
+ * What a house's calendar says about the year ahead: the honest "from"
+ * price, whether it can be booked at all, and when it next can. Hostaway's
+ * base-price field is what the owner typed once; the calendar is what a
+ * guest will actually pay.
+ */
+export function summariseCalendar(nights: Night[], from: string, days = 365): CalendarSummary {
+  const to = new Date(Date.parse(`${from}T00:00:00Z`) + days * 86_400_000).toISOString().slice(0, 10);
+  let fromPrice: number | null = null;
+  let nextOpen: string | null = null;
+  let openNights = 0;
+  for (const night of nights) {
+    if (night.date < from || night.date >= to || !night.available) continue;
+    openNights += 1;
+    if (nextOpen === null || night.date < nextOpen) nextOpen = night.date;
+    if (night.price !== null && night.price > 0 && (fromPrice === null || night.price < fromPrice)) {
+      fromPrice = night.price;
+    }
+  }
+  return { fromPrice, nextOpen, openNights };
+}
+
 /** "$690" for dollars; "690 EUR" for anything else, the way the cards do it. */
 export function formatMoney(amount: number, currency: string): string {
   const whole = Number.isInteger(amount)

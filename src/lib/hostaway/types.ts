@@ -62,6 +62,19 @@ export type Home = {
   sleeps: number | null;
   /** Hostaway's base nightly rate. Null when Hostaway has not published one. */
   basePrice: number | null;
+  /**
+   * The cheapest open night in the coming year, from the calendar. Null when
+   * the calendar could not be read or nothing is open; callers fall back to
+   * basePrice. This is the "from" price a guest can actually book.
+   */
+  fromPrice: number | null;
+  /** The first night a guest can book in the next eighteen months, or null. */
+  nextOpen: string | null;
+  /**
+   * Whether the house has at least one open night in the coming year. A
+   * house let long-term is still published, but not offered in the lists.
+   */
+  bookable: boolean;
   currency: string;
   geo: { latitude: number; longitude: number } | null;
   amenities: string[];

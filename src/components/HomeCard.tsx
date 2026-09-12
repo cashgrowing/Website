@@ -33,9 +33,14 @@ function GuestsIcon() {
   );
 }
 
-function formatPrice(home: Home): string {
-  const amount = Math.round(home.basePrice ?? 0);
-  return home.currency === "USD" ? `$${amount}` : `${amount} ${home.currency}`;
+/** The calendar's cheapest open night when we have it; Hostaway's base rate otherwise. */
+function fromPrice(home: Home): number | null {
+  return home.fromPrice ?? home.basePrice;
+}
+
+function formatPrice(amount: number, currency: string): string {
+  const whole = Math.round(amount);
+  return currency === "USD" ? `$${whole}` : `${whole} ${currency}`;
 }
 
 /**
@@ -92,9 +97,9 @@ export function HomeCard({ home, priority = false }: { home: Home; priority?: bo
       </p>
 
       <p className={styles.price}>
-        {home.basePrice ? (
+        {fromPrice(home) ? (
           <>
-            from <b>{formatPrice(home)}</b> / night
+            from <b>{formatPrice(fromPrice(home) ?? 0, home.currency)}</b> / night
           </>
         ) : (
           <b>On request</b>

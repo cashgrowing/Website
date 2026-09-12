@@ -10,7 +10,7 @@ import { HomeCard } from "@/components/HomeCard";
 import { alternatesFor } from "@/lib/i18n";
 import { BOOKING_DIRECT, EVERY_STAY, HOMES_FAQS, HOMES_INTRO } from "@/content/homes";
 import { qualifyingGroups } from "@/lib/groups";
-import { getHomes } from "@/lib/hostaway/listings";
+import { getBookableHomes } from "@/lib/hostaway/listings";
 import { ogImage } from "@/lib/og";
 import { JsonLd, breadcrumbSchema, faqPageSchema } from "@/lib/schema";
 import { AREAS, BOOKING_ENGINE_URL } from "@/lib/site";
@@ -36,7 +36,7 @@ export const revalidate = 900;
  * whoever wants them.
  */
 export default async function HomesPage() {
-  const homes = await getHomes();
+  const homes = await getBookableHomes();
 
   return (
     <div className={styles.page}>

@@ -9,7 +9,7 @@ import { HomeCard } from "@/components/HomeCard";
 import { PhotoSlot } from "@/components/PhotoSlot";
 import { qualifyingGroups } from "@/lib/groups";
 import { alternatesFor } from "@/lib/i18n";
-import { getHomes } from "@/lib/hostaway/listings";
+import { getBookableHomes } from "@/lib/hostaway/listings";
 import { CONTACT, OWNER_LINK } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -27,7 +27,7 @@ export const revalidate = 900;
  * end of it, and their own front page behind it (OWNER_LINK).
  */
 export default async function HomePage() {
-  const homes = await getHomes();
+  const homes = await getBookableHomes();
   const featured = homes.slice(0, 4);
   const groups = qualifyingGroups(homes);
 

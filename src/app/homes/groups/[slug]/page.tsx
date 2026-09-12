@@ -6,7 +6,7 @@ import styles from "../../homes.module.css";
 import { HomeCard } from "@/components/HomeCard";
 import { getHomeGroupIntro } from "@/content/source";
 import { getHomeGroup, homesInGroup, qualifyingGroups } from "@/lib/groups";
-import { getHomes } from "@/lib/hostaway/listings";
+import { getBookableHomes, getHomes } from "@/lib/hostaway/listings";
 import { alternatesFor } from "@/lib/i18n";
 import { ogImage } from "@/lib/og";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
@@ -40,7 +40,7 @@ export default async function GroupPage({ params }: Params) {
   const group = getHomeGroup(slug);
   if (!group) notFound();
 
-  const [homes, editedIntro] = await Promise.all([getHomes(), getHomeGroupIntro(group.slug)]);
+  const [homes, editedIntro] = await Promise.all([getBookableHomes(), getHomeGroupIntro(group.slug)]);
   const matching = homesInGroup(homes, group);
   // Listings change; a group that qualified at build time may be empty now.
   if (matching.length === 0) notFound();

@@ -10,6 +10,7 @@ import {
   lastCheckout,
   nightsBetween,
   normaliseCalendar,
+  summariseCalendar,
   type Night,
 } from "../src/lib/availability.ts";
 
@@ -102,6 +103,28 @@ describe("the verdict on a whole stay", () => {
     assert.deepEqual(checkStay(OCTOBER, "2026-10-06", "2026-10-08"), { ok: false, reason: "no-arrival" });
     assert.deepEqual(checkStay(OCTOBER, "2026-10-02", "2026-10-03"), { ok: false, reason: "no-departure" });
     assert.deepEqual(checkStay(OCTOBER, "2026-10-04", "2026-10-02"), { ok: false, reason: "unavailable" });
+  });
+});
+
+describe("what the year ahead looks like", () => {
+  const nights = [
+    night("2026-10-01", { available: false, price: 149 }),
+    night("2026-10-02", { price: 149 }),
+    night("2026-10-03", { price: 230 }),
+    night("2027-12-25", { price: 99 }),
+  ];
+
+  it("takes the honest from-price and the first open night from the calendar", () => {
+    assert.deepEqual(summariseCalendar(nights, "2026-09-11"), {
+      fromPrice: 149,
+      nextOpen: "2026-10-02",
+      openNights: 2,
+    });
+  });
+
+  it("ignores nights outside the window, including a cheap one too far ahead", () => {
+    assert.deepEqual(summariseCalendar(nights, "2026-11-01"), { fromPrice: null, nextOpen: null, openNights: 0 });
+    assert.deepEqual(summariseCalendar(nights, "2027-06-01"), { fromPrice: 99, nextOpen: "2027-12-25", openNights: 1 });
   });
 });
 

@@ -6,7 +6,7 @@ import styles from "../../../homes/homes.module.css";
 import { HomeCard } from "@/components/HomeCard";
 import { getAttribute, homesWithAttribute, qualifyingPairs } from "@/lib/attributes";
 import { qualifyingGroups } from "@/lib/groups";
-import { getHomes } from "@/lib/hostaway/listings";
+import { getBookableHomes, getHomes } from "@/lib/hostaway/listings";
 import { alternatesFor } from "@/lib/i18n";
 import { ogImage } from "@/lib/og";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
@@ -59,7 +59,7 @@ export default async function AttributePage({ params }: Params) {
   const attribute = getAttribute(attributeSlug);
   if (!area || !attribute) notFound();
 
-  const homes = await getHomes();
+  const homes = await getBookableHomes();
   const matching = homesWithAttribute(
     homes.filter((home) => home.area === area.name),
     attribute,

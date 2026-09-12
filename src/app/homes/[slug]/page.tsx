@@ -101,9 +101,16 @@ function lodgingSchema(home: Home) {
   };
 }
 
+/** "December 2027" from a YYYY-MM-DD string. */
+function formatMonth(iso: string): string {
+  return new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-US", { month: "long", year: "numeric", timeZone: "UTC" });
+}
+
 export default async function HomeDetailPage({ params }: Params) {
   const { slug } = await params;
   const home = await resolveHome(slug);
+  // The calendar's cheapest open night when we have it; Hostaway's base rate otherwise.
+  const from = home.fromPrice ?? home.basePrice;
 
   const where = home.area ?? home.city;
   const areaSlug = AREAS.find((area) => area.name === home.area)?.slug ?? null;
@@ -173,15 +180,22 @@ export default async function HomeDetailPage({ params }: Params) {
 
         <aside className={styles.rail} aria-label="Book this house">
           <h2>Check the dates</h2>
-          {home.basePrice ? (
+          {from ? (
             <p className={styles.price}>
               from {home.currency === "USD" ? "$" : ""}
-              {Math.round(home.basePrice)}
+              {Math.round(from)}
               {home.currency === "USD" ? "" : ` ${home.currency}`} / night
             </p>
           ) : (
             <p className={styles.price}>Price on request</p>
           )}
+          {!home.bookable ? (
+            <p className={styles.booked}>
+              {home.nextOpen
+                ? `Booked until ${formatMonth(home.nextOpen)}. Stays from then on can be booked below, or ask us on WhatsApp.`
+                : "Not taking bookings at the moment. Ask us on WhatsApp about future dates."}
+            </p>
+          ) : null}
           <StayPlanner
             listingId={home.id}
             sleeps={home.sleeps}

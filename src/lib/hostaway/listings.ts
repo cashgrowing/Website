@@ -2,6 +2,8 @@ import "server-only";
 
 import { fold, slugify } from "@/lib/slug";
 import { AREA_NAMES } from "@/lib/site";
+import { summariseCalendar } from "@/lib/availability";
+import { calendarWindow, getCalendar } from "./calendar";
 import { hostawayGet, isHostawayConfigured } from "./client";
 import type { Home, HomePhoto, HostawayListing } from "./types";
 
@@ -115,6 +117,10 @@ function toHome(listing: HostawayListing): Home {
     bathrooms: listing.bathroomsNumber ?? null,
     sleeps: listing.personCapacity ?? null,
     basePrice: typeof listing.price === "number" && listing.price > 0 ? listing.price : null,
+    // Filled in from the calendar by withAvailability; these are the defaults if it cannot be read.
+    fromPrice: null,
+    nextOpen: null,
+    bookable: true,
     currency: listing.currencyCode?.trim() || "USD",
     geo:
       typeof listing.lat === "number" && typeof listing.lng === "number"
@@ -135,6 +141,30 @@ function toTags(listing: HostawayListing): string[] {
     ...(listing.tags ?? []).map((tag) => (typeof tag === "string" ? tag : tag?.name)),
   ];
   return raw.map((tag) => tag?.trim()).filter((tag): tag is string => Boolean(tag));
+}
+
+/**
+ * Read the house's calendar and set the "from" price and bookability from
+ * it. A calendar that cannot be read leaves the defaults: the house stays
+ * listed at its base price, which is what happened before calendars existed
+ * here, rather than vanishing because Hostaway had a slow minute.
+ */
+async function withAvailability(home: Home): Promise<Home> {
+  try {
+    const { from } = calendarWindow();
+    const calendar = await getCalendar(home.id, home.currency);
+    const year = summariseCalendar(calendar.nights, from, 365);
+    const horizon = summariseCalendar(calendar.nights, from, 548);
+    return {
+      ...home,
+      fromPrice: year.fromPrice,
+      nextOpen: horizon.nextOpen,
+      bookable: year.openNights > 0,
+    };
+  } catch (error) {
+    console.error(`[hostaway] calendar unreadable for ${home.name} (${home.id}); listing at base price:`, error);
+    return home;
+  }
 }
 
 /** Guarantee slugs stay unique even if two homes share a name. */
@@ -162,7 +192,9 @@ export async function getHomes(): Promise<Home[]> {
       revalidate: 900,
       searchParams: { limit: 500, includeResources: 1 },
     });
-    const homes = listings.filter((listing) => listing?.id != null).map(toHome);
+    const homes = await Promise.all(
+      listings.filter((listing) => listing?.id != null).map(toHome).map(withAvailability),
+    );
 
     /*
      * Log the count on success, not only on failure. An empty array and a
@@ -180,6 +212,7 @@ export async function getHomes(): Promise<Home[]> {
       `areas=${JSON.stringify(areas)}`,
       // The names the site will print, so a wrong pick shows up in the build log.
       `names=${JSON.stringify(homes.map((home) => home.name))}`,
+      `from=${JSON.stringify(homes.map((home) => [home.name, home.fromPrice, home.bookable ? "open" : `booked until ${home.nextOpen ?? "?"}`]))}`,
     );
 
     return withUniqueSlugs(homes).sort((a, b) => a.name.localeCompare(b.name));
@@ -200,7 +233,20 @@ export async function getHomeByAlias(slug: string): Promise<Home | null> {
   return homes.find((home) => home.aliases.includes(slug)) ?? null;
 }
 
-export async function getHomesByArea(area: string): Promise<Home[]> {
+/**
+ * The homes to offer a guest: those with at least one open night in the
+ * coming year. A house let long-term keeps its page (and its place in the
+ * sitemap) but is not put in front of someone choosing dates. Should every
+ * house be unbookable at once, the lists show all of them rather than a
+ * blank page - the notice on each page then does the explaining.
+ */
+export async function getBookableHomes(): Promise<Home[]> {
   const homes = await getHomes();
+  const open = homes.filter((home) => home.bookable);
+  return open.length > 0 ? open : homes;
+}
+
+export async function getHomesByArea(area: string): Promise<Home[]> {
+  const homes = await getBookableHomes();
   return homes.filter((home) => home.area === area);
 }
